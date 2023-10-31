@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String contextPath = request.getContextPath();
 %>
@@ -41,10 +42,11 @@ nav-logo {
 </style>
 </head>
 <body>
+	<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 	<nav>
 		<div class="nav-logo">LOGO</div>
 		<ul class="nav-menu">
-			<li>Menu 1</li>
+			<li><a href="${contextPath }/pet.products">Product</a></li>
 			<li>Menu 2</li>
 			<li>Menu 3</li>
 			<li>Menu 4</li>
