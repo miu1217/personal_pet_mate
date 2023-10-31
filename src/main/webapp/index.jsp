@@ -7,6 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Main Page</title>
+
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -16,7 +17,8 @@ body {
 }
 
 .container {
-	max-width: 60%;
+	width: 70%;
+	min-width:1000px;
 	margin: auto;
 }
 
@@ -61,6 +63,23 @@ body {
 				<div class="product">Product 5</div>
 			</div>
 		</div>
+		
+		 <script>
+    		
+		 $(function productDetail(){
+	    		
+	    		$(".product").click(function(){
+	    			
+	    			var pno = $(this).children().eq(0).text() //상품번호
+	    			location.href="${contextPath}/pet.productDetail?pno="+pno;
+	    					
+	    		});
+	    		
+	    	});
+    		
+    	
+   		 </script>
+		
 	</div>
 </body>
 </html>
