@@ -35,13 +35,8 @@ nav-logo {
 .nav-login {
 	display: flex;
 	align-items: center;
-	gap: 10px;
-}
-
-.login-inputs {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+	width: 100px;
+	justify-content: center;
 }
 </style>
 </head>
@@ -55,11 +50,7 @@ nav-logo {
 			<li>Menu 4</li>
 		</ul>
 		<div class="nav-login">
-			<div class="login-inputs">
-				<input type="text" placeholder="Username"> <input
-					type="password" placeholder="Password">
-			</div>
-			<button>Login</button>
+			<p>로그인</p>
 		</div>
 	</nav>
 </body>
