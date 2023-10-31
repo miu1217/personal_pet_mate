@@ -20,41 +20,6 @@ body {
 	margin: auto;
 }
 
-nav {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px;
-	background-color: #f4f4f4;
-}
-
-.nav-logo {
-	font-size: 1.5em;
-}
-
-.nav-menu {
-	list-style: none;
-	padding: 0;
-	display: flex;
-	gap: 20px;
-}
-
-.nav-menu li {
-	padding: 5px 10px;
-}
-
-.nav-login {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-
-.login-inputs {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
 .main-image {
 	width: 100%;
 	height: 400px;
@@ -85,22 +50,7 @@ nav {
 </head>
 <body>
 	<div class="container">
-		<nav>
-			<div class="nav-logo">LOGO</div>
-			<ul class="nav-menu">
-				<li>Menu 1</li>
-				<li>Menu 2</li>
-				<li>Menu 3</li>
-				<li>Menu 4</li>
-			</ul>
-			<div class="nav-login">
-				<div class="login-inputs">
-					<input type="text" placeholder="Username" /> <input
-						type="password" placeholder="Password" />
-				</div>
-				<button>Login</button>
-			</div>
-		</nav>
+		<%@ include file="views/common/menubar.jsp"%>
 		<div class="main-content">
 			<div class="main-image">Main Image</div>
 			<div class="product-list">
