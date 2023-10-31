@@ -16,7 +16,8 @@ body {
 }
 
 .container {
-	max-width: 60%;
+	width: 70%;
+	min-width: 1000px;
 	margin: auto;
 }
 
@@ -50,7 +51,7 @@ body {
 </head>
 <body>
 	<div class="container">
-		<%@ include file="views/common/menubar.jsp"%>
+		<%@include file="views/common/menubar.jsp"%>
 		<div class="main-content">
 			<div class="main-image">Main Image</div>
 			<div class="product-list">
@@ -64,3 +65,4 @@ body {
 	</div>
 </body>
 </html>
+
