@@ -136,7 +136,7 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [회원번호 : " + userNo + ", 아이디 : " + userId + ", 비밀번호 : " + userPwd + ", 이름 : " + userName
-				+ ", 성별 : " + gender + ", 전화번호 : " + phone + ", 이메일 : " + email + ", 주ㅗㅅ : " + address
+				+ ", 성별 : " + gender + ", 전화번호 : " + phone + ", 이메일 : " + email + ", 주소 : " + address
 				+ ", 음식관심분야 : " + foodInter + ", 목욕관심분야 : " + cleanInter + ", 회원가입일 : " + enrollDate + ", 상태값 : "
 				+ status + "]";
 	}
