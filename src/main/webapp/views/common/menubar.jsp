@@ -72,7 +72,7 @@ nav-logo {
 					<button onclick="location.href='<%=contextPath%>/pet.logout'">로그아웃</button>
 					
 				<%} else{ %>
-					<button onclick="location.href='<%=contextPath%>/pet.loginPage' ">로그인</button>
+					<button onclick="location.href='<%=contextPath%>/pet.login' ">로그인</button>
 				<%} %>
 					</div>
 			
