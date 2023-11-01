@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
+import com.kh.product.model.vo.ProductCategory;
 
 /**
  * Servlet implementation class ProductListController
@@ -35,8 +36,10 @@ public class ProductListController extends HttpServlet {
 			throws ServletException, IOException {
 
 		ArrayList<Product> plist = new ProductService().selectProductList();
+		ArrayList<ProductCategory> clist = new ProductService().selectProductCategoryList();
 
 		request.setAttribute("plist", plist);
+		request.setAttribute("clist", clist);
 		request.getRequestDispatcher("views/product/productListView.jsp").forward(request, response);
 	}
 

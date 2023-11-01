@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.kh.common.JDBCTemplate;
 import com.kh.product.model.dao.ProductDao;
 import com.kh.product.model.vo.Product;
+import com.kh.product.model.vo.ProductCategory;
 
 public class ProductService {
 
@@ -18,6 +19,15 @@ public class ProductService {
 		JDBCTemplate.close(conn);
 		
 		return plist;
+	}
+
+	public ArrayList<ProductCategory> selectProductCategoryList() {
+		
+		ArrayList<ProductCategory> clist = new ProductDao().selectProductCategoryList(conn);
+
+		JDBCTemplate.close(conn);
+		
+		return clist;
 	}
 
 }

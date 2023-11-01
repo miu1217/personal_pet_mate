@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.product.model.vo.Product;
+import com.kh.product.model.vo.ProductCategory;
 
 public class ProductDao {
 
@@ -59,6 +60,30 @@ public class ProductDao {
 		}
 
 		return plist;
+	}
+
+	public ArrayList<ProductCategory> selectProductCategoryList(Connection conn) {
+
+		String sql = prop.getProperty("selectProductCategoryList");
+		ArrayList<ProductCategory> clist = new ArrayList<>();
+
+		try {
+			stmt = conn.createStatement();
+
+			rset = stmt.executeQuery(sql);
+
+			while (rset.next()) {
+				clist.add(new ProductCategory(rset.getInt("category_no"), rset.getInt("parent_category_no"),
+						rset.getString("category_name")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+		return clist;
 	}
 
 }//

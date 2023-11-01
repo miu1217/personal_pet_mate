@@ -4,5 +4,7 @@
 	<entry key="selectProductList">
 		select * from products where status ='Y'
 	</entry>
-
+	<entry key="selectProductCategoryList">
+		select * from category
+	</entry>
 </properties>
