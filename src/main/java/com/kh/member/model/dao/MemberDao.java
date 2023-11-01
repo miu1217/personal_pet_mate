@@ -29,7 +29,7 @@ public class MemberDao {
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("loginUser");
-		Member m = new Member();
+		Member m = null;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
