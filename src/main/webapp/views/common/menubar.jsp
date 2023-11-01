@@ -12,6 +12,12 @@ String contextPath = request.getContextPath();
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <style>
+.nav-bar {
+	width: 70%;
+	min-width: 1000px;
+	margin: auto;
+}
+
 nav {
 	display: flex;
 	justify-content: space-between;
@@ -45,18 +51,20 @@ nav-logo {
 </head>
 
 <body>
-<c:set var="contextPath" value="${pageContext.request.contextPath }" />
-	<nav>
-		<div class="nav-logo">LOGO</div>
-		<ul class="nav-menu">
-			<li>Menu 1</li>
-			<li>Menu 2</li>
-			<li>Menu 3</li>
-			<li>Menu 4</li>
-		</ul>
-		<div class="nav-login">
-			<p>로그인</p>
-		</div>
-	</nav>
+	<div class="nav-bar">
+		<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+		<nav>
+			<div class="nav-logo">LOGO</div>
+			<ul class="nav-menu">
+				<li><a href="${contextPath }/pet.products">Product</a></li>
+				<li>Menu 2</li>
+				<li>Menu 3</li>
+				<li>Menu 4</li>
+			</ul>
+			<div class="nav-login">
+				<p>로그인</p>
+			</div>
+		</nav>
+	</div>
 </body>
 </html>
