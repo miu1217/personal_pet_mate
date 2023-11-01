@@ -50,8 +50,8 @@ body {
 </style>
 </head>
 <body>
+	<%@include file="views/common/menubar.jsp"%>
 	<div class="container">
-		<%@include file="views/common/menubar.jsp"%>
 		<div class="main-content">
 			<div class="main-image">Main Image</div>
 			<div class="product-list">

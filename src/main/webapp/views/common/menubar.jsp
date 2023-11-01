@@ -10,6 +10,12 @@ String contextPath = request.getContextPath();
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+.nav-bar {
+	width: 70%;
+	min-width: 1000px;
+	margin: auto;
+}
+
 nav {
 	display: flex;
 	justify-content: space-between;
@@ -42,18 +48,20 @@ nav-logo {
 </style>
 </head>
 <body>
-	<c:set var="contextPath" value="${pageContext.request.contextPath }" />
-	<nav>
-		<div class="nav-logo">LOGO</div>
-		<ul class="nav-menu">
-			<li><a href="${contextPath }/pet.products">Product</a></li>
-			<li>Menu 2</li>
-			<li>Menu 3</li>
-			<li>Menu 4</li>
-		</ul>
-		<div class="nav-login">
-			<p>로그인</p>
-		</div>
-	</nav>
+	<div class="nav-bar">
+		<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+		<nav>
+			<div class="nav-logo">LOGO</div>
+			<ul class="nav-menu">
+				<li><a href="${contextPath }/pet.products">Product</a></li>
+				<li>Menu 2</li>
+				<li>Menu 3</li>
+				<li>Menu 4</li>
+			</ul>
+			<div class="nav-login">
+				<p>로그인</p>
+			</div>
+		</nav>
+	</div>
 </body>
 </html>
