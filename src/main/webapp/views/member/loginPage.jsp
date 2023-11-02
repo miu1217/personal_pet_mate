@@ -224,6 +224,12 @@
 
 		</div>
 	</form>
+	
+	<script>
+	function enroll(){
+		location.href="<%=contextPath%>/pet.enrollPage";
+	}
+	</script>
 
 
 </body>

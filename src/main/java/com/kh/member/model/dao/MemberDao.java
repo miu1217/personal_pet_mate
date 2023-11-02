@@ -65,6 +65,67 @@ public class MemberDao {
 		
 		return m;
 	}
+
+	public int insertMem(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("insertMem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPwd());
+			pstmt.setString(3, m.getUserName());
+			pstmt.setString(4, m.getGender());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getEmail());
+			pstmt.setString(7, m.getAddress());
+			pstmt.setString(8, m.getFoodInter());
+			pstmt.setString(9, m.getCleanInter());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int idCheck(Connection conn, String checkId) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("idCheck");
+		int count = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, checkId);
+			
+			rset  = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return count;
+	}
 	
 	
 

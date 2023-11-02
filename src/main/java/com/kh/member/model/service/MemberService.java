@@ -19,4 +19,23 @@ public class MemberService {
 		return m;
 	}
 
+	public int insertMem(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().insertMem(conn, m);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public int idCheck(String checkId) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int count = new MemberDao().idCheck(conn, checkId);
+		
+		JDBCTemplate.close(conn);
+		return count;
+	}
+
 }
