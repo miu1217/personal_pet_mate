@@ -15,18 +15,18 @@ public class ProductService {
 	public ArrayList<Product> selectProductList() {
 
 		ArrayList<Product> plist = new ProductDao().selectProductList(conn);
-		
+
 		JDBCTemplate.close(conn);
-		
+
 		return plist;
 	}
 
 	public ArrayList<ProductCategory> selectProductCategoryList() {
-		
+
 		ArrayList<ProductCategory> clist = new ProductDao().selectProductCategoryList(conn);
 
 		JDBCTemplate.close(conn);
-		
+
 		return clist;
 	}
 
