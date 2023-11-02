@@ -14,6 +14,9 @@ driver.properties
 .settings/
 .loadpath
 .recommenders
+.classpath
+.DS_Store
+
 
 # External tool builders
 .externalToolBuilders/
