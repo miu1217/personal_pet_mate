@@ -14,8 +14,9 @@ driver.properties
 .settings/
 .loadpath
 .recommenders
+.DS_Store
 
-# External tool builders
+#. External tool builders
 .externalToolBuilders/
 
 # Locally stored "Eclipse launch configurations"
