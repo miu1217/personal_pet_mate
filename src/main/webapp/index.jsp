@@ -62,6 +62,22 @@ body {
 				<div class="product">Product 5</div>
 			</div>
 		</div>
+		<script>
+    		
+		 $(function productDetail(){
+	    		
+	    		$(".product").click(function(){
+	    			
+	    			var pno = $(this).children().eq(0).text() //상품번호
+	    			location.href="${contextPath}/pet.productDetail?pno=";
+	    					
+	    			
+	    		});
+	    		
+	    	});
+    		
+    	
+   		 </script>
 	</div>
 </body>
 </html>

@@ -7,4 +7,23 @@
 	<entry key="selectProductCategoryList">
 		select * from category
 	</entry>
+	<entry key="selectProductDetail">
+		SELECT PRODUCT_NO
+		      ,PRODUCT_BRAND
+		      ,PRODUCT_NAME
+		      ,PRODUCT_PRICE
+		      ,PRODUCT_INFO
+		      ,PRODUCT_INGREDIENT
+		FROM PRODUCTS
+		WHERE PRODUCT_NO = ?
+	</entry>
+	<entry key="selectAttachment">
+		SELECT FILE_NO
+		      ,ORIGIN_NAME
+		      ,CHANGE_NAME
+		      ,FILE_PATH
+		FROM PRODUCTS_ATTACHMENT
+		WHERE PRODUCT_NO = ?
+		AND STATUS = 'Y'
+	</entry>
 </properties>
