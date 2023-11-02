@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectCategoryList">
+	SELECT *
+	FROM CATEGORY
+	WHERE CATEGORY_NO BETWEEN 10 AND 40
+	</entry>
+	<entry key="insertProdocut">
+	INSERT INTO PRODUCTS(PRODUCT_NO
+                         ,CATEGORY_NO
+                         ,PRODUCT_NAME
+                         ,PRODUCT_PRICE
+                         ,PRODUCT_INFO
+                         ,PRODUCT_INGREDIENT
+                         ,PRODUCT_BRAND)
+                VALUES(SEQ_PNO.NEXTVAL
+                       ,?
+                       ,?
+                       ,?
+                       ,?
+                       ,?
+                       ,?)
+	</entry>
+	<entry key="insertProdcutPhoto">
+	INSERT INTO PRODUCTS_ATTACHMENT(FILE_NO
+                                    ,PRODUCT_NO
+                                    ,ORIGIN_NAME
+                                    ,CHANGE_NAME
+                                    ,FILE_PATH
+                                    ,FILE_LEVEL)
+                VALUES(SEQ_PANO.NEXTVAL
+                       ,SEQ_PNO.CURRVAL
+                       ,?
+                       ,?
+                       ,?
+                       ,?)
+	</entry>
+</properties>
