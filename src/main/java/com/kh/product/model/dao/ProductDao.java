@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.product.model.vo.Product;
+import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
 
 public class ProductDao {
@@ -86,4 +87,65 @@ public class ProductDao {
 		return clist;
 	}
 
+	//제품상세조회
+		public Product selectProductDetail(int pno,Connection conn) {
+			
+			String sql = prop.getProperty("selectProductDetail");
+			Product p = new Product();
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, pno);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					p = new Product(rset.getInt("PRODUCT_NO")
+								   ,rset.getString("PRODUCT_NAME")
+								   ,rset.getInt("PRODUCT_PRICE")
+								   ,rset.getString("PRODUCT_INFO")
+								   ,rset.getString("PRODUCT_INGREDIENT")
+								   ,rset.getString("PRODUCT_BRAND"));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return p;
+		}
+		
+		//제품사진조회
+		public ProductAttachment selectProductAttachment(int pno, Connection conn) {
+			
+			String sql = prop.getProperty("selectProductAttachment");
+			ProductAttachment pa = null;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, pno);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					pa = new ProductAttachment(rset.getInt("FILE_NO")
+											  ,rset.getString("ORIGIN_NAME")
+											  ,rset.getString("CHANGE_NAME")
+											  ,rset.getString("FILE_PATH"));
+				}
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return pa;
+		}
+	
 }//
