@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.kh.common.JDBCTemplate;
 import com.kh.product.model.dao.ProductDao;
 import com.kh.product.model.vo.Product;
+import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
 
 public class ProductService {
@@ -29,5 +30,7 @@ public class ProductService {
 		
 		return clist;
 	}
+	
+	
 
 }

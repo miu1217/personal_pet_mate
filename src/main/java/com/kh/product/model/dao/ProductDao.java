@@ -10,8 +10,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import com.kh.common.JDBCTemplate;
 import com.kh.product.model.vo.Product;
+import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
 
 public class ProductDao {
@@ -45,10 +48,17 @@ public class ProductDao {
 			rset = stmt.executeQuery(sql);
 
 			while (rset.next()) {
-				plist.add(new Product(rset.getInt("product_no"), rset.getInt("category_no"),
-						rset.getString("product_name"), rset.getInt("product_price"), rset.getString("product_info"),
-						rset.getString("product_ingredient"), rset.getString("product_brand"),
-						rset.getDate("create_date"), rset.getString("status"), rset.getString("product_tag")));
+				plist.add(new Product(rset.getInt("PRODUCT_NO")
+								      	,rset.getInt("CATEGORY_NO")
+								      	,rset.getString("PRODUCT_NAME")
+								      	,rset.getInt("PRODUCT_PRICE")
+								      	,rset.getString("PRODUCT_INFO")
+								      	,rset.getString("PRODUCT_INGREDIENT")
+								      	,rset.getString("PRODUCT_BRAND")
+								      	,rset.getInt("COUNT")
+								      	,rset.getDate("CREATE_DATE")
+								      	,rset.getString("STATUS")
+								      	,rset.getString("PRODUCT_TAG")));
 			}
 
 		} catch (SQLException e) {
@@ -86,4 +96,6 @@ public class ProductDao {
 		return clist;
 	}
 
-}//
+	
+
+}

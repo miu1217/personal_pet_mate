@@ -16,39 +16,47 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <style>
-.nav-bar {
-	width: 70%;
-	min-width: 1000px;
-	margin: auto;
-}
+	.nav-bar {
+		width: 70%;
+		min-width: 1000px;
+		margin: auto;
+	}
+	nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px;
+		background-color: #f4f4f4;
+	}
+	nav-logo {
+		font-size: 1.5em;
+	}
+	.nav-menu {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		gap: 20px;
+	}
+	.nav-login {
+		display: flex;
+		align-items: center;
+		width: 100px;
+		justify-content: center;
+	}
+		/*서브메뉴 안보이게 하기*/
+	.nav-menu>#comu>ul{
+           list-style-type: none;
+           padding: 0px;
+           display: none; 
+     }
+      .nav-menu>#comu:hover ul{
+            display: block;
+     }
 
-nav {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px;
-	background-color: #f4f4f4;
-}
+       .nav-menu>ul>li:hover{
+   	       display: block;
+     }
 
-nav-logo {
-	font-size: 1.5em;
-}
-
-.nav-menu {
-	list-style: none;
-	padding: 0;
-	display: flex;
-	gap: 20px;
-}
-
-
-
-.nav-login {
-	display: flex;
-	align-items: center;
-	width: 100px;
-	justify-content: center;
-}
 </style>
 </head>
 
@@ -56,11 +64,16 @@ nav-logo {
 	<div class="nav-bar">
 		<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 		<nav>
-			<div class="nav-logo">LOGO</div>
+			<div class="nav-logo" onclick="location.href='${contextPath}'">LOGO</div>
 			<ul class="nav-menu">
 				<li><a href="${contextPath }/pet.products">Product</a></li>
 				<li><a href="">Community</a>
-					
+					<ul>
+						<li><a href="<%=contextPath%>/pet.allPost">전체게시글</a></li>
+						<li><a href="">공지사항</a></li>
+						<li><a href="">자유게시판</a></li>
+						<li><a href="">리뷰게시판</a></li>
+					</ul>
 				</li>
 				<li>Menu 3</li>
 				<li>Menu 4</li>

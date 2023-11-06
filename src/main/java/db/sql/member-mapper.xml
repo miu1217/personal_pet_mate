@@ -38,4 +38,21 @@
 		WHERE USER_ID = ?
 		AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="findId">
+			SELECT *
+			FROM MEMBER
+			WHERE USER_NAME = ?
+			AND PHONE = ?
+			AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="findPwd">
+		UPDATE MEMBER
+		SET USER_PWD = '123456789@'
+		WHERE USER_ID = ?
+		AND PHONE = ?
+		AND STATUS = 'Y'
+	</entry>
+	
 </properties>

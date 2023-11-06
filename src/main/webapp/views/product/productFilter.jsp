@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +40,7 @@ body {
 </style>
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<div class="filter-btn-div">
 			<button class="filter-btn" onclick="toggleFilter()">필터</button>
 			<select>
@@ -55,9 +54,7 @@ body {
 				<h3>category1</h3>
 				<c:forEach items="${clist }" var="list">
 					<c:if test="${list.parentCategoryNo == 0 }">
-						<label><input type="checkbox"
-							data-category-no="${list.categoryNo}">
-							${list.categoryName }</label>
+						<label><input type="checkbox" data-category-no="${list.categoryNo}"> ${list.categoryName }</label>
 						<br>
 					</c:if>
 				</c:forEach>
@@ -65,12 +62,8 @@ body {
 			<div class="category2">
 				<h3>category2</h3>
 				<c:forEach items="${clist }" var="list">
-					<c:if
-						test="${list.parentCategoryNo == 2 || list.parentCategoryNo == 3 }">
-						<label><input type="checkbox"
-							data-parent-category-no="${list.parentCategoryNo }"
-							data-category-no="${list.categoryNo }">
-							${list.categoryName }</label>
+					<c:if test="${list.parentCategoryNo == 2 || list.parentCategoryNo == 3 }">
+						<label><input type="checkbox" data-parent-category-no="${list.parentCategoryNo }" data-category-no="${list.categoryNo }"> ${list.categoryName }</label>
 						<br>
 					</c:if>
 				</c:forEach>
@@ -78,99 +71,99 @@ body {
 			<div class="category3">
 				<h3>category3</h3>
 				<c:forEach items="${clist }" var="list">
-					<c:if
-						test="${list.parentCategoryNo != 2 && list.parentCategoryNo != 3 && list.parentCategoryNo != 0 }">
-						<label><input type="checkbox"
-							data-parent-category-no="${list.parentCategoryNo }">
-							${list.categoryName }</label>
+					<c:if test="${list.parentCategoryNo != 2 && list.parentCategoryNo != 3 && list.parentCategoryNo != 0 }">
+						<label><input type="checkbox" data-parent-category-no="${list.parentCategoryNo }" data-category-no="${list.categoryNo }"> ${list.categoryName }</label>
 						<br>
 					</c:if>
 				</c:forEach>
 			</div>
 			<script>
-			const topCategoryCheckboxes = document.querySelectorAll('.category1 input[type="checkbox"]');
-			const secondCategoryCheckboxes = document.querySelectorAll('.category2 input[type="checkbox"]');
-			
-			topCategoryCheckboxes.forEach(checkbox => {
-			    checkbox.addEventListener('change', function() {
-			        if (this.checked) {
-			            // 현재 체크박스 외의 모든 체크박스를 비활성화
-			            topCategoryCheckboxes.forEach(otherCheckbox => {
-			                if (otherCheckbox !== this) {
-			                    otherCheckbox.disabled = true;
+			document.addEventListener('DOMContentLoaded', function() {
+			    const topCategoryCheckboxes = document.querySelectorAll('.category1 input[type="checkbox"]');
+			    const secondCategoryCheckboxes = document.querySelectorAll('.category2 input[type="checkbox"]');
+			    const thirdCategoryCheckboxes = document.querySelectorAll('.category3 input[type="checkbox"]');
+
+			    topCategoryCheckboxes.forEach(checkbox => {
+			        checkbox.addEventListener('change', function() {
+			            const categoryNo = this.getAttribute('data-category-no');
+
+			            if (this.checked) {
+			                // 체크된 경우, 다른 체크박스들은 비활성화.
+			                topCategoryCheckboxes.forEach(otherCheckbox => {
+			                    if (otherCheckbox !== this) otherCheckbox.disabled = true;
+			                });
+			                secondCategoryCheckboxes.forEach(secondCheckbox => {
+			                    if (secondCheckbox.getAttribute('data-parent-category-no') === categoryNo) {
+			                        secondCheckbox.disabled = false;
+			                    } else {
+			                        secondCheckbox.disabled = true;
+			                        secondCheckbox.checked = false;
+			                    }
+			                });
+
+			                thirdCategoryCheckboxes.forEach(thirdCheckbox => {
+			                    thirdCheckbox.disabled = true;
+			                    thirdCheckbox.checked = false;
+			                });
+			            } else {
+			                topCategoryCheckboxes.forEach(otherCheckbox => otherCheckbox.disabled = false);
+			                secondCategoryCheckboxes.forEach(secondCheckbox => secondCheckbox.disabled = false);
+			                thirdCategoryCheckboxes.forEach(thirdCheckbox => thirdCheckbox.disabled = false);
+			            }
+			        });
+			    });
+
+			    secondCategoryCheckboxes.forEach(checkbox => {
+			        checkbox.addEventListener('change', function() {
+			            const categoryNo = this.getAttribute('data-category-no');
+			            const parentCategoryNo = this.getAttribute('data-parent-category-no');
+			            if (this.checked) {
+			                thirdCategoryCheckboxes.forEach(thirdCheckbox => {
+			                    if (thirdCheckbox.getAttribute('data-parent-category-no') === categoryNo) {
+			                        thirdCheckbox.disabled = false;
+			                    } else {
+			                        if (!thirdCheckbox.disabled) thirdCheckbox.disabled = true;
+			                        thirdCheckbox.checked = false;
+			                    }
+			                });
+
+			                secondCategoryCheckboxes.forEach(secondCheckbox => {
+			                    if (secondCheckbox.getAttribute('data-parent-category-no') === parentCategoryNo && secondCheckbox !== this) {
+			                        secondCheckbox.disabled = true;
+			                        secondCheckbox.checked = false;
+			                    }
+			                });
+			            } else {
+			                let isActiveCategory2 = false;
+			                secondCategoryCheckboxes.forEach(secondCheckbox => {
+			                    if (secondCheckbox.checked) isActiveCategory2 = true;
+			                });
+
+			                if (!isActiveCategory2) {
+			                    topCategoryCheckboxes.forEach(topCheckbox => {
+			                        if (topCheckbox.checked) {
+			                            const topCategoryNo = topCheckbox.getAttribute('data-category-no');
+			                            secondCategoryCheckboxes.forEach(secondCheckbox => {
+			                                if (secondCheckbox.getAttribute('data-parent-category-no') === topCategoryNo) {
+			                                    secondCheckbox.disabled = false;
+			                                }
+			                            });
+			                        }
+			                    });
+
+			                    thirdCategoryCheckboxes.forEach(thirdCheckbox => {
+			                        if (thirdCheckbox.getAttribute('data-parent-category-no') !== parentCategoryNo) {
+			                            thirdCheckbox.disabled = true;
+			                        } else {
+			                            thirdCheckbox.disabled = false;
+			                        }
+			                        thirdCheckbox.checked = false;
+			                    });
 			                }
-			            });
-			        } else {
-			            // 모든 체크박스를 다시 활성화
-			            topCategoryCheckboxes.forEach(otherCheckbox => {
-			                otherCheckbox.disabled = false;
-			            });
-			        }
+			            }
+			        });
 			    });
 			});
-
-			secondCategoryCheckboxes.forEach(checkbox => {
-			    checkbox.addEventListener('change', function() {
-			        if (this.checked) {
-			            // 현재 체크박스 외의 모든 체크박스를 비활성화
-			            secondCategoryCheckboxes.forEach(otherCheckbox => {
-			                if (otherCheckbox !== this) {
-			                    otherCheckbox.disabled = true;
-			                }
-			            });
-			        } else {
-			            // 최상위 카테고리에서 선택된 카테고리 번호를 얻기
-			            let selectedFirstCategory;
-			            topCategoryCheckboxes.forEach(firstCheckbox => {
-			                if (firstCheckbox.checked) {
-			                    selectedFirstCategory = firstCheckbox.getAttribute('data-category-no');
-			                }
-			            });
-
-			            // 모든 체크박스를 다시 활성화하되, 선택된 최상위 카테고리와 관련된 체크박스만 활성화
-			            secondCategoryCheckboxes.forEach(otherCheckbox => {
-			                if (otherCheckbox.getAttribute('data-parent-category-no') === selectedFirstCategory) {
-			                    otherCheckbox.disabled = false;
-			                }
-			            });
-			        }
-			    });
-			});
-			
-
-    // 카테고리1의 모든 체크박스에 대한 이벤트 리스너 추가
-    document.querySelectorAll('.category1 input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            const categoryNo = this.getAttribute('data-category-no');
-            const isChecked = this.checked;
-
-            document.querySelectorAll('.category2 input[type="checkbox"], .category3 input[type="checkbox"]').forEach(childCheckbox => {
-                childCheckbox.disabled = isChecked;
-            });
-            
-            if(isChecked) {
-                document.querySelectorAll('input[data-parent-category-no="' + categoryNo + '"]').forEach(matchingCheckbox => {
-                    matchingCheckbox.disabled = false;
-                	});
-            	}
-            	});
-        	});
-    document.querySelectorAll('.category2 input[type="checkbox"]').forEach(checkbox => {
-    	checkbox.addEventListener('change', function() {
-    		const categoryNo = this.getAttribute('data-category-no');
-    		const isChecked = this.checked;
-    		
-    		document.querySelectorAll('.category3 input[type="checkbox"]').forEach(childCheckbox => {
-                childCheckbox.disabled = true;
-            });
-    		
-    		if(isChecked) {
-                document.querySelectorAll('.category3 input[data-parent-category-no="' + categoryNo + '"]').forEach(matchingCheckbox => {
-                    matchingCheckbox.disabled = false;
-                	});
-            	}
-    	})
-    })
 		</script>
 		</div>
 	</div>
