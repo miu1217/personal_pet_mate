@@ -44,6 +44,63 @@ body {
 	border: 1px solid gray;
 	border-radius: 5px;
 }
+
+#filterDiv {
+	display: none;
+}
+
+.product {
+	cursor: pointer;
+}
+
+.product-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#product-img {
+	width: 250px;
+	height: 300px;
+}
+
+#product-name {
+	font-weight: bold;
+}
+
+#product-price {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#product-price>p {
+	margin: 0px
+}
+
+#comparisonArea {
+	display: flex;
+	justify-content: space-between; /* 추가된 스타일 */
+	align-items: center;
+	flex-direction: row;
+	gap: 10px;
+	padding: 10px;
+	border-top: 1px solid #ccc;
+	margin-top: 20px;
+	justify-content: space-between;
+}
+
+#productsToCompare {
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+#compareButton {
+	margin-left: auto; /* 이 부분을 추가해서 버튼을 오른쪽으로 밀어냅니다 */
+}
 </style>
 </head>
 <body>
@@ -61,9 +118,17 @@ body {
 			<%
 			for (Product p : plist) {
 			%>
-			<div class="product" data-category-no="<%=p.getCategoryNo()%>">
-				<p><%=p.getProductName()%></p>
-				<p><%=p.getCategoryNo()%></p>
+			<div class="product" data-category-no="<%=p.getCategoryNo()%>" data-product-no="<%=p.getProductNo()%>" data-product-name="<%=p.getProductName()%>">
+				<div class="product-info">
+					<img src="" id="product-img">
+					<div id="product-name">
+						<p><%=p.getProductName()%></p>
+					</div>
+					<div id="product-price">
+						<p>가격</p>
+						<p><%=p.getProductPrice()%></p>
+					</div>
+				</div>
 			</div>
 			<%
 			}
@@ -73,6 +138,16 @@ body {
 			%>
 		</div>
 	</div>
+	<div id="comparisonArea">
+		<!-- 제품 비교 영역 -->
+		<div id="productsToCompare">
+			<!-- 여기에 담긴 제품들이 표시됩니다. -->
+		</div>
+
+		<!-- 비교하기 버튼 이동 -->
+		<button id="compareButton" onclick="compareProducts()">비교하기</button>
+	</div>
+
 	<script>
 	
 	function filterProductsByCategory() {
@@ -141,5 +216,75 @@ body {
             }
         }
     </script>
+
+	<!-- 기존 스크립트 아래에 이 코드를 추가합니다. -->
+	<!-- ...[previous HTML code remains unchanged]... -->
+
+	<script>
+		var selectedProducts = [];
+		
+		function addProductToComparison(product) {
+		  var productNo = product.getAttribute('data-product-no');
+		  if (selectedProducts.length >= 3) {
+		      alert('제품은 3개까지 담을 수 있습니다.');
+		      return;
+		    }
+		  if (selectedProducts.includes(productNo)) {
+		    alert('이미 담은 제품입니다.');
+		    return;
+		  }
+		  selectedProducts.push(productNo);
+		  updateProductStyles();
+		  updateComparisonArea();
+		}
+		
+		function removeProductFromComparison(productNo) {
+		  selectedProducts = selectedProducts.filter(no => no !== productNo);
+		  updateProductStyles();
+		  updateComparisonArea();
+		}
+		
+		function updateProductStyles() {
+		  document.querySelectorAll('.product').forEach(product => {
+		    var productNo = product.getAttribute('data-product-no');
+		    if (selectedProducts.includes(productNo)) {
+		      product.style.border = '2px solid green';
+		    } else {
+		      product.style.border = '1px solid gray';
+		    }
+		  });
+		}
+		
+		function updateComparisonArea() {
+		  var productsToCompareDiv = document.getElementById('productsToCompare');
+		  productsToCompareDiv.innerHTML = '';
+		  selectedProducts.forEach(productNo => {
+		    var productElement = document.querySelector('.product[data-product-no="'+productNo+'"]');
+		    var productName = productElement.querySelector('#product-name p').innerText; // Get the product name
+		    console.log(productElement, productName);
+		    var productDiv = document.createElement('div');
+		    productDiv.setAttribute('data-product-no', productNo); // Store the product number here for removal
+		    productDiv.style.cssText = 'width: 200px; height: 100px; border: 1px solid black; display: flex; align-items: center; justify-content: space-between; padding: 10px;';
+		    productDiv.innerHTML = '<img src="" style="width: 50px; height: 50px;"><span>'+productName+'</span>';
+		    var removeButton = document.createElement('button');
+		    removeButton.textContent = 'x';
+		    removeButton.onclick = function() { removeProductFromComparison(productNo); };
+		    productDiv.appendChild(removeButton);
+		    productsToCompareDiv.appendChild(productDiv);
+		  });
+		  compareButton.style.display = selectedProducts.length > 0 ? 'flex' : 'none';
+		  document.getElementById('compareButton').disabled = selectedProducts.length < 2;
+		}
+		
+		document.querySelectorAll('.product').forEach(product => {
+		  product.addEventListener('click', function() {
+		    addProductToComparison(this);
+		  });
+		});
+		
+		updateProductStyles();
+		updateComparisonArea();
+</script>
+
 </body>
 </html>
