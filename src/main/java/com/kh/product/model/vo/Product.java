@@ -11,23 +11,55 @@ public class Product {
 	private String productInfo;
 	private String productIngredient;
 	private String productBrand;
+	private int count;
 	private Date createDate;
 	private String status;
 	private String productTag;
+	
+	//사진게시판 목록에서 필요한 썸네일용 경로와 변경된파일이름(서버에업로드된 이름)을 합쳐 담을 필드변수
+	private String imgsrc;
 
 	public Product() {
-		super();
+		
 	}
 	
-	public Product(int productNo, String productName, int productPrice, String productInfo, String productIngredient,
-			String productBrand) {
+	public Product(int productNo, int categoryNo, String productName, int productPrice, String productInfo,
+			String productIngredient, String productBrand,int count, Date createDate, String status, String productTag) {
 		super();
 		this.productNo = productNo;
+		this.categoryNo = categoryNo;
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.productInfo = productInfo;
 		this.productIngredient = productIngredient;
 		this.productBrand = productBrand;
+		this.count = count;
+		this.createDate = createDate;
+		this.status = status;
+		this.productTag = productTag;
+	}
+	
+	public Product(int productNo, int categoryNo, String productName, int productPrice, String productInfo,
+			String productIngredient, String productBrand, int count,  Date createDate) {
+		super();
+		this.productNo = productNo;
+		this.categoryNo = categoryNo;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.productInfo = productInfo;
+		this.productIngredient = productIngredient;
+		this.productBrand = productBrand;
+		this.count = count;
+		this.createDate = createDate;
+	}
+	//사진게시글 목록 조회용 매개변수 생성자
+	public Product(int productNo, int categoryNo, String productName, int productPrice, String imgsrc) {
+		super();
+		this.productNo = productNo;
+		this.categoryNo = categoryNo;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.imgsrc = imgsrc;
 	}
 
 	public int getProductNo() {
@@ -110,27 +142,22 @@ public class Product {
 		this.productTag = productTag;
 	}
 
-	public Product(int productNo, int categoryNo, String productName, int productPrice, String productInfo,
-			String productIngredient, String productBrand, Date createDate, String status, String productTag) {
-		super();
-		this.productNo = productNo;
-		this.categoryNo = categoryNo;
-		this.productName = productName;
-		this.productPrice = productPrice;
-		this.productInfo = productInfo;
-		this.productIngredient = productIngredient;
-		this.productBrand = productBrand;
-		this.createDate = createDate;
-		this.status = status;
-		this.productTag = productTag;
+	public String getImgsrc() {
+		return imgsrc;
 	}
+
+
+	public void setImgsrc(String imgsrc) {
+		this.imgsrc = imgsrc;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Product [productNo=" + productNo + ", categoryNo=" + categoryNo + ", productName=" + productName
 				+ ", productPrice=" + productPrice + ", productInfo=" + productInfo + ", productIngredient="
 				+ productIngredient + ", productBrand=" + productBrand + ", createDate=" + createDate + ", status="
-				+ status + ", productTag=" + productTag + "]";
+				+ status + ", productTag=" + productTag + ", imgsrc = " + imgsrc + "]";
 	}
 
 }

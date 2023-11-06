@@ -6,13 +6,8 @@
 	String contextPath = request.getContextPath();
 	//로그인 정보 꺼내놓기 
 	//session객체에 loginUser 객체와 alertMsg 메세지를 담아놓음 
-	String alertMsg = (String)session.getAttribute("alertMsg");
-	//로그인 전 menubar.jsp 로딩되면 loginUser == null
-	//로그인 후 menubar.jsp 로딩되면 로그인한 회원정보담긴 Member객체
-	//로그인 전 menubar.jsp 로딩되면 alertMsg == null
-	//로그인 후 menubar.jsp 로딩되면 alertMsg == 성공메세지 
-	
-	//쿠키정보(쿠키 배열
+	String message = (String)session.getAttribute("message");
+
 	
 %> 
 <!DOCTYPE html>
@@ -71,15 +66,15 @@
             </a>
           </li>
           <li>
-            <a href="${contextPath}">
+            <a href="${contextPath}/admin_list.pd">
               <i class="nc-icon nc-tile-56"></i>
-              <p>Prodcut</p>
+              <p>ProdcutList</p>
             </a>
           </li>
           <li>
-            <a href="${contextPath}">
-              <i class="nc-icon nc-single-02"></i>
-              <p>상품 수정</p>
+            <a href="${contextPath}/admin_insert.pd">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>ProdcutInsert</p>
             </a>
           </li>
         </ul>
@@ -115,7 +110,7 @@
             
             
             
-            <form action="${contextPath }/insert.pd" method="post" id="enroll-area" enctype="multipart/form-data">
+            <form action="${contextPath }/admin_insert.pd" method="post" id="enroll-area" enctype="multipart/form-data">
             	<div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
@@ -179,8 +174,6 @@
                     <div class="col-md-12">
                     <a>상세 이미지</a>
                     <img id="contentImg1" width="150" height="120">
-                    <img id="contentImg2" width="150" height="120">
-                    <img id="contentImg3" width="150" height="120">
                   </div>
                   </div>
                   <div class="row">
@@ -190,17 +183,15 @@
                   </div>
                   </div>
                   
-                  <div id="file-area">
+                  	<div id="file-area">
                 <!--onchange : 변화가 일어났을때 발생하는 이벤트 
                     선언석함수를 내부에 작성할때 해당 이벤트가 발생한시점에 요소객체를 전달하는 방법
                     함수(this) 
-                -->
-				<input type="file" id="file1" name="file1" onchange="loadImg(this,1)" required> <!-- 대표이미지 필수  -->
-				<input type="file" id="file2" name="file2" onchange="loadImg(this,2)">
-				<input type="file" id="file3" name="file3" onchange="loadImg(this,3)">
-				<input type="file" id="file4" name="file4" onchange="loadImg(this,4)">
-			
-		</div>
+		                -->
+						<input type="file" id="file1" name="file1" onchange="loadImg(this,1)" required> <!-- 대표이미지 필수  -->
+						<input type="file" id="file2" name="file2" onchange="loadImg(this,2)" required>
+					
+					</div>
                 </form>
               </div>
             </div>
@@ -219,13 +210,7 @@
                 $("#contentImg1").click(function(){
                     $("#file2").click();
                 });
-                $("#contentImg2").click(function(){
-                    $("#file3").click();
-                });
-                $("#contentImg3").click(function(){
-                    $("#file4").click();
-                });
-
+               
             });
            
             
@@ -253,8 +238,6 @@
                         switch(num){
                             case 1: $("#titleImg").attr("src",e.target.result); break;
                             case 2: $("#contentImg1").attr("src",e.target.result); break;
-                            case 3: $("#contentImg2").attr("src",e.target.result); break;
-                            case 4: $("#contentImg3").attr("src",e.target.result); break;
                         }
 
                     }
@@ -263,8 +246,6 @@
                     switch(num){
                             case 1: $("#titleImg").attr("src",null); break;
                             case 2: $("#contentImg1").attr("src",null); break;
-                            case 3: $("#contentImg2").attr("src",null); break;
-                            case 4: $("#contentImg3").attr("src",null); break;
                         }
 
                 }
