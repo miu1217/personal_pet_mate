@@ -9,31 +9,53 @@
 	String message = (String)session.getAttribute("message");
 
 	
-%> 
+%>
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href=" ../../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="personal/resources/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="personal/resources/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     PERSONAL-PET-MATE
   </title>
+  
   <!-- jquery 구문 -->
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="/personal/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="/personal/resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/personal/resources/assets/demo/demo.css" rel="stylesheet" />
-</head>
-<body class="">
 
+
+  <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/personal/resources/assets/product/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/product/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/product/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/product/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/product/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/product/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/product/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/product/css/style.css" type="text/css">
+</head>
+
+<body class="">
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
@@ -54,18 +76,18 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="${contextPath}">
+            <a href="./member.html">
               <i class="nc-icon nc-pin-3"></i>
               <p>회원 Table</p>
             </a>
           </li>
           <li>
-            <a href="${contextPath}">
+            <a href="./user.html">
               <i class="nc-icon nc-single-02"></i>
               <p>회원 수정</p>
             </a>
           </li>
-          <li>
+           <li>
             <a href="${contextPath}/admin_list.pd">
               <i class="nc-icon nc-tile-56"></i>
               <p>ProdcutList</p>
@@ -92,107 +114,54 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">상품 입력</a>
+            <a class="navbar-brand" href="javascript:;">상품 수정</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
           </div>
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="content">
-        <div class="row">
+	      <div class="row">
+	        <div class="col-lg-4 col-md-6 col-sm-6">
+	            <div class="product__item">
+	              <div>
+	                <!-- 게시글 없는경우 -->
+	                <c:choose>
+	                  <c:when test="${empty phList }">
+	                    조회된 게시글이 없습니다.
+	                  </c:when>
+	                  <c:otherwise>
+	                    <c:forEach items="${phList }" var="ph">
+	                      <div class="thumbnail">
+	                        <input type ="hidden" value="${ph.productNo }">
+	                        <!--/jsp/resources/uploadFiles/파일이름.jpg -->
+	                        <img class="product__item__pic set-bg" src="${contextPath }${ph.imgsrc}" style="width: 200px; height : 150px; margin: 80px 10px 0px 10px;">
+	                        <div class="product__item__text" style="margin-left: 10px;">
+	                          No.${ph.productNo } ${ph.productName }<br>
+	                          price : ${ph.productPrice }
+	                        </div>
+	                      </div>
+	                    </c:forEach>
+	                  </c:otherwise>
+	                </c:choose>
+	              </div>
+	            </div>
+	        </div>
+            <script>
+        	//글 클릭했을때 글번호를 detail.bo 로 전달하며 페이지 요청하기
+        	$(function(){
+        		
+        		//테이블에 tbody -> tr이 클릭되었을때 해당 글번호를 추출하여 detail.bo?bno=글번호
+        		$(".thumbnail").click(function(){
+        			//$(this).children().eq(0).text() : 글번호 추출
+        			location.href="admin_detail.pd?pno="+ $(this).children().eq(0).val();
+        			
+        		});
+        		
+        		
+        	});
+        </script>	
         </div>
-        <div class="col-md-8">
-          <div class="card card-user">
-            <div class="card-header">
-              <h5 class="card-title">Product Detail</h5>
-            </div>
-            	<div class="card-body">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>상품명</label> 
-                        <input type="text" class="form-control"  name="productName" value="${p.productName }" >
-                      </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>카테고리</label>
-                        <input type="text" class="from-control" name="category" value="${p.categoryNo }" readonly>
-                      </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>상품 가격</label>
-                        <input type="text" class="form-control"  name="productPrice" value="${p.productPrice }" readonly>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>상품 성분</label>
-                      <input type="text" class="form-control" name="ingredient" value="${p.productIngredient }" readonly>
-                    </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>상품 설명</label>
-                        <textarea class="form-control" name="info" rows="10" style="resize: none;" readonly>${p.productInfo }</textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>상품 브랜드</label>
-                        <input type="text" class="form-control" name="brand" value="${p.productBrand }" readonly>
-                      </div>
-                    </div>
-                  </div>
-                  <c:forEach items="${phList }" var="ph" varStatus="vs">
-                  	<c:choose>
-                  		<c:when test="${vs.index eq 0 }">
-		                  	<div class="row">
-			                    <div class="col-md-12">
-			                    	<a>대표 이미지</a>
-			                    	<img id="titleImg" width="250" height="170" src="${contextPath }${ph.filePath}${ph.changeName}">
-			                  	</div>
-			                  </div>
-		                  </c:when>
-		                  <c:otherwise>
-			                  	<div class="row">
-				                    <div class="col-md-12">
-				                    	<a>상세 이미지</a>
-				                    	<img id="contentImg${vs.count}" 
-											src="${contextPath }${ ph.filePath}${ph.changeName}" width="150" height="120">
-				                  </div>
-			                  </div>
-		                  </c:otherwise>
-	                  </c:choose>
-                  </c:forEach>
-                  <div class="row">
-                    <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round"  
-                      		onclick="location.href='${contextPath}/admin_update.pd?pno=${p.productNo}'">상품 수정하기</button>
-                    </div>
-	                  </div>
-	               </div>
-				</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-  
-			 
-			
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
           <div class="row">
@@ -212,8 +181,9 @@
             </div>
           </div>
         </div>
-        </footer>
-
+       </footer>
+    </div>
+  </div>
   <!--   Core JS Files   -->
   <script src="/personal/resources/assets/js/core/jquery.min.js"></script>
   <script src="/personal/resources/assets/js/core/popper.min.js"></script>
