@@ -3,7 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-ArrayList<Product> plist = (ArrayList<Product>) request.getAttribute("plist");
+ArrayList<Product> phList = (ArrayList<Product>) request.getAttribute("phList");
 ArrayList<ProductCategory> clist = (ArrayList<ProductCategory>) request.getAttribute("clist");
 %>
 <!DOCTYPE html>
@@ -109,19 +109,18 @@ body {
 	<div class="container-list">
 		<div class="product-list">
 			<%
-			if (plist.isEmpty()) {
+			if (phList.isEmpty()) {
 			%>
 			<div class="product">제품이 없습니다.</div>
 			<%
 			} else {
 			%>
 			<%
-			for (Product p : plist) {
+			for (Product p : phList) {
 			%>
-			<<<<<<< HEAD
 			<div class="product" data-category-no="<%=p.getCategoryNo()%>" data-product-no="<%=p.getProductNo()%>" data-product-name="<%=p.getProductName()%>">
 				<div class="product-info">
-					<img src="" id="product-img">
+					<img src="<%=contextPath%><%=p.getImgsrc()%>" id="product-img">
 					<div id="product-name">
 						<p><%=p.getProductName()%></p>
 					</div>
@@ -152,7 +151,6 @@ body {
 	<script>
 	
 	function filterProductsByCategory() {
-<<<<<<< HEAD
 	    let selectedCategories = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.getAttribute('data-category-no'));
 
 	    document.querySelectorAll('.category1 input[type="checkbox"]:checked').forEach(topCheckbox => {
@@ -215,10 +213,6 @@ body {
             }
         }
     </script>
-	<<<<<<< HEAD
-
-	<!-- 기존 스크립트 아래에 이 코드를 추가합니다. -->
-	<!-- ...[previous HTML code remains unchanged]... -->
 
 	<script>
 		var selectedProducts = [];
@@ -261,11 +255,11 @@ body {
 		  selectedProducts.forEach(productNo => {
 		    var productElement = document.querySelector('.product[data-product-no="'+productNo+'"]');
 		    var productName = productElement.querySelector('#product-name p').innerText; // Get the product name
-		    console.log(productElement, productName);
+		    var productImg = productElement.querySelector('#product-img').src;
 		    var productDiv = document.createElement('div');
 		    productDiv.setAttribute('data-product-no', productNo); // Store the product number here for removal
 		    productDiv.style.cssText = 'width: 200px; height: 100px; border: 1px solid black; display: flex; align-items: center; justify-content: space-between; padding: 10px;';
-		    productDiv.innerHTML = '<img src="" style="width: 50px; height: 50px;"><span>'+productName+'</span>';
+		    productDiv.innerHTML = '<img src="'+productImg+'" style="width: 50px; height: 50px;"><span>'+productName+'</span>';
 		    var removeButton = document.createElement('button');
 		    removeButton.textContent = 'x';
 		    removeButton.onclick = function() { removeProductFromComparison(productNo); };

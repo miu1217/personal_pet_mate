@@ -15,8 +15,6 @@ import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
 
-<<<<<<< HEAD
-=======
 import oracle.jdbc.proxy.annotation.Pre;
 
 public class AdminProductDao {
@@ -61,7 +59,7 @@ public class AdminProductDao {
 	}
 
 	//상품 테이블에 상품 추가하는 메소
-	public int insertProdcut(Connection conn, Product p) {
+	public int insertProduct(Connection conn, Product p) {
 		int result = 0; 
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertProdocut");

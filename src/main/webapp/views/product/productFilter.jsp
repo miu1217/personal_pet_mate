@@ -115,7 +115,6 @@ body {
 
 			    secondCategoryCheckboxes.forEach(checkbox => {
 			        checkbox.addEventListener('change', function() {
-<<<<<<< HEAD
 			            const categoryNo = this.getAttribute('data-category-no');
 			            const parentCategoryNo = this.getAttribute('data-parent-category-no');
 			            if (this.checked) {

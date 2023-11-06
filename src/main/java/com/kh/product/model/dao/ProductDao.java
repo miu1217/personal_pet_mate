@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import com.kh.common.JDBCTemplate;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
@@ -46,10 +48,10 @@ public class ProductDao {
 			rset = stmt.executeQuery(sql);
 
 			while (rset.next()) {
-				plist.add(new Product(rset.getInt("product_no"), rset.getInt("category_no"),
-						rset.getString("product_name"), rset.getInt("product_price"), rset.getString("product_info"),
-						rset.getString("product_ingredient"), rset.getString("product_brand"),
-						rset.getDate("create_date"), rset.getString("status"), rset.getString("product_tag")));
+				plist.add(new Product(rset.getInt("PRODUCT_NO"), rset.getInt("CATEGORY_NO"),
+						rset.getString("PRODUCT_NAME"), rset.getInt("PRODUCT_PRICE"), rset.getString("PRODUCT_INFO"),
+						rset.getString("PRODUCT_INGREDIENT"), rset.getString("PRODUCT_BRAND"), rset.getInt("COUNT"),
+						rset.getDate("CREATE_DATE"), rset.getString("STATUS"), rset.getString("PRODUCT_TAG")));
 			}
 
 		} catch (SQLException e) {
@@ -87,65 +89,4 @@ public class ProductDao {
 		return clist;
 	}
 
-	//제품상세조회
-		public Product selectProductDetail(int pno,Connection conn) {
-			
-			String sql = prop.getProperty("selectProductDetail");
-			Product p = new Product();
-			
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, pno);
-				
-				rset = pstmt.executeQuery();
-				
-				if(rset.next()) {
-					p = new Product(rset.getInt("PRODUCT_NO")
-								   ,rset.getString("PRODUCT_NAME")
-								   ,rset.getInt("PRODUCT_PRICE")
-								   ,rset.getString("PRODUCT_INFO")
-								   ,rset.getString("PRODUCT_INGREDIENT")
-								   ,rset.getString("PRODUCT_BRAND"));
-				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				JDBCTemplate.close(rset);
-				JDBCTemplate.close(pstmt);
-			}
-			return p;
-		}
-		
-		//제품사진조회
-		public ProductAttachment selectProductAttachment(int pno, Connection conn) {
-			
-			String sql = prop.getProperty("selectProductAttachment");
-			ProductAttachment pa = null;
-			
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, pno);
-				
-				rset = pstmt.executeQuery();
-				
-				if(rset.next()) {
-					pa = new ProductAttachment(rset.getInt("FILE_NO")
-											  ,rset.getString("ORIGIN_NAME")
-											  ,rset.getString("CHANGE_NAME")
-											  ,rset.getString("FILE_PATH"));
-				}
-				
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				JDBCTemplate.close(rset);
-				JDBCTemplate.close(pstmt);
-			}
-			return pa;
-		}
-	
-}//
+}
