@@ -44,18 +44,43 @@ public class MemberEnrollController extends HttpServlet {
 		String userId = request.getParameter("enrollId"); //필수
 		String userPwd = request.getParameter("userPwd"); //필수
 		String userName = request.getParameter("userName"); //필수
-		String gen = request.getParameter("gen");
-		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
+		String[] gender = (String[])request.getParameterValues("gender");
+
+		
+		String emailId = request.getParameter("emailId");
+		String domain = request.getParameter("domain");
+
+		String firstP = request.getParameter("firstP");
+		String middleP = request.getParameter("middleP");
+		String lastP = request.getParameter("lastP");
+		
 		String address = request.getParameter("address");
 		String[] foodInterest = (String[])request.getParameterValues("foodInterest");
 		String[] cleanInterest = (String[])request.getParameterValues("cleanInterest");
 		
+		//이메일 주소 처리
+		String email = null;
+		if((emailId != "") && (domain != "")) {
+			email = emailId + "@" + domain;
+			
+		}
 		
+		//전화번호 처리
+		String phone = null;
+		if(middleP != "" && lastP != "") {
+			phone = firstP +"-"+ middleP +"-"+ lastP;
+		}
+
+
 		
-		//관심분야 처리
+		//성별, 관심분야 처리
+		String gen = "";
 		String foodIn = "";
 		String cleanIn = "";
+		
+		if(gender != null) {
+			gen = String.join(",", gender);
+		}
 		
 		if(foodInterest != null) {
 			foodIn = String.join(",", foodInterest);
@@ -72,9 +97,8 @@ public class MemberEnrollController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String before = request.getHeader("referer");
 		if(result>0) { //회원가입 성공
-			
+		
 			session.setAttribute("message", "회원가입 성공");
-			
 			response.sendRedirect(request.getContextPath());
 		}else { //회원가입 실패
 			session.setAttribute("message", "회원가입 실패");

@@ -21,6 +21,23 @@ public class Member {
 	}
 
 	
+	
+
+
+
+
+	public Member(String userName, String phone ) {
+		super();
+		this.userName = userName;
+		this.phone = phone;
+	}
+
+
+
+
+
+
+
 	public Member(String userId, String userPwd, String userName, String gender, String phone, String email,
 			String address, String foodInter, String cleanInter) {
 		super();
@@ -34,6 +51,7 @@ public class Member {
 		this.foodInter = foodInter;
 		this.cleanInter = cleanInter;
 	}
+
 
 
 	public Member(int userNo, String userId, String userPwd, String userName, String gender, String phone, String email,
@@ -52,6 +70,13 @@ public class Member {
 		this.enrollDate = enrollDate;
 		this.status = status;
 	}
+
+
+
+
+
+
+
 
 	public int getUserNo() {
 		return userNo;
@@ -148,6 +173,10 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+
+
 
 	@Override
 	public String toString() {

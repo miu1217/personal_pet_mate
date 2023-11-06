@@ -38,4 +38,23 @@ public class MemberService {
 		return count;
 	}
 
+	public Member findId(String useName, String usePhone) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().findId(conn, useName, usePhone);
+		
+		JDBCTemplate.close(conn);
+		return m;
+	}
+
+	public int findPwd(String useId, String usePhone) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().findPwd(conn, useId, usePhone);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 }
