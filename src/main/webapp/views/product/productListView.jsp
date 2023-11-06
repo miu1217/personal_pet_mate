@@ -118,6 +118,7 @@ body {
 			<%
 			for (Product p : plist) {
 			%>
+			<<<<<<< HEAD
 			<div class="product" data-category-no="<%=p.getCategoryNo()%>" data-product-no="<%=p.getProductNo()%>" data-product-name="<%=p.getProductName()%>">
 				<div class="product-info">
 					<img src="" id="product-img">
@@ -151,6 +152,7 @@ body {
 	<script>
 	
 	function filterProductsByCategory() {
+<<<<<<< HEAD
 	    let selectedCategories = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.getAttribute('data-category-no'));
 
 	    document.querySelectorAll('.category1 input[type="checkbox"]:checked').forEach(topCheckbox => {
@@ -190,7 +192,6 @@ body {
 	        });
 	        return;
 	    }
-
 	    document.querySelectorAll('.product').forEach(product => {
 	        const productCategoryNo = product.getAttribute('data-category-no');
 	        if (selectedCategories.includes(productCategoryNo)) {
@@ -200,11 +201,9 @@ body {
 	        }
 	    });
 	}
-
 	document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
 	    checkbox.addEventListener('change', filterProductsByCategory);
 	});
-
 	
         function toggleFilter() {
             const filterDiv = document.getElementById("filterDiv");
@@ -216,6 +215,7 @@ body {
             }
         }
     </script>
+	<<<<<<< HEAD
 
 	<!-- 기존 스크립트 아래에 이 코드를 추가합니다. -->
 	<!-- ...[previous HTML code remains unchanged]... -->
@@ -285,6 +285,5 @@ body {
 		updateProductStyles();
 		updateComparisonArea();
 </script>
-
 </body>
 </html>

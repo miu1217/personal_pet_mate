@@ -22,7 +22,7 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class AdminProductInsertController
  */
-@WebServlet("/insert.pd")
+@WebServlet("/admin_insert.pd")
 public class AdminProductInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -109,7 +109,11 @@ public class AdminProductInsertController extends HttpServlet {
 			}
 			
 			
+<<<<<<< HEAD
 			int result = new AdminProductService().insertProdocut(p, pList);
+=======
+			int result = new AdminProductService().insertProdcut(p, pList);
+>>>>>>> afcdd3aa48efad7c6c909a31ad5d4e9e34d62115
 			
 				HttpSession session = request.getSession();
 			
@@ -118,7 +122,11 @@ public class AdminProductInsertController extends HttpServlet {
 				//성공메세지와함께 사진게시판 목록 보여주기
 				session.setAttribute("message", "상품 입력 성공하셨습니다.");
 				
+<<<<<<< HEAD
 				response.sendRedirect(request.getContextPath());
+=======
+				response.sendRedirect(request.getContextPath()+"/admin_list.pd");
+>>>>>>> afcdd3aa48efad7c6c909a31ad5d4e9e34d62115
 				
 			}else {//실패
 				//실패메세지와함께 사진게시판 목록 보여주기 

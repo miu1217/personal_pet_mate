@@ -92,7 +92,6 @@ body {
 			                topCategoryCheckboxes.forEach(otherCheckbox => {
 			                    if (otherCheckbox !== this) otherCheckbox.disabled = true;
 			                });
-
 			                secondCategoryCheckboxes.forEach(secondCheckbox => {
 			                    if (secondCheckbox.getAttribute('data-parent-category-no') === categoryNo) {
 			                        secondCheckbox.disabled = false;
@@ -107,7 +106,6 @@ body {
 			                    thirdCheckbox.checked = false;
 			                });
 			            } else {
-			                // 체크 해제된 경우, 모든 체크박스들은 활성화.
 			                topCategoryCheckboxes.forEach(otherCheckbox => otherCheckbox.disabled = false);
 			                secondCategoryCheckboxes.forEach(secondCheckbox => secondCheckbox.disabled = false);
 			                thirdCategoryCheckboxes.forEach(thirdCheckbox => thirdCheckbox.disabled = false);
@@ -117,6 +115,7 @@ body {
 
 			    secondCategoryCheckboxes.forEach(checkbox => {
 			        checkbox.addEventListener('change', function() {
+<<<<<<< HEAD
 			            const categoryNo = this.getAttribute('data-category-no');
 			            const parentCategoryNo = this.getAttribute('data-parent-category-no');
 			            if (this.checked) {
@@ -166,7 +165,6 @@ body {
 			        });
 			    });
 			});
-
 		</script>
 		</div>
 	</div>

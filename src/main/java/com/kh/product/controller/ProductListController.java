@@ -38,6 +38,8 @@ public class ProductListController extends HttpServlet {
 		ArrayList<Product> plist = new ProductService().selectProductList();
 		ArrayList<ProductCategory> clist = new ProductService().selectProductCategoryList();
 
+		System.out.println(plist);
+
 		request.setAttribute("plist", plist);
 		request.setAttribute("clist", clist);
 		request.getRequestDispatcher("views/product/productListView.jsp").forward(request, response);
