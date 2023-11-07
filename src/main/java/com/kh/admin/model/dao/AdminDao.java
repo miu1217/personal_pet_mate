@@ -11,23 +11,24 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
+import com.kh.member.model.vo.Member;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
 
 import oracle.jdbc.proxy.annotation.Pre;
 
-public class AdminProductDao {
+public class AdminDao {
 	private Properties prop = new Properties();
 	private PreparedStatement pstmt = null;
 	private Statement stmt = null;
 	private ResultSet rset = null;
 	
 	
-	public AdminProductDao() {
+	public AdminDao() {
 		
 		try {
-			String filePath = AdminProductDao.class.getResource("/db/sql/admin-mapper.xml").getPath();
+			String filePath = AdminDao.class.getResource("/db/sql/admin-mapper.xml").getPath();
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -342,6 +343,36 @@ public class AdminProductDao {
 			}
 			
 			return result;
+		}
+
+		//여기서부터 멤버~
+		
+		//멤버 가지고 오는 메소드
+		public ArrayList<Member> selectMemberList(Connection conn) {
+			ArrayList<Member> mList = new ArrayList<>();
+			String sql = prop.getProperty("selectMemberList");
+			
+			try {
+				stmt = conn.createStatement();
+				
+				rset = stmt.executeQuery(sql);
+				
+				while(rset.next()) {
+					mList.add(new Member(rset.getInt("USER_NO")
+										,rset.getString("USER_NAME")
+							            ,rset.getString("USER_ID")
+							            ,rset.getString("FOOD_INTEREST")
+							            ,rset.getString("CLEAN_INTEREST")
+							            ,rset.getDate("CREATE_DATE")));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(stmt);
+			}
+			return mList;
 		}
 
 		

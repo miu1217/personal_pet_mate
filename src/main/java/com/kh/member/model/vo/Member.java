@@ -73,6 +73,15 @@ public class Member {
 
 
 
+	public Member(int userNo, String userId,String userName, String foodInter, String cleanInter, Date enrollDate) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.foodInter = foodInter;
+		this.cleanInter = cleanInter;
+		this.enrollDate = enrollDate;
+	}
 
 	
 

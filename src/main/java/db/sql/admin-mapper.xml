@@ -7,7 +7,7 @@
 	WHERE CATEGORY_NO BETWEEN 10 AND 40
 	</entry>
 	
-	<entry key="insertProdocut">
+	<entry key="insertProduct">
 	INSERT INTO PRODUCTS(PRODUCT_NO
                          ,CATEGORY_NO
                          ,PRODUCT_NAME
@@ -24,7 +24,7 @@
                        ,?)
 	</entry>
 	
-	<entry key="insertProdcutPhoto">
+	<entry key="insertProductPhoto">
 	INSERT INTO PRODUCTS_ATTACHMENT(FILE_NO
                                     ,PRODUCT_NO
                                     ,ORIGIN_NAME
@@ -49,6 +49,7 @@
 	JOIN CATEGORY  C USING (CATEGORY_NO)
 	JOIN PRODUCTS_ATTACHMENT PA USING (PRODUCT_NO)
 	WHERE FILE_LEVEL = 1
+	AND P.STATUS = 'Y'
 	ORDER BY P.CREATE_DATE DESC
 	</entry>
 	
@@ -98,4 +99,27 @@
 	AND STATUS = 'Y'
 	</entry>
 	
+	<entry key="deleteProduct">
+	UPDATE PRODUCTS
+	SET STATUS = 'N'
+	WHERE PRODUCT_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="deleteProductAttachment">
+	UPDATE PRODUCTS_ATTACHMENT
+	SET STATUS = 'N'
+	WHERE PRODUCT_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectMemberList">
+	SELECT USER_NO
+		   ,USER_NAME
+           ,USER_ID
+           ,FOOD_INTEREST
+           ,CLEAN_INTEREST
+           ,CREATE_DATE
+	FROM MEMBER
+	</entry>
 </properties>

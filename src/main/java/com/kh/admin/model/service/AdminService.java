@@ -3,19 +3,20 @@ package com.kh.admin.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.kh.admin.model.dao.AdminProductDao;
+import com.kh.admin.model.dao.AdminDao;
 import com.kh.common.JDBCTemplate;
+import com.kh.member.model.vo.Member;
 import com.kh.product.model.dao.ProductDao;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
 
-public class AdminProductService {
+public class AdminService {
 
 	public ArrayList<ProductCategory> selectCategoryList() {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<ProductCategory> cList = new AdminProductDao().selectCategoryList(conn);
+		ArrayList<ProductCategory> cList = new AdminDao().selectCategoryList(conn);
 		
 		JDBCTemplate.close(conn);
 		
@@ -27,9 +28,9 @@ public class AdminProductService {
 	public int insertProduct(Product p, ArrayList<ProductAttachment> pList) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new AdminProductDao().insertProduct(conn, p);
+		int result = new AdminDao().insertProduct(conn, p);
 		
-		int result2 = new AdminProductDao().insertProductPhoto(conn, pList);
+		int result2 = new AdminDao().insertProductPhoto(conn, pList);
 		
 		if(result*result2 > 0) {
 			JDBCTemplate.commit(conn);
@@ -43,7 +44,7 @@ public class AdminProductService {
 	public ArrayList<Product> selectListProduct() {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Product> pList = new AdminProductDao().selectListProduct(conn);
+		ArrayList<Product> pList = new AdminDao().selectListProduct(conn);
 		
 		JDBCTemplate.close(conn);
 		
@@ -57,7 +58,7 @@ public class AdminProductService {
 	public int increaseCount(int productNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new AdminProductDao().increaseCount(conn, productNo);
+		int result = new AdminDao().increaseCount(conn, productNo);
 	
 		if(result > 0) {
 			JDBCTemplate.commit(conn);
@@ -75,7 +76,7 @@ public class AdminProductService {
 	public Product selectProduct(int productNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Product p = new AdminProductDao().selectProduct(conn, productNo);
+		Product p = new AdminDao().selectProduct(conn, productNo);
 		
 		JDBCTemplate.close(conn);
 		
@@ -87,7 +88,7 @@ public class AdminProductService {
 	public ArrayList<ProductAttachment> selectProductAttachmentList(int productNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<ProductAttachment> list = new AdminProductDao().selectProductAttachmentList(conn, productNo);
+		ArrayList<ProductAttachment> list = new AdminDao().selectProductAttachmentList(conn, productNo);
 		
 		
 		JDBCTemplate.close(conn);
@@ -101,10 +102,10 @@ public class AdminProductService {
 		System.out.println(p);
 		System.out.println(phList);
 		//상품 수정 메소드
-		int result = new AdminProductDao().updateProduct(conn, p);
+		int result = new AdminDao().updateProduct(conn, p);
 		
 		
-		int result2 = new AdminProductDao().updateAttachmentList(conn,phList);
+		int result2 = new AdminDao().updateAttachmentList(conn,phList);
 
 		
 		
@@ -127,9 +128,9 @@ public class AdminProductService {
 	public int deleteProduct(int productNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new AdminProductDao().deleteProduct(conn, productNo);
+		int result = new AdminDao().deleteProduct(conn, productNo);
 		
-		int result2 = new AdminProductDao().deleteProductAttachment(conn, productNo);
+		int result2 = new AdminDao().deleteProductAttachment(conn, productNo);
 		
 		if(result*result2 > 0) {
 			JDBCTemplate.commit(conn);
@@ -140,6 +141,15 @@ public class AdminProductService {
 		
 		JDBCTemplate.close(conn);
 		return result*result2;
+	}
+
+	public ArrayList<Member> selectMemberList() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Member> mList = new AdminDao().selectMemberList(conn);
+		
+		JDBCTemplate.close(conn);
+		return mList;
 	}
 
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.kh.admin.model.service.AdminProductService;
+import com.kh.admin.model.service.AdminService;
 import com.kh.common.model.vo.MyFileRenamePolicy;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
@@ -41,12 +41,12 @@ public class AdminProductUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int productNo = Integer.parseInt(request.getParameter("pno"));
 		
-		AdminProductService aps = new AdminProductService();
+		AdminService aps = new AdminService();
 		
 		//수정페이지에 띄워줄 상품 조회 가져오기
 		Product p = aps.selectProduct(productNo);
 		
-		ArrayList<ProductCategory> cList = new AdminProductService().selectCategoryList();
+		ArrayList<ProductCategory> cList = new AdminService().selectCategoryList();
 		ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(productNo);
 		
 		request.setAttribute("p", p);
@@ -145,7 +145,7 @@ public class AdminProductUpdateController extends HttpServlet {
 			}
 			
 			
-			int result = new AdminProductService().updateProduct(p, phList);
+			int result = new AdminService().updateProduct(p, phList);
 			HttpSession session = request.getSession();
 			
 			//성공 시에 상세 페이지로 성공메세지와 함께
