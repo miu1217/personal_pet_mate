@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.admin.model.service.AdminProductService;
+import com.kh.admin.model.service.AdminService;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 
@@ -35,7 +35,7 @@ public class AdminProductDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int productNo = Integer.parseInt(request.getParameter("pno"));
 		
-		AdminProductService aps = new AdminProductService();
+		AdminService aps = new AdminService();
 		
 		//조회수 증가 처리(update 구문일테니 int로 받기)
 		int result = aps.increaseCount(productNo);

@@ -1,26 +1,28 @@
 package com.kh.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.admin.model.service.AdminService;
+import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class AdminProductDeleteController
+ * Servlet implementation class AdminMemberListController
  */
-@WebServlet("/admin_delete.pd")
-public class AdminProductDeleteController extends HttpServlet {
+@WebServlet("/admin_list.m")
+public class AdminMemberListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminProductDeleteController() {
+    public AdminMemberListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,19 +31,12 @@ public class AdminProductDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int productNo = Integer.parseInt(request.getParameter("pno"));
 		
-		int result = new AdminService().deleteProduct(productNo);
+		ArrayList<Member> mList = new AdminService().selectMemberList();
 		
-		HttpSession session = request.getSession();
-		if(result > 0) {
-			session.setAttribute("message", "상품 삭제 성공하셨습니다.");
-			response.sendRedirect(request.getContextPath() + "/admin_list.pd");
-		}else {
-			session.setAttribute("message", "상품 삭제 실패하셨습니다.");
-			response.sendRedirect(request.getContextPath() + "/admin_detail.pd?pno="+ productNo);
-			
-		}
+		System.out.println(mList);
+		request.setAttribute("mList", mList);
+		request.getRequestDispatcher("views/admin/adminMemberListView.jsp").forward(request, response);
 	}
 
 	/**
