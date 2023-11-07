@@ -45,9 +45,6 @@ public class FindIdController extends HttpServlet {
 		
 		Member m = new MemberService().findId(useName, usePhone);
 		
-		System.out.println("컨트롤러");
-		System.out.println(m.getUserId());
-		
 		if(m!=null) {
 			//request.setAttribute("findMyId", m.getUserId());
 			response.getWriter().print(m.getUserId());
