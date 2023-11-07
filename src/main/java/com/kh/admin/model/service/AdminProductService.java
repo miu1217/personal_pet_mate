@@ -98,12 +98,13 @@ public class AdminProductService {
 	public int updateProduct(Product p, ArrayList<ProductAttachment> phList) {
 		Connection conn = JDBCTemplate.getConnection();
 		
+		System.out.println(p);
+		System.out.println(phList);
 		//상품 수정 메소드
 		int result = new AdminProductDao().updateProduct(conn, p);
 		
-		int result2 = 1;
 		
-		result2 = new AdminProductDao().updateAttachmentList(conn,phList);
+		int result2 = new AdminProductDao().updateAttachmentList(conn,phList);
 
 		
 		
@@ -111,11 +112,33 @@ public class AdminProductService {
 		//게시글 수정과 첨부파일 수정 또는 추가 작업 중 하나라도 잘못되었다면
 				//되돌리기 작업을 수행하여야한다.
 				
-				if(result*result2 >0) {
+		if(result*result2 >0) {
 					JDBCTemplate.commit(conn);
-				}else {
+		}else {
 					JDBCTemplate.rollback(conn);
-				}
+		}
+		
+		JDBCTemplate.close(conn);
+		return result*result2;
+	}
+
+	
+	//상품 삭제 메소드
+	public int deleteProduct(int productNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new AdminProductDao().deleteProduct(conn, productNo);
+		
+		int result2 = new AdminProductDao().deleteProductAttachment(conn, productNo);
+		
+		if(result*result2 > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
+		JDBCTemplate.close(conn);
 		return result*result2;
 	}
 

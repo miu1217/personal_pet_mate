@@ -39,16 +39,16 @@
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
         <a href="https://www.creative-tim.com" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="../assets/img/logo-small.png">
+         <div class="logo-image-small">
+            <img src="/personal/resources/assets/img/logo.png">
           </div>
           <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="http://localhost:7777/personal/" class="simple-text logo-normal">
           ADMIN
           <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
+            <img src="/personal/resources/assets/img/logo.png">
+          </div>  -->
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -181,6 +181,8 @@
                     <div class="update ml-auto mr-auto">
                       <button type="submit" class="btn btn-primary btn-round"  
                       		onclick="location.href='${contextPath}/admin_update.pd?pno=${p.productNo}'">상품 수정하기</button>
+                      <button type="submit" class="btn btn-primary btn-round"  
+                      		onclick="location.href='${contextPath}/admin_delete.pd?pno=${p.productNo}'">상품 삭제하기</button>
                     </div>
 	                  </div>
 	               </div>
