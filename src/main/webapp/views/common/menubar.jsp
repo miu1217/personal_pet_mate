@@ -53,6 +53,18 @@ nav-logo {
 </head>
 
 <body>
+
+	<!-- alertMsg띄우는 창 -->
+	<script>
+		var message = "<%=message%>";
+		if(message != 'null') {
+			alert(message);
+			<%session.removeAttribute("message");%>
+		}
+	</script>
+	
+
+
 	<div class="nav-bar">
 		<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 		<nav>
@@ -70,6 +82,7 @@ nav-logo {
 				<%if(loginUser != null) {%>
 					<b><%= loginUser.getUserName() %>님 환영합니다.</b> <br>
 					<button onclick="location.href='<%=contextPath%>/pet.logout'">로그아웃</button>
+					<button onclick="location.href='<%=contextPath%>/pet.myPage'">마이페이지</button>
 					
 				<%} else{ %>
 					<button onclick="location.href='<%=contextPath%>/pet.login' ">로그인</button>

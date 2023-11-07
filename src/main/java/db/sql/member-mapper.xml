@@ -55,4 +55,57 @@
 		AND STATUS = 'Y'
 	</entry>
 	
+	
+	
+	
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 부분ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+	
+	
+	
+		<entry key="updateInfo">
+		UPDATE MEMBER
+		SET USER_NAME= ?
+			,PHONE= ?
+			,EMAIL= ?
+			,ADDRESS= ?
+			,FOOD_INTEREST= ?
+			,CLEAN_INTEREST= ?
+		WHERE USER_ID= ?
+	</entry>
+	
+	<entry key="selectMember">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_ID= ?
+		AND STATUS= 'Y'
+	</entry>
+	
+	
+	<entry key="deleteMember">
+		UPDATE MEMBER
+		SET STATUS= 'N'
+		WHERE USER_PWD= ?
+		AND USER_NO= ?
+		AND STATUS= 'Y'
+	</entry>
+	
+	<entry key="changePwd">
+		UPDATE MEMBER
+		SET USER_PWD = ?
+		WHERE USER_ID = ?
+		AND USER_PWD = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateSelectMember">
+		SELECT * 
+		FROM MEMBER 
+		WHERE USER_ID= ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	
+	
+	
 </properties>

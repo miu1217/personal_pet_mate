@@ -204,5 +204,163 @@ public class MemberDao {
 		return result;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 부분 시작 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	
+	
+	
+	
+	
+	
+public int updateInfo(Connection conn, Member m) {
+		
+		int result =0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("updateInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getUserName());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setString(5, m.getFoodInter());
+			pstmt.setString(6, m.getCleanInter()); 
+			pstmt.setString(7, m.getUserId());
+			
+			result= pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member selectMember(Connection conn, String userId) {
+		//업데이트된 회원정보를 가져와야하니깐 조회문 SELECT이용
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectMember");
+		Member m = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);  //conn으로 pstmt와 sql문 연결해주기
+			pstmt.setString(1, userId);	  //미완성된 sql문을 채워주기
+			rset= pstmt.executeQuery();   //sql결과문을 rset에 저장
+			
+			//UPDATE된 회원의 모든 정보를 m에다가 넣어주기 UpdateMember를 나중에 loginUser로 갱신해야하니깐 모든 정보가 필요함
+			if(rset.next()) {   //rset의 다음행이 있으면 실행하기
+			m = new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"),rset.getString("USER_PWD")
+							,rset.getString("USER_NAME"),rset.getString("GENDER"),rset.getString("PHONE")
+							,rset.getString("EMAIL"),rset.getString("ADDRESS"),rset.getString("FOOD_INTEREST")
+							,rset.getString("CLEAN_INTEREST"),rset.getDate("CREATE_DATE"),rset.getString("STATUS"));
+			
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return m;
+	}
+
+	public int deleteMember(Connection conn, int userNo, String userPwd) {
+		
+		//update니깐 dml구문 
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("deleteMember");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userPwd);
+			pstmt.setInt(2, userNo);
+						
+			result =pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int changePwd(Connection conn, String userId, String nowPwd, String newPwd) {
+		int result= 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("changePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, nowPwd);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
+
+	public Member updateSelectMember(Connection conn, String userId) {
+		//업데이트된 회원정보를 가져와야하니깐 select문 이용
+		ResultSet rset = null;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("updateSelectMember");
+		Member updateMember = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+			updateMember = new Member(rset.getInt("USER_NO"),rset.getString("USER_ID"),rset.getString("USER_PWD")
+									,rset.getString("USER_NAME"),rset.getString("GENDER"),rset.getString("PHONE")
+									,rset.getString("EMAIL"),rset.getString("ADDRESS"),rset.getString("FOOD_INTEREST")
+									,rset.getString("CLEAN_INTEREST"),rset.getDate("CREATE_DATE"),rset.getString("STATUS"));
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+	
+		return updateMember;
+		
+	}
+	
+
 
 }
