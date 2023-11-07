@@ -32,7 +32,7 @@ public class AdminProductListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Product> phList = new AdminProductService().selectListProdcut();
+		ArrayList<Product> phList = new AdminProductService().selectListProduct();
 
 		request.setAttribute("phList", phList);
 		request.getRequestDispatcher("views/admin/adminProductListView.jsp").forward(request, response);

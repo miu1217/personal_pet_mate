@@ -23,6 +23,19 @@ public class Product {
 		
 	}
 	
+	public Product(int productNo, String productName, int productPrice, String productInfo, String productIngredient,
+			String productBrand) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.productInfo = productInfo;
+		this.productIngredient = productIngredient;
+		this.productBrand = productBrand;
+	}
+
+
+
 	public Product(int productNo, int categoryNo, String productName, int productPrice, String productInfo,
 			String productIngredient, String productBrand,int count, Date createDate, String status, String productTag) {
 		super();

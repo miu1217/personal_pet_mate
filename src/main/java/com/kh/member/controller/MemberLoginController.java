@@ -73,15 +73,17 @@ public class MemberLoginController extends HttpServlet {
 			
 			//System.out.println(loginUser);
 			
-			HttpSession session = request.getSession();;
+			HttpSession session = request.getSession();
+			
 			
 			
 			if(loginUser == null) {
 				session.setAttribute("message", "로그인 실패");
-				request.getRequestDispatcher("/views/member/loginPage.jsp").forward(request, response);;
+				request.getRequestDispatcher("/views/member/loginPage.jsp").forward(request, response);
+				
 			}else {
 				session.setAttribute("loginUser", loginUser);
-				//session.setAttribute("message", "로그인 성공");
+				session.setAttribute("message", "로그인 성공");
 				response.sendRedirect(request.getContextPath());
 				
 				

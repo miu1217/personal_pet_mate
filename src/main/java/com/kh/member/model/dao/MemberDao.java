@@ -65,7 +65,144 @@ public class MemberDao {
 		
 		return m;
 	}
+
+	public int insertMem(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMem");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserId()); 
+			pstmt.setString(2, m.getUserPwd()); 
+			pstmt.setString(3, m.getUserName()); 
+			pstmt.setString(4, m.getGender());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getEmail());
+			pstmt.setString(7, m.getAddress());
+			pstmt.setString(8, m.getFoodInter());
+			pstmt.setString(9, m.getCleanInter());
+			
+			result = pstmt.executeUpdate();
+			
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+			
+		}
+
+		
+		return result;
+	}
+
+	public int idCheck(Connection conn, String checkId) {
+		ResultSet rset = null;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("idCheck"); 
+		int count = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, checkId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return count;
+	}
+
+	public Member findId(Connection conn, String useName, String usePhone) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("findId");
+		Member m = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, useName);
+			pstmt.setString(2, usePhone);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("USER_NO")
+						,rset.getString("USER_ID")
+						,rset.getString("USER_PWD")
+						,rset.getString("USER_NAME")
+						,rset.getString("GENDER")
+						,rset.getString("PHONE")
+						,rset.getString("EMAIL")
+						,rset.getString("ADDRESS")
+						,rset.getString("FOOD_INTEREST")
+						,rset.getString("CLEAN_INTEREST")
+						,rset.getDate("CREATE_DATE")
+						,rset.getString("STATUS"));
+
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		
+		return m;
 	
+		}
+
+	public int findPwd(Connection conn, String useId, String usePhone) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("findPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, useId);
+			pstmt.setString(2, usePhone);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 	
 
 }

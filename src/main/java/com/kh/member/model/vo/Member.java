@@ -20,6 +20,40 @@ public class Member {
 		super();
 	}
 
+	
+	
+
+
+
+
+	public Member(String userName, String phone ) {
+		super();
+		this.userName = userName;
+		this.phone = phone;
+	}
+
+
+
+
+
+
+
+	public Member(String userId, String userPwd, String userName, String gender, String phone, String email,
+			String address, String foodInter, String cleanInter) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.gender = gender;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.foodInter = foodInter;
+		this.cleanInter = cleanInter;
+	}
+
+
+
 	public Member(int userNo, String userId, String userPwd, String userName, String gender, String phone, String email,
 			String address, String foodInter, String cleanInter, Date enrollDate, String status) {
 		super();
@@ -36,6 +70,13 @@ public class Member {
 		this.enrollDate = enrollDate;
 		this.status = status;
 	}
+
+
+
+
+
+
+
 
 	public int getUserNo() {
 		return userNo;
@@ -132,6 +173,10 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+
+
 
 	@Override
 	public String toString() {

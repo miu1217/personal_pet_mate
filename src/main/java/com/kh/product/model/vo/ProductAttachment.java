@@ -26,7 +26,6 @@ public class ProductAttachment {
 		super();
 	}
 	
-
 	public ProductAttachment(int fileNo, String originName, String changeName, String filePath) {
 		super();
 		this.fileNo = fileNo;
@@ -34,6 +33,8 @@ public class ProductAttachment {
 		this.changeName = changeName;
 		this.filePath = filePath;
 	}
+
+
 
 	public ProductAttachment(int fileNo, int productNo, String originName, String changeName, String filePath,
 			Date createDate, int fileLevel, String status) {

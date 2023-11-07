@@ -19,4 +19,42 @@ public class MemberService {
 		return m;
 	}
 
+	public int insertMem(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().insertMem(conn, m);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	public int idCheck(String checkId) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int count = new MemberDao().idCheck(conn, checkId);
+		
+		JDBCTemplate.close(conn);
+		return count;
+	}
+
+	public Member findId(String useName, String usePhone) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().findId(conn, useName, usePhone);
+		
+		JDBCTemplate.close(conn);
+		return m;
+	}
+
+	public int findPwd(String useId, String usePhone) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().findPwd(conn, useId, usePhone);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 }

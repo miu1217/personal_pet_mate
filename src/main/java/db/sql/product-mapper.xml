@@ -17,14 +17,21 @@
 		FROM PRODUCTS
 		WHERE PRODUCT_NO = ?
 	</entry>
-	<entry key="selectProductAttachment">
+	<entry key="selectProductAttachmentList">
 		SELECT FILE_NO
 		      ,ORIGIN_NAME
-		      ,FILE_PATH
 		      ,CHANGE_NAME
+		      ,FILE_PATH
+		      ,FILE_LEVEL
 		FROM PRODUCTS_ATTACHMENT
 		WHERE PRODUCT_NO = ?
-		AND FILE_LEVEL = 1
 		AND STATUS = 'Y'
+	</entry>
+	<entry key="selectProductReviewList">
+		SELECT REVIEW_NO
+		      ,USER_NO
+		      ,REVIEW_CONTENT
+		FROM REVIEW
+		WHERE PRODUCT_NO = ?
 	</entry>
 </properties>

@@ -55,7 +55,7 @@ body {
 		<div class="main-content">
 			<div class="main-image">Main Image</div>
 			<div class="product-list">
-				<div class="product">Product 1</div>
+				<div id="" class="product">Product 1</div>
 				<div class="product">Product 2</div>
 				<div class="product">Product 3</div>
 				<div class="product">Product 4</div>
@@ -66,10 +66,10 @@ body {
     		
 		 $(function productDetail(){
 	    		
-	    		$(".product").click(function(){
+	    		$(".product-list").click(function(){
 	    			
 	    			var pno = $(this).children().eq(0).text() //상품번호
-	    			location.href="${contextPath}/pet.productDetail?pno=";
+	    			location.href="${contextPath}/pet.productDetail?pno=1";
 	    					
 	    			
 	    		});

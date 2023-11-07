@@ -8,6 +8,7 @@ import com.kh.product.model.dao.ProductDao;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
+import com.kh.product.model.vo.ProductReview;
 
 public class ProductService {
 
@@ -42,13 +43,23 @@ public class ProductService {
 		}
 		
 		//상품사진조회
-		public ProductAttachment selectProductAttachment(int pno) {
+		public ArrayList<ProductAttachment> selectProductAttachmentList(int pno) {
 			
-			ProductAttachment pa = new ProductDao().selectProductAttachment(pno,conn);
+			ArrayList<ProductAttachment> phList = new ProductDao().selectProductAttachmentList(pno,conn);
 			
 			JDBCTemplate.close(conn);
 			
-			return pa;
+			return phList;
+		}
+		
+		//상품리뷰조회
+		public ArrayList<ProductReview> selectProductReviewList(int pno) {
+			
+			ArrayList<ProductReview> prList = new ProductDao().selectProductReviewList(pno,conn);
+			
+			JDBCTemplate.close(conn);
+			
+			return prList;
 		}
 
 }

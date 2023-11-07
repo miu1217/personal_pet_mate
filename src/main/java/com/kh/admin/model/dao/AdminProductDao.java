@@ -59,10 +59,10 @@ public class AdminProductDao {
 	}
 
 	//상품 테이블에 상품 추가하는 메소
-	public int insertProdcut(Connection conn, Product p) {
+	public int insertProduct(Connection conn, Product p) {
 		int result = 0; 
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertProdocut");
+		String sql = prop.getProperty("insertProduct");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -88,10 +88,10 @@ public class AdminProductDao {
 
 	
 	//상품 사진 테이블에 사진 추가하는 메소
-	public int insertProdcutPhoto(Connection conn, ArrayList<ProductAttachment> pList) {
+	public int insertProductPhoto(Connection conn, ArrayList<ProductAttachment> pList) {
 		int result = 1;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertProdcutPhoto");
+		String sql = prop.getProperty("insertProductPhoto");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

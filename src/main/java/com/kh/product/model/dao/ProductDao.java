@@ -14,6 +14,7 @@ import com.kh.common.JDBCTemplate;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
+import com.kh.product.model.vo.ProductReview;
 
 public class ProductDao {
 
@@ -46,10 +47,17 @@ public class ProductDao {
 			rset = stmt.executeQuery(sql);
 
 			while (rset.next()) {
-				plist.add(new Product(rset.getInt("product_no"), rset.getInt("category_no"),
-						rset.getString("product_name"), rset.getInt("product_price"), rset.getString("product_info"),
-						rset.getString("product_ingredient"), rset.getString("product_brand"),
-						rset.getDate("create_date"), rset.getString("status"), rset.getString("product_tag")));
+				plist.add(new Product(rset.getInt("PRODUCT_NO")
+								      	,rset.getInt("CATEGORY_NO")
+								      	,rset.getString("PRODUCT_NAME")
+								      	,rset.getInt("PRODUCT_PRICE")
+								      	,rset.getString("PRODUCT_INFO")
+								      	,rset.getString("PRODUCT_INGREDIENT")
+								      	,rset.getString("PRODUCT_BRAND")
+								      	,rset.getInt("COUNT")
+								      	,rset.getDate("CREATE_DATE")
+								      	,rset.getString("STATUS")
+								      	,rset.getString("PRODUCT_TAG")));
 			}
 
 		} catch (SQLException e) {
@@ -119,10 +127,10 @@ public class ProductDao {
 		}
 		
 		//제품사진조회
-		public ProductAttachment selectProductAttachment(int pno, Connection conn) {
+		public ArrayList<ProductAttachment> selectProductAttachmentList(int pno, Connection conn) {
 			
-			String sql = prop.getProperty("selectProductAttachment");
-			ProductAttachment pa = null;
+			String sql = prop.getProperty("selectProductAttachmentList");
+			ArrayList<ProductAttachment> phList = new ArrayList<>();
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -130,11 +138,39 @@ public class ProductDao {
 				
 				rset = pstmt.executeQuery();
 				
-				if(rset.next()) {
-					pa = new ProductAttachment(rset.getInt("FILE_NO")
-											  ,rset.getString("ORIGIN_NAME")
-											  ,rset.getString("CHANGE_NAME")
-											  ,rset.getString("FILE_PATH"));
+				while(rset.next()) {
+					phList.add(new ProductAttachment(rset.getInt("FILE_NO")
+													,rset.getString("ORIGIN_NAME")
+													,rset.getString("FILE_PATH")
+													,rset.getString("CHANGE_NAME")));
+													
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return phList;
+		}
+		
+		//상품리뷰조회
+		public ArrayList<ProductReview> selectProductReviewList(int pno, Connection conn) {
+			
+			ArrayList<ProductReview> prList = new ArrayList<>();
+			String sql = prop.getProperty("selectProductReviewList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, pno);
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					prList.add(new ProductReview(rset.getInt("REVIEW_NO")
+												,rset.getInt("USER_NO")
+												,rset.getString("REVIEW_CONTENT")));
 				}
 				
 				
@@ -145,7 +181,7 @@ public class ProductDao {
 				JDBCTemplate.close(rset);
 				JDBCTemplate.close(pstmt);
 			}
-			return pa;
+			return prList;			
 		}
 	
 }//

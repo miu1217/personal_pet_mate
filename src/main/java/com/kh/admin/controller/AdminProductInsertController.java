@@ -109,7 +109,7 @@ public class AdminProductInsertController extends HttpServlet {
 			}
 			
 			
-			int result = new AdminProductService().insertProdcut(p, pList);
+			int result = new AdminProductService().insertProduct(p, pList);
 			
 				HttpSession session = request.getSession();
 			

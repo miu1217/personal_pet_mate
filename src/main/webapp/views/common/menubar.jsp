@@ -56,7 +56,7 @@ nav-logo {
 	<div class="nav-bar">
 		<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 		<nav>
-			<div class="nav-logo" onclick="location.href='${contextPath}'">LOGO</div>
+			<div class="nav-logo">LOGO</div>
 			<ul class="nav-menu">
 				<li><a href="${contextPath }/pet.products">Product</a></li>
 				<li><a href="">Community</a>

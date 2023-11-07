@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.admin.model.service.AdminProductService;
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
+import com.kh.product.model.vo.ProductReview;
 
 /**
  * Servlet implementation class ProductDetailController
@@ -33,22 +35,26 @@ public class ProductDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int pno = Integer.parseInt(request.getParameter("pno"));
+		AdminProductService aps = new AdminProductService();
 		
+		//상품번호가져오기
+		int pno = Integer.parseInt(request.getParameter("pno"));
+		 
 		//상품정보가져오기
 		Product p = new ProductService().selectProductDetail(pno);
 					
 		//상품사진가져오기
-		ProductAttachment pa = new ProductService().selectProductAttachment(pno);
+		ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(pno);
 		
-		System.out.println(p);
-		System.out.println(pa);
-		
+		//상품리뷰가져오기
+		ArrayList<ProductReview> prList = new ProductService().selectProductReviewList(pno); 
+
 		//상품정보담기
 		request.setAttribute("p", p);
 		//상품사진담기
-		request.setAttribute("pa", pa);
-		
+		request.setAttribute("phList", phList);
+		//상품리뷰리스트담기
+		request.setAttribute("prList", prList);
 		
 		request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);
 	}
