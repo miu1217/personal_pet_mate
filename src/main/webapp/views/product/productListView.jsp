@@ -69,13 +69,13 @@ body {
 	font-weight: bold;
 }
 
-#product-price {
+.product-price {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 }
 
-#product-price>p {
+.product-price>p {
 	margin: 0px
 }
 
@@ -124,9 +124,9 @@ body {
 					<div id="product-name">
 						<p><%=p.getProductName()%></p>
 					</div>
-					<div id="product-price">
+					<div class="product-price">
 						<p>가격</p>
-						<p><%=p.getProductPrice()%></p>
+						<p id="product-price"><%=p.getProductPrice()%></p>
 					</div>
 				</div>
 			</div>
@@ -256,10 +256,11 @@ body {
 		    var productElement = document.querySelector('.product[data-product-no="'+productNo+'"]');
 		    var productName = productElement.querySelector('#product-name p').innerText; // Get the product name
 		    var productImg = productElement.querySelector('#product-img').src;
+		    var productPrice = productElement.querySelector('#product-price').innerText;
 		    var productDiv = document.createElement('div');
 		    productDiv.setAttribute('data-product-no', productNo); // Store the product number here for removal
 		    productDiv.style.cssText = 'width: 200px; height: 100px; border: 1px solid black; display: flex; align-items: center; justify-content: space-between; padding: 10px;';
-		    productDiv.innerHTML = '<img src="'+productImg+'" style="width: 50px; height: 50px;"><span>'+productName+'</span>';
+		    productDiv.innerHTML = '<div style="display:flex; align-items:center; flex-direction: column;"><div style="display:flex; align-items:center;"><img src="'+productImg+'" style="width: 50px; height: 50px;"><span style="display:inline-block; width:120px; overflow-wrap:break-word;">'+productName+'</span></div><span style="margin-top:10px;"> 가격 : '+productPrice+'</span></div>';
 		    var removeButton = document.createElement('button');
 		    removeButton.textContent = 'x';
 		    removeButton.onclick = function() { removeProductFromComparison(productNo); };
@@ -278,6 +279,17 @@ body {
 		
 		updateProductStyles();
 		updateComparisonArea();
+		
+		function compareProducts(){
+		    let queryParams = '';
+		    selectedProducts.forEach(function(product, index) {
+		        console.log(product, index);
+		        queryParams += (index === 0 ? '?' : '&') + 'productNo=' + product;
+		      });
+		    console.log(queryParams);
+		      
+		      location.href = '${contextPath}/pet.compare' + queryParams;
+		}
 </script>
 </body>
 </html>

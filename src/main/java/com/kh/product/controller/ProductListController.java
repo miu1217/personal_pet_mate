@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.admin.model.service.AdminProductService;
+import com.kh.admin.model.service.AdminService;
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductCategory;
@@ -37,7 +37,7 @@ public class ProductListController extends HttpServlet {
 			throws ServletException, IOException {
 
 		ArrayList<ProductCategory> clist = new ProductService().selectProductCategoryList();
-		ArrayList<Product> phList = new AdminProductService().selectListProduct();
+		ArrayList<Product> phList = new AdminService().selectListProduct();
 		
 		System.out.println(phList);
 
