@@ -62,4 +62,13 @@ public class ProductService {
 			return prList;
 		}
 
+		public ArrayList<Product> selectIndexProductList() {
+			
+			ArrayList<Product> ipList = new ProductDao().selectIndexProductList(conn);
+			
+			JDBCTemplate.close(conn);
+			
+			return ipList;
+		}
+
 }
