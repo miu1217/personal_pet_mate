@@ -209,8 +209,9 @@ body {
 									제품 상세</a></li>
 							<li class="nav-item"><a class="nav-link" 
 								data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">
-									제품 리뷰</a></li>
+									제품 리뷰</a></li>		
 						</ul>
+						<div align="right"><button>리뷰 작성</button></div>
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabs-1" role="tabpanel">
 								<div class="product__details__tab">
