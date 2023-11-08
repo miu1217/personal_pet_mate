@@ -183,5 +183,31 @@ public class ProductDao {
 			}
 			return prList;			
 		}
+		
+		//인덱스상품리스트(상품번호,상품이름,사진)
+		public ArrayList<Product> selectIndexProductList(Connection conn) {
+			
+			ArrayList<Product> ipList = new ArrayList<>();
+			String sql = prop.getProperty("selectIndexProductList");
+			
+			try {
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(sql);
+				
+				while(rset.next()) {
+					ipList.add(new Product(rset.getInt("PRODUCT_NO")
+										  ,rset.getString("PRODUCT_NAME")
+										  ,rset.getString("TITLEIMG")));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return ipList;
+		}
 	
 }//
