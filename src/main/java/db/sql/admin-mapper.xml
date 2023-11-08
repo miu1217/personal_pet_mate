@@ -7,7 +7,7 @@
 	WHERE CATEGORY_NO BETWEEN 10 AND 40
 	</entry>
 	
-	<entry key="insertProdocut">
+	<entry key="insertProduct">
 	INSERT INTO PRODUCTS(PRODUCT_NO
                          ,CATEGORY_NO
                          ,PRODUCT_NAME
@@ -24,7 +24,7 @@
                        ,?)
 	</entry>
 	
-	<entry key="insertProdcutPhoto">
+	<entry key="insertProductPhoto">
 	INSERT INTO PRODUCTS_ATTACHMENT(FILE_NO
                                     ,PRODUCT_NO
                                     ,ORIGIN_NAME
