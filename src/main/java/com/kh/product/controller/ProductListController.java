@@ -37,9 +37,7 @@ public class ProductListController extends HttpServlet {
 			throws ServletException, IOException {
 
 		ArrayList<ProductCategory> clist = new ProductService().selectProductCategoryList();
-		ArrayList<Product> phList = new AdminProductService().selectListProduct();
-		
-		System.out.println(phList);
+		ArrayList<Product> phList = new AdminProductService().selectListProduct();	
 
 		request.setAttribute("phList", phList);
 		request.setAttribute("clist", clist);
