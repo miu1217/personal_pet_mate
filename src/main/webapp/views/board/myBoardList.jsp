@@ -42,6 +42,7 @@
 </head>
 <body>
 	<%@include file="../../views/common/menubar.jsp"%>
+	<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 	<div class="wrapper">
 		<div class="main-panel">
 			<div class="content">
@@ -49,40 +50,78 @@
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">리뷰 관리</h4>
+								<h4 class="card-title">게시글 관리</h4>
+								<select id="categoryFilter" class="float-right">
+									<option value="all">전체 글</option>
+									<option value="1">상품 추가</option>
+									<option value="2">기타 문의</option>
+								</select>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
 									<table class="table">
 										<thead class=" text-primary">
-											<th></th>
-											<th>제품명</th>
+											<th>번호</th>
+											<th>카테고리</th>
+											<th>제목</th>
 											<th>작성자</th>
-											<th>작성일${contextPath }</th>
+											<th>작성일</th>
+											<th>조회수</th>
 										</thead>
 										<tbody>
 											<c:choose>
-												<c:when test="${empty rList }">
+												<c:when test="${empty bList }">
 													<tr>
-														<td colspan="5">작성하신 리뷰가 없습니다.</td> 
+														<td colspan="6" align="center">작성하신 게시글이 없습니다.</td>
 													</tr>
 												</c:when>
 												<c:otherwise>
-													<c:forEach items="${rList }" var="rl">
+													<c:forEach items="${bList }" var="bl">
 														<tr>
-															<td><img src="${contextPath }${rl.titleImg}" width="100px" height="100px"></td>
-															<td>${rl.productName } </td>
-															<td>${rl.userId }</td>
-															<td>${rl.createDate }</td>
+															<td>${bl.boardNo }</td>
+		                        							<!-- 여기서 boardType이 1이면 자유게시판 2이면 고민게시판 만들기 -->
+															<c:choose>
+																<c:when test="${bl.boardType eq 2 }">
+																	<td>자유게시판</td>
+																</c:when>
+																<c:when test="${bl.boardType eq 3 }">
+																	<td>고민게시판</td>
+																</c:when>
+																<c:otherwise>
+																	<td>기타</td>
+																</c:otherwise>
+															</c:choose>		                      		                  
+															<td>${bl.boardTitle } </td>
+															<td>${bl.userId }</td> 
+															<td>${bl.createDate }</td>
+															<td>${bl.count }</td>
 														</tr>
 													</c:forEach>
 												</c:otherwise>
-											  </c:choose>				
+											</c:choose>
 										</tbody>
 									</table>
-									
+									<script>
+										document.addEventListener('DOMContentLoaded', function() {
+										        // 가정: 'selectedCategory' 변수가 서버로부터 전달받은 현재 카테고리 값을 저장하고 있음
+										        var selectedCategory = '<%=request.getParameter("category")%>' || 'all';
+	
+										        // Select box에서 해당 값을 선택하도록 설정
+										        var selectBox = document.getElementById('categoryFilter');
+										        selectBox.value = selectedCategory;
+										        
+											    document.getElementById('categoryFilter').addEventListener('change', function() {
+											        var selectedCategory = this.value;
+											        if(selectedCategory === 'all') {
+											            location.href = 'mate.qna?currentPage=1&category=all'; // Update this URL as per your routing structure
+											        } else {
+											            location.href = 'mate.qna?currentPage=1&category=' + selectedCategory; // Update as per your routing
+											        }
+											    });
+										});
+									</script>
 
-
+						<%-- 
 									<script>
 											//클릭했을때 글번호를 세부사항으로 전달
 											$(function(){
@@ -93,8 +132,22 @@
 												});       		
 											});
 									</script>
-
-
+									
+									
+							--%>
+							
+							<!-- 지수님이 보낸거 -->
+							<script>
+							     $(function(){ //detail.bo
+							            $(".table>tbody>tr").click(function(){
+							               var bno = $(this).children().eq(0).text();
+							               
+							               location.href="<%=contextPath%>/pet.boardDetail?bno="+bno;
+							            });
+							         });
+  							</script>
+	
+	
 
 									    <!-- 페이징바 -->
 		
@@ -105,13 +158,13 @@
 													<button disabled>이전</button>
 												</c:when>
 												<c:otherwise>
-													<button onclick="location.href='pet.myReview?currentPage=${pi.currentPage-1}'">이전</button>
+													<button onclick="location.href='pet.myBoardList?currentPage=${pi.currentPage-1}'">이전</button>
 												</c:otherwise>
 											</c:choose>
 											
 											<!-- 1~5페이지 -->
 										<c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">       
-												<button onclick="location.href='pet.myReview?currentPage=${i}'">${i }</button>   <!-- currentPage가 parameter영역에 담겼음 -->
+												<button onclick="location.href='pet.myBoardList?currentPage=${i}'">${i }</button>   <!-- currentPage가 parameter영역에 담겼음 -->
 										</c:forEach>
 										
 										
@@ -121,7 +174,7 @@
 													<button disabled>다음</button>
 												</c:when>
 												<c:otherwise>
-													<button onclick="location.href='pet.myReview?currentPage=${pi.currentPage+1}'">다음</button>
+													<button onclick="location.href='pet.myBoardList?currentPage=${pi.currentPage+1}'">다음</button>
 												</c:otherwise>
 										</c:choose>
 									</div>    

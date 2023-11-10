@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberBeforeUpdateChkController
+ * Servlet implementation class MemberTestUpdate
  */
-@WebServlet("/pet.beforeUpdateChk")  
-public class MemberBeforeUpdateChkController extends HttpServlet {
+@WebServlet("/pet.testUpdate")
+public class MemberTestUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberBeforeUpdateChkController() {
+    public MemberTestUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,19 +26,15 @@ public class MemberBeforeUpdateChkController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//get방식에서 비밀번호 확인해서 회원정보변경해주는 페이지로 전달해주기
-		request.getRequestDispatcher("views/member/beforeUpdateChk.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("views/member/testUpdateForm.jsp").forward(request, response);
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		doGet(request, response);
-		
 	}
-	
 
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="qnaCount">
+		SELECT COUNT(*) COUNT
+		FROM QNA
+		WHERE USER_NO = ?
+		AND STATUS ='Y'
+	</entry>
+	
+	
+	<entry key="selectMyQnAList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+          	  FROM
+                	(SELECT 
+	                        QNA_NO
+	                        ,CATEGORY_NAME
+	                        ,QNA_TITLE
+	                        ,USER_ID
+	                        ,Q.CREATE_DATE
+               		 FROM QNA Q
+                	 JOIN MEMBER M USING (USER_NO)
+                     JOIN QNA_CATEGORY USING (CATEGORY_NO)
+               		 WHERE USER_NO = ?
+                	 ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	
+</properties>

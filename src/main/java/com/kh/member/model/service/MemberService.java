@@ -1,7 +1,10 @@
 package com.kh.member.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import com.kh.Board.model.dao.BoardDao;
+import com.kh.Board.model.vo.Board;
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
@@ -123,6 +126,12 @@ public class MemberService {
 		}
 		return updateMember;
 	}
+
+
+		
+		
+		
+	}
 	
 	
 	
@@ -136,4 +145,3 @@ public class MemberService {
 	
 	
 	
-}

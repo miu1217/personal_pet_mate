@@ -1,4 +1,4 @@
-package com.kh.Review.model.vo;
+package com.kh.review.model.vo;
 
 import java.sql.Date;
 
@@ -20,7 +20,7 @@ public class Review {
 	private String status;
 	
 	
-	private String imgSrc;
+	private String titleImg;
 	private String productName;
 	private String userId;
 	
@@ -28,7 +28,21 @@ public class Review {
 	public Review() {
 		super();
 	}
+	
+	//내가 쓴 리뷰만 보는 매개변수생성자
+	public Review(String titleImg, String productName, String userId, Date createDate) {
+		super();
+		this.titleImg = titleImg;
+		this.productName = productName;
+		this.userId = userId;
+		this.createDate = createDate;
+	}
 
+	
+
+
+
+	
 	public Review(int reviewNo, int userNo, int productNo, String reviewContent, int count, Date createDate,
 			String status) {
 		super();
@@ -40,21 +54,6 @@ public class Review {
 		this.createDate = createDate;
 		this.status = status;
 	}
-	
-	
-	
-	//내가 쓴 리뷰만 보는 매개변수생성자
-	public Review(String imgSrc,String productName,String userId ,Date createDate,int count) {
-		super();
-		this.imgSrc =imgSrc;
-		this.productName=productName;
-		this.userId=userId;
-		this.count = count;
-		this.createDate = createDate;
-	}
-	
-	
-	
 
 	public int getReviewNo() {
 		return reviewNo;
@@ -112,13 +111,37 @@ public class Review {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Review [reviewNo=" + reviewNo + ", userNo=" + userNo + ", productNo=" + productNo + ", reviewContent="
-				+ reviewContent + ", count=" + count + ", createDate=" + createDate + ", status=" + status + "]";
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		return "Review [reviewNo=" + reviewNo + ", userNo=" + userNo + ", productNo=" + productNo + ", reviewContent="
+				+ reviewContent + ", count=" + count + ", createDate=" + createDate + ", status=" + status
+				+ ", titleImg=" + titleImg + ", productName=" + productName + ", userId=" + userId + "]";
+	}
+
 	
 }
