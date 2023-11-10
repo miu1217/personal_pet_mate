@@ -24,6 +24,11 @@ public class MemberService {
 		
 		int result = new MemberDao().insertMem(conn, m);
 		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
 		JDBCTemplate.close(conn);
 		
 		return result;
