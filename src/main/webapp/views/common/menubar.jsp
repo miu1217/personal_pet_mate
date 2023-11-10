@@ -67,14 +67,7 @@
 			<div class="nav-logo" onclick="location.href='${contextPath}'">LOGO</div>
 			<ul class="nav-menu">
 				<li><a href="${contextPath }/pet.products">Product</a></li>
-				<li><a href="">Community</a>
-					<ul>
-						<li><a href="<%=contextPath%>/pet.allPost">전체게시글</a></li>
-						<li><a href="">공지사항</a></li>
-						<li><a href="">자유게시판</a></li>
-						<li><a href="">리뷰게시판</a></li>
-					</ul>
-				</li>
+				<li><a href="${pageContext.request.contextPath}/pet.boardMain?currentPage=1">Community</a></li>
 				<li>Menu 3</li>
 				<li>Menu 4</li>
 			</ul>
@@ -92,4 +85,5 @@
 		</nav>
 	</div>
 </body>
+
 </html>

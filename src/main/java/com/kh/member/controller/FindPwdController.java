@@ -36,7 +36,7 @@ public class FindPwdController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//비밀번호 찾기 !!!!!!!!!!
+
 		request.setCharacterEncoding("UTF-8");
 		
 		String useId = request.getParameter("findUseId");
