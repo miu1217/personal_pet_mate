@@ -1,4 +1,4 @@
-package com.kh.Review.controller;
+package com.kh.review.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.Review.model.service.ReviewService;
-import com.kh.Review.model.vo.Review;
+import com.kh.review.model.service.ReviewService;
+import com.kh.review.model.vo.Review;
 import com.kh.member.model.vo.Member;
 
 /**
