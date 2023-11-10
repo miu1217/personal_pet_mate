@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.admin.model.service.AdminProductService;
+import com.kh.admin.model.service.AdminService;
 import com.kh.product.model.vo.Product;
 
 /**
@@ -32,7 +32,7 @@ public class AdminProductListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Product> phList = new AdminProductService().selectListProduct();
+		ArrayList<Product> phList = new AdminService().selectListProduct();
 
 		request.setAttribute("phList", phList);
 		request.getRequestDispatcher("views/admin/adminProductListView.jsp").forward(request, response);

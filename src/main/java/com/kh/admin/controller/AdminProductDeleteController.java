@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.admin.model.service.AdminProductService;
+import com.kh.admin.model.service.AdminService;
 
 /**
  * Servlet implementation class AdminProductDeleteController
@@ -31,7 +31,7 @@ public class AdminProductDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int productNo = Integer.parseInt(request.getParameter("pno"));
 		
-		int result = new AdminProductService().deleteProduct(productNo);
+		int result = new AdminService().deleteProduct(productNo);
 		
 		HttpSession session = request.getSession();
 		if(result > 0) {

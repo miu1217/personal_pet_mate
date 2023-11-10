@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
+import com.kh.member.model.vo.Member;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
@@ -343,6 +344,129 @@ public class AdminDao {
 			
 			return result;
 		}
+
+		//여기서부터 멤버~
+		
+		//멤버 가지고 오는 메소드
+		public ArrayList<Member> selectMemberList(Connection conn) {
+			ArrayList<Member> mList = new ArrayList<>();
+			String sql = prop.getProperty("selectMemberList");
+			
+			try {
+				stmt = conn.createStatement();
+				
+				rset = stmt.executeQuery(sql);
+				
+				while(rset.next()) {
+					mList.add(new Member(rset.getInt("USER_NO")
+										,rset.getString("USER_NAME")
+							            ,rset.getString("USER_ID")
+							            ,rset.getString("FOOD_INTEREST")
+							            ,rset.getString("CLEAN_INTEREST")
+							            ,rset.getDate("CREATE_DATE")));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(stmt);
+			}
+			return mList;
+		}
+
+		
+		//회원 정보 조회 메소드
+		public Member selectMember(Connection conn, int userNo) {
+			Member m = null;
+			String sql = prop.getProperty("selectMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, userNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					m = (new Member(rset.getInt("USER_NO")
+									,rset.getString("USER_ID")
+									,rset.getString("USER_PWD")
+									,rset.getString("USER_NAME")
+									,rset.getString("GENDER")
+									,rset.getString("PHONE")
+									,rset.getString("EMAIL")
+									,rset.getString("ADDRESS")));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			
+			
+			return m;
+		}
+
+		
+		//회원 정보 수정 메소드
+		public int updateMember(Connection conn, Member m) {
+			int result = 0;
+			String sql = prop.getProperty("updateMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, m.getUserId());
+				pstmt.setString(2, m.getUserName());
+				pstmt.setString(3, m.getGender());
+				pstmt.setString(4, m.getPhone());
+				pstmt.setString(5, m.getEmail());
+				pstmt.setString(6, m.getAddress());
+				pstmt.setInt(7, m.getUserNo());
+				
+				result = pstmt.executeUpdate();
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(pstmt);
+				
+			}
+			
+			
+			
+			return result;
+		}
+
+		
+		
+		public int deleteMember(Connection conn, int userNo) {
+			int result = 0;
+			String sql = prop.getProperty("deleteMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, userNo);
+				
+				result = pstmt.executeUpdate();
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+
+		
 
 		
 }

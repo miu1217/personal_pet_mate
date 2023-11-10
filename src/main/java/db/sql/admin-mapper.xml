@@ -49,6 +49,7 @@
 	JOIN CATEGORY  C USING (CATEGORY_NO)
 	JOIN PRODUCTS_ATTACHMENT PA USING (PRODUCT_NO)
 	WHERE FILE_LEVEL = 1
+	AND P.STATUS = 'Y'
 	ORDER BY P.CREATE_DATE DESC
 	</entry>
 	
@@ -98,4 +99,60 @@
 	AND STATUS = 'Y'
 	</entry>
 	
+	<entry key="deleteProduct">
+	UPDATE PRODUCTS
+	SET STATUS = 'N'
+	WHERE PRODUCT_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="deleteProductAttachment">
+	UPDATE PRODUCTS_ATTACHMENT
+	SET STATUS = 'N'
+	WHERE PRODUCT_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectMemberList">
+	SELECT USER_NO
+		   ,USER_NAME
+           ,USER_ID
+           ,FOOD_INTEREST
+           ,CLEAN_INTEREST
+           ,CREATE_DATE
+	FROM MEMBER
+	WHERE STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectMember">
+	SELECT USER_NO
+			,USER_ID
+			,USER_PWD
+			,USER_NAME
+			,GENDER
+			,PHONE
+			,EMAIL
+			,ADDRESS
+	FROM MEMBER
+	WHERE USER_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateMember">
+	UPDATE MEMBER
+		SET USER_ID = ?
+			,USER_NAME= ?
+			,GENDER = ?
+			,PHONE = ?
+			,EMAIL = ?
+			,ADDRESS = ?
+		WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="deleteMember">
+	UPDATE MEMBER
+	SET STATUS= 'N'
+	WHERE USER_NO= ?
+	AND STATUS= 'Y'
+	</entry>
 </properties>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.kh.admin.model.service.AdminProductService;
+import com.kh.admin.model.service.AdminService;
 import com.kh.common.model.vo.MyFileRenamePolicy;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
@@ -38,7 +38,7 @@ public class AdminProductInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<ProductCategory> cList = new AdminProductService().selectCategoryList();
+		ArrayList<ProductCategory> cList = new AdminService().selectCategoryList();
 		
 		request.setAttribute("cList", cList);
 		
@@ -109,7 +109,7 @@ public class AdminProductInsertController extends HttpServlet {
 			}
 			
 			
-			int result = new AdminProductService().insertProduct(p, pList);
+			int result = new AdminService().insertProduct(p, pList);
 			
 				HttpSession session = request.getSession();
 			

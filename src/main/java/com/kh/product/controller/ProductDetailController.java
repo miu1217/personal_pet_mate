@@ -13,7 +13,8 @@ import com.kh.admin.model.service.AdminService;
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
-import com.kh.product.model.vo.ProductReview;
+import com.kh.review.model.service.ReviewService;
+import com.kh.review.model.vo.Review;
 
 /**
  * Servlet implementation class ProductDetailController
@@ -47,7 +48,7 @@ public class ProductDetailController extends HttpServlet {
 		ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(pno);
 		
 		//상품리뷰가져오기
-		ArrayList<ProductReview> prList = new ProductService().selectProductReviewList(pno);
+		ArrayList<Review> prList = new ReviewService().selectReviewList(pno); 
 
 		//상품정보담기
 		request.setAttribute("p", p);

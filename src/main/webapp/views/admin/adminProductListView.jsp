@@ -29,8 +29,8 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link href="/personal/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/personal/resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/personal/resources/assets/demo/demo.css" rel="stylesheet" />
 
@@ -45,14 +45,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/AdminCss/product/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/AdminCss/product/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/AdminCss/product/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/AdminCss/product/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/AdminCss/product/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/AdminCss/product/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/AdminCss/product/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/personal/resources/assets/AdminCss/product/css/style.css" type="text/css">
 </head>
 
 <body class="">
