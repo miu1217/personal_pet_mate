@@ -197,7 +197,8 @@ public class ProductDao {
 				while(rset.next()) {
 					ipList.add(new Product(rset.getInt("PRODUCT_NO")
 										  ,rset.getString("PRODUCT_NAME")
-										  ,rset.getString("TITLEIMG")));
+										  ,rset.getString("TITLEIMG")
+										  ,rset.getString("CATEGORY_NAME")));
 				}
 				
 			} catch (SQLException e) {
@@ -208,6 +209,10 @@ public class ProductDao {
 				JDBCTemplate.close(pstmt);
 			}
 			return ipList;
+		}
+
+		public void selectCategoryNameList(Connection conn) {
+			
 		}
 	
 }//
