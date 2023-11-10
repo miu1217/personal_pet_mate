@@ -142,7 +142,7 @@ public class ReviewDao {
 
 
 
-	public Review selectReview(Connection conn, int productNo) {
+	public Review selectReview(Connection conn, int reviewNo) {
 		Review r = null;
 		String sql = prop.getProperty("selectReview");
 		
@@ -150,7 +150,7 @@ public class ReviewDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, productNo);
+			pstmt.setInt(1, reviewNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -422,8 +422,8 @@ public class ReviewDao {
 			
 			while(rset.next()) {
 				prList.add(new Review(rset.getInt("REVIEW_NO")
-										,rset.getInt("PRODUCT_NO")
 										,rset.getInt("USER_NO")
+										,rset.getInt("PRODUCT_NO")
 										,rset.getString("REVIEW_CONTENT")
 										,rset.getInt("COUNT")
 										,rset.getString("TITLEIMG")));

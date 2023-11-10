@@ -44,6 +44,15 @@ public class Review {
 	
 	
 
+	public Review(int reviewNo, int userNo, int productNo, String reviewContent, int count) {
+		super();
+		this.reviewNo = reviewNo;
+		this.userNo = userNo;
+		this.productNo = productNo;
+		this.reviewContent = reviewContent;
+		this.count = count;
+	}
+
 	public Review(int reviewNo,  int userNo, int productNo, String reviewContent, int count, String imgSrc) {
 		super();
 		this.reviewNo = reviewNo;
