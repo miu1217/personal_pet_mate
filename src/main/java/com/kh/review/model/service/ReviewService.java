@@ -56,10 +56,10 @@ public class ReviewService {
 		return result;
 	}
 
-	public Review selectReview(int productNo) {
+	public Review selectReview(int reviewNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Review r = new ReviewDao().selectReview(conn, productNo);
+		Review r = new ReviewDao().selectReview(conn, reviewNo);
 		
 		JDBCTemplate.close(conn);
 		return r;
