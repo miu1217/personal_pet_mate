@@ -47,7 +47,7 @@ public class ProductDetailController extends HttpServlet {
 		ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(pno);
 		
 		//상품리뷰가져오기
-		ArrayList<ProductReview> prList = new ProductService().selectProductReviewList(pno); 
+		ArrayList<ProductReview> prList = new ProductService().selectProductReviewList(pno);
 
 		//상품정보담기
 		request.setAttribute("p", p);
