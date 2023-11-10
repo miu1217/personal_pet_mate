@@ -71,9 +71,7 @@ nav-logo {
 			<div class="nav-logo">LOGO</div>
 			<ul class="nav-menu">
 				<li><a href="${contextPath }/pet.products">Product</a></li>
-				<li><a href="">Community</a>
-					
-				</li>
+				<li><a href="${pageContext.request.contextPath}/pet.boardMain?currentPage=1">Community</a></li>
 				<li>Menu 3</li>
 				<li>Menu 4</li>
 			</ul>
