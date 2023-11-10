@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.admin.model.service.AdminProductService;
+import com.kh.admin.model.service.AdminService;
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductReview;
+import com.kh.review.model.service.ReviewService;
+import com.kh.review.model.vo.Review;
 
 /**
  * Servlet implementation class ProductDetailController
@@ -35,7 +37,7 @@ public class ProductDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		AdminProductService aps = new AdminProductService();
+		AdminService aps = new AdminService();
 		
 		//상품번호가져오기
 		int pno = Integer.parseInt(request.getParameter("pno"));
@@ -47,7 +49,7 @@ public class ProductDetailController extends HttpServlet {
 		ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(pno);
 		
 		//상품리뷰가져오기
-		ArrayList<ProductReview> prList = new ProductService().selectProductReviewList(pno); 
+		ArrayList<Review> prList = new ReviewService().selectReviewList(pno); 
 
 		//상품정보담기
 		request.setAttribute("p", p);

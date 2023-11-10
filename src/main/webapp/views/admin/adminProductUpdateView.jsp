@@ -27,10 +27,10 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="/personal/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/personal/resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/personal/resources/assets/demo/demo.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
 <body class="">
 
@@ -190,8 +190,8 @@
 		                  	<div class="row">
 			                    <div class="col-md-12">
 			                    	<a>대표 이미지</a>
-			                    		 <input type="text" name = "originFileNofile1" value="${ph.fileNo }">
-						  				<input type="text" name = "originFileNamefile1" value="${ph.changeName }">
+			                    		 <input type="hidden" name = "originFileNofile1" value="${ph.fileNo }">
+						  				<input type="hidden" name = "originFileNamefile1" value="${ph.changeName }">
 			                    	<img id="titleImg" width="250" height="170" src="${contextPath }${ph.filePath}${ph.changeName}" >
 			                  	</div>
 			                  </div>
@@ -200,8 +200,8 @@
 			                  	<div class="row">
 				                    <div class="col-md-12">
 				                    	<a>상세 이미지</a>
-					                    	<input type="text" name = "originFileNofile${vs.count }" value="${ph.fileNo }">
-						  					<input type="text" name = "originFileNamefile${vs.count }" value="${ph.changeName }">
+					                    	<input type="hidden" name = "originFileNofile${vs.count }" value="${ph.fileNo }">
+						  					<input type="hidden" name = "originFileNamefile${vs.count }" value="${ph.changeName }">
 				                    	<img id="contentImg${vs.index}" 
 											src="${contextPath }${ ph.filePath}${ph.changeName}" width="150" height="120">
 				                  </div>
@@ -315,19 +315,19 @@
         </footer>
 
   <!--   Core JS Files   -->
-  <script src="/personal/resources/assets/js/core/jquery.min.js"></script>
-  <script src="/personal/resources/assets/js/core/popper.min.js"></script>
-  <script src="/personal/resources/assets/js/core/bootstrap.min.js"></script>
-  <script src="/personal/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/core/jquery.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/core/popper.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/core/bootstrap.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <script src="/personal/resources/assets/js/plugins/chartjs.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="/personal/resources/assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/personal/resources/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="/personal/resources/assets/demo/demo.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/personal/resources/assets/AdminCss/demo/demo.js"></script>
 </body>
 
 </html>

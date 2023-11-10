@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.kh.admin.model.dao.AdminDao;
 import com.kh.common.JDBCTemplate;
+import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
 import com.kh.product.model.dao.ProductDao;
 import com.kh.product.model.vo.Product;
@@ -99,8 +100,6 @@ public class AdminService {
 	public int updateProduct(Product p, ArrayList<ProductAttachment> phList) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		System.out.println(p);
-		System.out.println(phList);
 		//상품 수정 메소드
 		int result = new AdminDao().updateProduct(conn, p);
 		
@@ -114,9 +113,9 @@ public class AdminService {
 				//되돌리기 작업을 수행하여야한다.
 				
 		if(result*result2 >0) {
-					JDBCTemplate.commit(conn);
+			JDBCTemplate.commit(conn);
 		}else {
-					JDBCTemplate.rollback(conn);
+			JDBCTemplate.rollback(conn);
 		}
 		
 		JDBCTemplate.close(conn);
@@ -143,6 +142,7 @@ public class AdminService {
 		return result*result2;
 	}
 
+	//회원 리스트 메소드
 	public ArrayList<Member> selectMemberList() {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -150,6 +150,56 @@ public class AdminService {
 		
 		JDBCTemplate.close(conn);
 		return mList;
+	}
+
+	//회원 조회 메소드 
+	public Member selectMember(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new AdminDao().selectMember(conn, userNo);
+		
+		
+		
+		JDBCTemplate.close(conn);
+		return m;
+	}
+
+	
+	//회원 수정 메소드
+	public Member updateMember(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new AdminDao().updateMember(conn, m);
+		Member updateMem = null;
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+			
+			updateMem = new AdminDao().selectMember(conn, m.getUserNo());
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return updateMem;
+	}
+
+	
+	//회원 삭제 메소드
+	public int deleteMember(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new AdminDao().deleteMember(conn, userNo);
+		
+		if(result >0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 
 }

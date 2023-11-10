@@ -29,13 +29,13 @@ Coded by www.creative-tim.com
   <!-- jquery 구문 -->
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
+   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="/personal/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/personal/resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/personal/resources/assets/demo/demo.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
 <body class="">
 

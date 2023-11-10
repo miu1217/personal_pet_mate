@@ -121,5 +121,38 @@
            ,CLEAN_INTEREST
            ,CREATE_DATE
 	FROM MEMBER
+	WHERE STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectMember">
+	SELECT USER_NO
+			,USER_ID
+			,USER_PWD
+			,USER_NAME
+			,GENDER
+			,PHONE
+			,EMAIL
+			,ADDRESS
+	FROM MEMBER
+	WHERE USER_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateMember">
+	UPDATE MEMBER
+		SET USER_ID = ?
+			,USER_NAME= ?
+			,GENDER = ?
+			,PHONE = ?
+			,EMAIL = ?
+			,ADDRESS = ?
+		WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="deleteMember">
+	UPDATE MEMBER
+	SET STATUS= 'N'
+	WHERE USER_NO= ?
+	AND STATUS= 'Y'
 	</entry>
 </properties>

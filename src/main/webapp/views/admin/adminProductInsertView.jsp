@@ -27,10 +27,10 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="/personal/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/personal/resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/personal/resources/assets/demo/demo.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
 <body class="">
 
@@ -200,7 +200,7 @@
       </div>
       
   
-			  <script>
+		<script>
             $(function(){
                 $("#file-area").hide(); //file input 숨기기
                 //대표이미지를 클릭하면 input file 요소 1번이 클릭되게 하는 함수
@@ -278,19 +278,19 @@
         </footer>
 
   <!--   Core JS Files   -->
-  <script src="/personal/resources/assets/js/core/jquery.min.js"></script>
-  <script src="/personal/resources/assets/js/core/popper.min.js"></script>
-  <script src="/personal/resources/assets/js/core/bootstrap.min.js"></script>
-  <script src="/personal/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/core/jquery.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/core/popper.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/core/bootstrap.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <script src="/personal/resources/assets/js/plugins/chartjs.min.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="/personal/resources/assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/personal/resources/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="/personal/resources/assets/demo/demo.js"></script>
+  <script src="/personal/resources/assets/AdminCss/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/personal/resources/assets/AdminCss/demo/demo.js"></script>
 </body>
 
 </html>
