@@ -46,7 +46,7 @@
 </head>
 <style>
 body {
-	background-color: #f4f4f4;
+	background-color: white;
 	font-family: 'Cairo', sans-serif;
 }
 
@@ -58,6 +58,8 @@ body {
 	max-width: 100%;
 	height: 475px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+    overflow: hidden;
 }
 
 .product__details__text {
@@ -84,19 +86,10 @@ body {
 }
 
 .product__details__text ul li {
-	font-size: 16px;
-	color: #555;
-	margin-bottom: 10px;
-	padding-left: 20px;
-	position: relative;
-}
-
-.product__details__text ul li:before {
-	content: "✓";
-	color: #e74c3c;
-	position: absolute;
-	left: 0;
-	top: 1px;
+    font-size: 16px;
+    color: black;
+    margin-bottom: 10px;
+    position: relative;
 }
 
 .nav-tabs .nav-link {
@@ -122,15 +115,15 @@ body {
 }
 
 .product__details__tab .nav-link {
-    background-color: transparent; /* 배경색 없애기 */
-    color: rgb(137, 114, 91); /* 글자색 변경 */
-    border: none; /* 테두리 제거 */
-    transition: background-color 0.3s, color 0.3s; /* 배경 색과 글자색 전환 효과 설정 */
+    background-color: transparent;
+    color: rgb(137, 114, 91);
+    border: none;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .product__details__tab .nav-link.active {
-    background-color: transparent; /* 클릭 시 배경색 없애기 */
-    color: rgb(137, 114, 91); /* 클릭 시 글자색 변경 */
+    background-color: transparent;
+    color: #677E52
 }
 
 #productPrice {
@@ -150,12 +143,16 @@ body {
 	width:100%;
 	height:auto;
 }
-
+.check-img{
+	margin-right:10px;
+	width:16px;
+	height:16px;
+}
 
 </style>
 
 <body>
-	<%@include file="../common/menubar.jsp"%>
+	 <%@include file="../common/menubar.jsp"%>
 	<!-- Product Details Section Begin -->
 	<section class="product-details spad">
 		<div class="container">
@@ -191,11 +188,14 @@ body {
 							<h4>${p.productName }</h4>
 						</div>
 						<ul>
-							<li><b>제품가격</b>
+							<li>
+						<img class="check-img" src="${contextPath }/resources/assets/logo/checkLogoGreen.png"><b>제품가격</b>
 								<div>${p.productPrice }원</div></li>
-							<li><b>제품성분</b>
+							<li>
+						<img class="check-img" src="${contextPath }/resources/assets/logo/checkLogoGreen.png"><b>제품성분</b>
 								<div>${p.productIngredient }</div></li>
-							<li><b>제품설명</b>
+							<li>
+						<img class="check-img" src="${contextPath }/resources/assets/logo/checkLogoGreen.png"><b>제품설명</b>
 								<div>${p.productInfo }</div></li>
 						</ul>
 					</div>
@@ -209,8 +209,9 @@ body {
 									제품 상세</a></li>
 							<li class="nav-item"><a class="nav-link" 
 								data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">
-									제품 리뷰</a></li>
+									제품 리뷰</a></li>		
 						</ul>
+						<div align="right"><button>리뷰 작성</button></div>
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabs-1" role="tabpanel">
 								<div class="product__details__tab">

@@ -23,6 +23,8 @@ body {
 .container-list {
 	width: 70%;
 	min-width: 1000px;
+	display: flex;
+	justify-content: center;
 	margin: auto;
 }
 
@@ -36,7 +38,6 @@ body {
 }
 
 .product {
-	width: 32%;
 	box-sizing: border-box;
 	margin-bottom: 20px;
 	display: flex;
@@ -49,10 +50,6 @@ body {
 	display: none;
 }
 
-.product {
-	cursor: pointer;
-}
-
 .product-info {
 	display: flex;
 	flex-direction: column;
@@ -60,9 +57,17 @@ body {
 	align-items: center;
 }
 
+.empty-product {
+	display: flex;
+	justify-content: center;
+}
+
 #product-img {
 	width: 250px;
 	height: 300px;
+	margin: 10px;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 #product-name {
@@ -72,11 +77,21 @@ body {
 .product-price {
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 .product-price>p {
 	margin: 0px
+}
+
+.product-info>p {
+	max-width: 200px;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: break-word;
+	white-space: nowrap;
 }
 
 #comparisonArea {
@@ -99,7 +114,40 @@ body {
 }
 
 #compareButton {
+	background-color: #b0cc99;
+	width: 100px;
+	color: white;
+	border: none;
+	padding: 10px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	font-size: 16px;
 	margin-left: auto; /* 이 부분을 추가해서 버튼을 오른쪽으로 밀어냅니다 */
+	cursor: pointer;
+	border-radius: 8px;
+	transition: background-color 0.3s;
+	color: white;
+	font-size: 16px;
+}
+
+#compareButton:hover {
+	background-color: #677e52;
+}
+
+.product-compare {
+	width: 100%;
+	display: flex;
+	float: left;
+	margin: 0 0 10px 20px;
+	cursor: pointer;
+}
+
+.plusIcon {
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
 }
 </style>
 </head>
@@ -107,26 +155,33 @@ body {
 	<%@include file="../common/menubar.jsp"%>
 	<%@include file="productFilter.jsp"%>
 	<div class="container-list">
+		<%
+		if (phList.isEmpty()) {
+		%>
+		<div class="empty-product">제품이 없습니다.</div>
+		<%
+		} else {
+		%>
+
 		<div class="product-list">
-			<%
-			if (phList.isEmpty()) {
-			%>
-			<div class="product">제품이 없습니다.</div>
-			<%
-			} else {
-			%>
 			<%
 			for (Product p : phList) {
 			%>
 			<div class="product" data-category-no="<%=p.getCategoryNo()%>" data-product-no="<%=p.getProductNo()%>" data-product-name="<%=p.getProductName()%>">
 				<div class="product-info">
-					<img src="<%=contextPath%><%=p.getImgsrc()%>" id="product-img">
+					<img src="<%=contextPath%><%=p.getImgsrc()%>" id="product-img" data-product-no="<%=p.getProductNo()%>" onclick="productDetail(this)">
 					<div id="product-name">
 						<p><%=p.getProductName()%></p>
 					</div>
 					<div class="product-price">
 						<p>가격</p>
 						<p id="product-price"><%=p.getProductPrice()%></p>
+					</div>
+					<div class="product-info">
+						<p><%=p.getProductTag()%></p>
+					</div>
+					<div class="product-compare">
+						<img src="${contextPath }/resources/assets/icons/plus.svg" class="plusIcon" /> <span>비교하기</span>
 					</div>
 				</div>
 			</div>
@@ -147,6 +202,11 @@ body {
 		<!-- 비교하기 버튼 이동 -->
 		<button id="compareButton" onclick="compareProducts()">비교하기</button>
 	</div>
+	<script>
+		function productDetail(e){
+		    location.href="${contextPath}/pet.productDetail?pno="+e.dataset.productNo;
+		}
+	</script>
 
 	<script>
 	
@@ -241,10 +301,11 @@ body {
 		function updateProductStyles() {
 		  document.querySelectorAll('.product').forEach(product => {
 		    var productNo = product.getAttribute('data-product-no');
+		    var compareDiv = product.querySelector('.product-compare span');
 		    if (selectedProducts.includes(productNo)) {
-		      product.style.border = '2px solid green';
+		        compareDiv.style.color = 'green';
 		    } else {
-		      product.style.border = '1px solid gray';
+		        compareDiv.style.color = 'black';
 		    }
 		  });
 		}
@@ -259,23 +320,28 @@ body {
 		    var productPrice = productElement.querySelector('#product-price').innerText;
 		    var productDiv = document.createElement('div');
 		    productDiv.setAttribute('data-product-no', productNo); // Store the product number here for removal
-		    productDiv.style.cssText = 'width: 200px; height: 100px; border: 1px solid black; display: flex; align-items: center; justify-content: space-between; padding: 10px;';
-		    productDiv.innerHTML = '<div style="display:flex; align-items:center; flex-direction: column;"><div style="display:flex; align-items:center;"><img src="'+productImg+'" style="width: 50px; height: 50px;"><span style="display:inline-block; width:120px; overflow-wrap:break-word;">'+productName+'</span></div><span style="margin-top:10px;"> 가격 : '+productPrice+'</span></div>';
+		    productDiv.style.cssText = 'width: 200px; height: 100px; border: 1px solid black; border-radius: 5px; display: flex; align-items: center; justify-content: space-between; padding: 10px;';
+		    productDiv.innerHTML = '<div style="display:flex; align-items:center; flex-direction: column;"><div style="display:flex; align-items:center;"><img src="'+productImg+'" style="width: 50px; height: 50px;"><span style="display:inline-block; width:120px; overflow-wrap:break-word; margin-left:10px;">'+productName+'</span></div><div style="margin-top:10px;"><span>가격 : </span><span>'+productPrice+'원</span></div></div>';
+		    var xDiv = document.createElement('div');
+		    xDiv.style.cssText = 'height: inherit;';
 		    var removeButton = document.createElement('button');
 		    removeButton.textContent = 'x';
+		    removeButton.style.cssText = 'background-color: #f7f7f7; color: white; border: none; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; color: black;';
 		    removeButton.onclick = function() { removeProductFromComparison(productNo); };
-		    productDiv.appendChild(removeButton);
+		    xDiv.appendChild(removeButton);
+		    productDiv.appendChild(xDiv);
 		    productsToCompareDiv.appendChild(productDiv);
 		  });
 		  compareButton.style.display = selectedProducts.length > 0 ? 'flex' : 'none';
 		  document.getElementById('compareButton').disabled = selectedProducts.length < 2;
 		}
 		
-		document.querySelectorAll('.product').forEach(product => {
-		  product.addEventListener('click', function() {
-		    addProductToComparison(this);
+		document.querySelectorAll('.product-compare').forEach(compareDiv => {
+		    compareDiv.addEventListener('click', function() {
+		      var productDiv = this.closest('.product');
+		      addProductToComparison(productDiv);
+		    });
 		  });
-		});
 		
 		updateProductStyles();
 		updateComparisonArea();
@@ -289,7 +355,7 @@ body {
 		    console.log(queryParams);
 		      
 		      location.href = '${contextPath}/pet.compare' + queryParams;
-		}
+		} 
 </script>
 </body>
 </html>

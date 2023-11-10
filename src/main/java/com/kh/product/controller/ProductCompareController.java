@@ -95,9 +95,6 @@ public class ProductCompareController extends HttpServlet {
 
 			// 상품사진가져오기
 			ArrayList<ProductAttachment> phList2 = aps.selectProductAttachmentList(pno2);
-			
-			System.out.println(phList1);
-			System.out.println(phList2);
 
 			// 상품정보담기
 			request.setAttribute("p1", p1);

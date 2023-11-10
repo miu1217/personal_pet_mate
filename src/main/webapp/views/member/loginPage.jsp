@@ -4,8 +4,7 @@
 <%
 
 	String findMyId = (String)request.getAttribute("findMyId");
-System.out.println("ㅓ네");
-	System.out.println(findMyId);
+
 	//쿠키정보
 	 Cookie[] cookies = request.getCookies();
 

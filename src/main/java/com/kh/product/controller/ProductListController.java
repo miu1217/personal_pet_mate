@@ -36,11 +36,32 @@ public class ProductListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ArrayList<ProductCategory> clist = new ProductService().selectProductCategoryList();
-		ArrayList<Product> phList = new AdminService().selectListProduct();
-		
-		System.out.println(phList);
+		int cno;
 
+		ArrayList<ProductCategory> clist = new ProductService().selectProductCategoryList();
+		ArrayList<Product> phList = null;
+
+		try {
+			cno = Integer.parseInt(request.getParameter("productCategory"));
+
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			cno = 0;
+		}
+
+		switch (cno) {
+		case 1:
+			phList = new ProductService().sortListCount();
+			break;
+		case 2:
+			phList = new ProductService().sortListReviewCount();
+			break;
+
+		case 0:
+			phList = new AdminService().selectListProduct();
+		}
+
+		request.setAttribute("productCategory", cno);
 		request.setAttribute("phList", phList);
 		request.setAttribute("clist", clist);
 		request.getRequestDispatcher("views/product/productListView.jsp").forward(request, response);

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="listCount">
+		select count(*) count from qna where category_no = 1
+		and status = 'Y'
+	</entry>
+
+	<entry key="selectQnAList">
+		select *
+		from (select rownum rnum, A.*
+		from (select
+		qna_no, category_name, qna_title, user_id, count, q.create_date
+		from
+		qna q
+		join member m using (user_no)
+		join qna_category c
+		using(category_no)
+		where q.status = 'Y' and category_no = ?
+		order by
+		create_date desc) A) where rnum between ? and ?
+	</entry>
+
+	<entry key="selectQnAListAll">
+		select *
+		from (select rownum rnum, A.*
+		from (select
+		qna_no, category_name, qna_title, user_id, count, q.create_date
+		from
+		qna q
+		join member m using (user_no)
+		join qna_category c
+		using(category_no)
+		where q.status = 'Y'
+		order by create_date desc) A)
+		where rnum between ? and ?
+	</entry>
+
+	<entry key="increaseCount">
+		update qna set count = count + 1 where qna_no = ? and
+		status = 'Y'
+	</entry>
+
+	<entry key="selectQna">
+		SELECT qna_no, user_id, category_name, qna_title,
+		qna_content, q.count, q.create_date, q.status
+		FROM qna q
+		join member m using(user_no)
+		join qna_category c using(category_no)
+		where qna_no = ?
+		and q.status = 'Y'
+	</entry>
+	
+	<entry key="selectQnaAttachment">
+		SELECT FILE_NO
+		,ORIGIN_NAME
+		,CHANGE_NAME
+		,FILE_PATH
+		FROM
+		QNA_ATTACHMENT
+		WHERE QNA_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+
+</properties>

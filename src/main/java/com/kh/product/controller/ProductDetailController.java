@@ -13,7 +13,6 @@ import com.kh.admin.model.service.AdminService;
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
-import com.kh.product.model.vo.ProductReview;
 import com.kh.review.model.service.ReviewService;
 import com.kh.review.model.vo.Review;
 

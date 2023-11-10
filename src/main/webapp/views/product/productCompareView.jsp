@@ -41,6 +41,7 @@
 /* Additional styling can go here */
 </style>
 </head>
+=======
 <body>
 	<%@include file="../common/menubar.jsp"%>
 	<div class="product-comparison">
