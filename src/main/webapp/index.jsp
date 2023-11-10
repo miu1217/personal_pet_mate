@@ -11,6 +11,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Main Page</title>
+
+	<link rel="stylesheet" href="resources/assets/indexCSS/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="resources/assets/indexCSS/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="resources/assets/indexCSS/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="resources/assets/indexCSS/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="resources/assets/indexCSS/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="resources/assets/indexCSS/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="resources/assets/indexCSS/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="resources/assets/indexCSS/css/style.css" type="text/css">
+
 <style>
 body {
 	font-family: 'Nunito', sans-serif;
@@ -72,21 +82,185 @@ span {
 </head>
 <body>
 	<%@include file="views/common/menubar.jsp"%>
-	<div class="container">
-		<div class="main-content">
-			<div class="main-image">Main Image</div>
-			<c:choose>
-				<c:when test="${loginUser != null}">
-					<div class="product-list1"></div>
-					<div class="product-list2"></div>
-				</c:when>
-				<c:otherwise>
-					<div class="product-list1"></div>
-					<div class="product-list2"></div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</div>
+	<section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+                        <div class="hero__text">
+                            <h2>Personal <br />petMate</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 배너 -->
+
+    <!-- 배너 밑 유저추천상품 -->
+    <section class="categories">
+        <div class="container">
+            <div class="row">
+                <div class="categories__slider owl-carousel">
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/cateImg-1.jpg">
+                            <h5><a href="#">상품이름</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/cateImg-2.jpg">
+                            <h5><a href="#">상품이름</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/cateImg-3.jpg">
+                            <h5><a href="#">상품이름</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/cateImg-4.jpg">
+                            <h5><a href="#">상품이름</a></h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="img/categories/cateImg-5.jpg">
+                            <h5><a href="#">상품이름</a></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 배너 밑 유저추천상품 -->
+
+    <!-- 카테고리별 상품 리스트 -->
+    <section class="featured spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Product List</h2>
+                    </div>
+                    <div class="featured__controls">
+                        <ul>
+                            <li class="active" data-filter="*">전체</li>
+                            <li data-filter=".oranges">사료</li>
+                            <li data-filter=".fresh-meat">샤워</li>
+                            <li data-filter=".vegetables">영양제</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row featured__filter">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
+                            <!-- 하트기능
+                            <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            </ul> -->
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#">상품명</a></h6>
+                            <h5>가격</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-2.jpg">
+                            <!-- <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            </ul> -->
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#">상품명</a></h6>
+                            <h5>가격</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-3.jpg">
+                            <!-- <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            </ul> -->
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#">상품명</a></h6>
+                            <h5>가격</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-4.jpg">
+                            <!-- <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            </ul> -->
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#">상품명</a></h6>
+                            <h5>가격</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
+                            <!-- <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            </ul> -->
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#">상품명</a></h6>
+                            <h5>가격</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
+                            <!-- <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            </ul> -->
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#">상품명</a></h6>
+                            <h5>가격</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
+                            <!-- <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            </ul> -->
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#">상품명</a></h6>
+                            <h5>가격</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
+                            <!-- <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            </ul> -->
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="#"></a></h6>
+                            <h5>가격</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 카테고리별 상품 리스트 -->
 	<br>
 	<script>
 		$(document)
@@ -144,5 +318,13 @@ span {
 									});
 						});
 	</script>
+	<script src="resources/assets/indexCSS/js/jquery-3.3.1.min.js"></script>
+    <script src="resources/assets/indexCSS/js/bootstrap.min.js"></script>
+    <script src="resources/assets/indexCSS/js/jquery.nice-select.min.js"></script>
+    <script src="resources/assets/indexCSS/js/jquery-ui.min.js"></script>
+    <script src="resources/assets/indexCSS/js/jquery.slicknav.js"></script>
+    <script src="resources/assets/indexCSS/js/mixitup.min.js"></script>
+    <script src="resources/assets/indexCSS/js/owl.carousel.min.js"></script>
+    <script src="resources/assets/indexCSS/js/main.js"></script>
 </body>
 </html>
