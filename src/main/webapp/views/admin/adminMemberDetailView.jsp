@@ -27,10 +27,10 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="/personal/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/personal/resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/personal/resources/assets/demo/demo.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
 <body class="">
 
@@ -40,7 +40,7 @@
       <div class="logo">
         <a href="https://www.creative-tim.com" class="simple-text logo-mini">
          <div class="logo-image-small">
-            <img src="/personal/resources/assets/img/logo.png">
+            <img src="/personal/resources/assets/AdminCss/img/logo.png">
           </div>
           <!-- <p>CT</p> -->
         </a>
@@ -57,12 +57,6 @@
             <a href="${contextPath}">
               <i class="nc-icon nc-pin-3"></i>
               <p>회원 Table</p>
-            </a>
-          </li>
-          <li>
-            <a href="${contextPath}">
-              <i class="nc-icon nc-single-02"></i>
-              <p>회원 수정</p>
             </a>
           </li>
           <li>
@@ -105,84 +99,85 @@
         <div class="col-md-8">
           <div class="card card-user">
             <div class="card-header">
-              <h5 class="card-title">Product Detail</h5>
+              <h5 class="card-title">Product Update</h5>
             </div>
             	<div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>상품명</label> 
-                        <input type="text" class="form-control"  name="productName" value="${p.productName }" >
+                        <label>회원 아이디</label> 
+                        <input type="text" class="form-control"  name="userId" value="${m.userId }"readonly >
                       </div>
                     </div>
                     </div>
                     <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>카테고리</label>
-                        <input type="text" class="from-control" name="category" value="${p.categoryNo }" readonly>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>회원 비밀번호</label>
+                          <input type="text" class="form-control"  name="userPwd" value="${m.userPwd }" readonly>
+                        </div>
                       </div>
-                    </div>
                     </div>
                     <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>상품 가격</label>
-                        <input type="text" class="form-control"  name="productPrice" value="${p.productPrice }" readonly>
+                        <label>회원 이름</label>
+                        <input type="text" class="form-control"  name="userName" value="${m.userName }" readonly>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label>상품 성분</label>
-                      <input type="text" class="form-control" name="ingredient" value="${p.productIngredient }" readonly>
+                      <label>성별</label>
+                        <input type="radio" name="gender" id="gen" value="남"><label for="gen">남</label> 
+                        <input type="radio" name="gender" id="gen" value="여"><label for="gen">여</label> 
                     </div>
                     </div>
+                    <script>
+                    	$(function(){
+                    		$("input[name=gender]").each(function(){   
+                    			
+                    			var gender = "${m.gender}"
+                  				var value1 = $(this).val();     
+                  				if(gender.includes(value1)) {  
+                  					$(this).attr("checked",true);
+                  				}
+                  			});
+                	
+                    	})
+                    	
+                    
+                    </script>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>상품 설명</label>
-                        <textarea class="form-control" name="info" rows="10" style="resize: none;" readonly>${p.productInfo }</textarea>
+                        <label>휴대폰</label>
+                        <input type="text" class="form-control" name="phone" value="${m.phone }" readonly>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>상품 브랜드</label>
-                        <input type="text" class="form-control" name="brand" value="${p.productBrand }" readonly>
+                        <label>이메일</label>
+                        <input type="text" class="form-control" name="email" value="${m.email }" readonly>
                       </div>
                     </div>
                   </div>
-                  <c:forEach items="${phList }" var="ph" varStatus="vs">
-                  	<c:choose>
-                  		<c:when test="${vs.index eq 0 }">
-		                  	<div class="row">
-			                    <div class="col-md-12">
-			                    	<a>대표 이미지</a>
-			                    	<img id="titleImg" width="250" height="170" src="${contextPath }${ph.filePath}${ph.changeName}">
-			                  	</div>
-			                  </div>
-		                  </c:when>
-		                  <c:otherwise>
-			                  	<div class="row">
-				                    <div class="col-md-12">
-				                    	<a>상세 이미지</a>
-				                    	<img id="contentImg${vs.count}" 
-											src="${contextPath }${ ph.filePath}${ph.changeName}" width="150" height="120">
-				                  </div>
-			                  </div>
-		                  </c:otherwise>
-	                  </c:choose>
-                  </c:forEach>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>주소</label>
+                        <input type="text" class="form-control" name="address" value="${m.address }" readonly>
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round"  
-                      		onclick="location.href='${contextPath}/admin_update.pd?pno=${p.productNo}'">상품 수정하기</button>
-                      <button type="submit" class="btn btn-primary btn-round"  
-                      		onclick="location.href='${contextPath}/admin_delete.pd?pno=${p.productNo}'">상품 삭제하기</button>
+                      <button type="submit" class="btn btn-primary btn-round"
+                      onclick="location.href='${contextPath}/admin_list.m'">회원 관리 페이지</button>
                     </div>
 	                  </div>
 	               </div>
