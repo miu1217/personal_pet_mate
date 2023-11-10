@@ -17,17 +17,17 @@ import com.kh.product.model.vo.ProductCategory;
 
 import oracle.jdbc.proxy.annotation.Pre;
 
-public class AdminProductDao {
+public class AdminDao {
 	private Properties prop = new Properties();
 	private PreparedStatement pstmt = null;
 	private Statement stmt = null;
 	private ResultSet rset = null;
 	
 	
-	public AdminProductDao() {
+	public AdminDao() {
 		
 		try {
-			String filePath = AdminProductDao.class.getResource("/db/sql/admin-mapper.xml").getPath();
+			String filePath = AdminDao.class.getResource("/db/sql/admin-mapper.xml").getPath();
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

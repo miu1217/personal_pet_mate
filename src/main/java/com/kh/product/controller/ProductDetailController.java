@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.admin.model.service.AdminProductService;
+import com.kh.admin.model.service.AdminService;
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
@@ -35,7 +35,7 @@ public class ProductDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		AdminProductService aps = new AdminProductService();
+		AdminService aps = new AdminService();
 		
 		//상품번호가져오기
 		int pno = Integer.parseInt(request.getParameter("pno"));

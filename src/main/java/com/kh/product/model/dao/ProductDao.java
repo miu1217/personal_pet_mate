@@ -211,8 +211,55 @@ public class ProductDao {
 			return ipList;
 		}
 
-		public void selectCategoryNameList(Connection conn) {
-			
+		public ArrayList<Product> sortListCount(Connection conn) {
+
+			ArrayList<Product> pList = new ArrayList<>();
+			String sql = prop.getProperty("sortListProductCount");
+
+			try {
+				stmt = conn.prepareStatement(sql);
+
+				rset = stmt.executeQuery(sql);
+
+				while (rset.next()) {
+					pList.add(new Product(rset.getInt("PRODUCT_NO"), rset.getInt("CATEGORY_NO"),
+							rset.getString("PRODUCT_NAME"), rset.getInt("PRODUCT_PRICE"), rset.getString("TITLEIMG")));
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(stmt);
+			}
+
+			return pList;
 		}
-	
-}//
+
+		public ArrayList<Product> sortListReviewCount(Connection conn) {
+			ArrayList<Product> pList = new ArrayList<>();
+			String sql = prop.getProperty("sortListProductReviewCount");
+
+			try {
+				stmt = conn.prepareStatement(sql);
+
+				rset = stmt.executeQuery(sql);
+
+				while (rset.next()) {
+					pList.add(new Product(rset.getInt("PRODUCT_NO"), rset.getInt("CATEGORY_NO"),
+							rset.getString("PRODUCT_NAME"), rset.getInt("PRODUCT_PRICE"), rset.getString("TITLEIMG")));
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(stmt);
+			}
+
+			return pList;
+		}
+
+	}

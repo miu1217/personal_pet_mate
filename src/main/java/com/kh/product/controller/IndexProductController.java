@@ -61,7 +61,6 @@ public class IndexProductController extends HttpServlet {
 			new Gson().toJson(dataMap,response.getWriter());
 			
 		} catch(NullPointerException e) {
-			e.printStackTrace();
 			
 			ArrayList<Product> ipList = new ProductService().selectIndexProductList();
 			
