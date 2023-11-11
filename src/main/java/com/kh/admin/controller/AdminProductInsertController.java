@@ -14,6 +14,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.admin.model.service.AdminService;
 import com.kh.common.model.vo.MyFileRenamePolicy;
+import com.kh.member.model.vo.Member;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
@@ -22,7 +23,7 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class AdminProductInsertController
  */
-@WebServlet("/admin_insert.pd")
+@WebServlet("/pet.admin.insert.pd")
 public class AdminProductInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,11 +39,23 @@ public class AdminProductInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<ProductCategory> cList = new AdminService().selectCategoryList();
+		HttpSession session = request.getSession();
 		
-		request.setAttribute("cList", cList);
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
 		
-		request.getRequestDispatcher("views/admin/adminProductInsertView.jsp").forward(request, response);
+		if(userId.equals("admin")) {
+			
+		
+			ArrayList<ProductCategory> cList = new AdminService().selectCategoryList();
+			
+			request.setAttribute("cList", cList);
+			
+			request.getRequestDispatcher("views/admin/adminProductInsertView.jsp").forward(request, response);
+		}else {
+			request.setAttribute("message", "관리자만 들어올 수 있는 공간임 나가");
+			response.sendRedirect(request.getContextPath());
+			
+		}	
 	}
 
 	/**
@@ -118,13 +131,12 @@ public class AdminProductInsertController extends HttpServlet {
 				//성공메세지와함께 사진게시판 목록 보여주기
 				session.setAttribute("message", "상품 입력 성공하셨습니다.");
 				
-				response.sendRedirect(request.getContextPath()+"/admin_list.pd");
+				response.sendRedirect(request.getContextPath()+"/pet.admin.list.pd");
 				
 			}else {//실패
 				//실패메세지와함께 사진게시판 목록 보여주기 
 				session.setAttribute("message","상품 입력 실패하셨습니다.");
-				
-//				response.sendRedirect(request.getContextPath());
+				response.sendRedirect(request.getContextPath()+"/pet.admin.list.pd");
 				
 			}
 			

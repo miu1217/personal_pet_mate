@@ -29,6 +29,22 @@ public class Member {
 	
 	
 
+	public Member(int userNo, String userId, String userPwd, String userName, String gender, String phone, String email,
+			String address) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.gender = gender;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+	}
+
+
+
+
 	public Member(String userName, String phone ) {
 		super();
 		this.userName = userName;
@@ -37,6 +53,19 @@ public class Member {
 
 
 
+
+
+
+
+	public Member(int userNo, String userId, String userName, String foodInter, String cleanInter, Date enrollDate) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.foodInter = foodInter;
+		this.cleanInter = cleanInter;
+		this.enrollDate = enrollDate;
+	}
 
 
 

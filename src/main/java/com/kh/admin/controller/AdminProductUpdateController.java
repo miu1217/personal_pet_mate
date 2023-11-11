@@ -15,6 +15,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.admin.model.service.AdminService;
 import com.kh.common.model.vo.MyFileRenamePolicy;
+import com.kh.member.model.vo.Member;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
@@ -23,7 +24,7 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class AdminProductUpdateController
  */
-@WebServlet("/admin_update.pd")
+@WebServlet("/pet.admin.update.pd")
 public class AdminProductUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,21 +40,31 @@ public class AdminProductUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int productNo = Integer.parseInt(request.getParameter("pno"));
+		HttpSession session = request.getSession();
 		
-		AdminService aps = new AdminService();
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
 		
-		//수정페이지에 띄워줄 상품 조회 가져오기
-		Product p = aps.selectProduct(productNo);
-		
-		ArrayList<ProductCategory> cList = new AdminService().selectCategoryList();
-		ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(productNo);
-		
-		request.setAttribute("p", p);
-		request.setAttribute("cList", cList);
-		request.setAttribute("phList", phList);
-		
-		request.getRequestDispatcher("views/admin/adminProductUpdateView.jsp").forward(request, response);
+		if(userId.equals("admin")) {
+			
+			int productNo = Integer.parseInt(request.getParameter("pno"));
+			
+			AdminService aps = new AdminService();
+			
+			//수정페이지에 띄워줄 상품 조회 가져오기
+			Product p = aps.selectProduct(productNo);
+			
+			ArrayList<ProductCategory> cList = new AdminService().selectCategoryList();
+			ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(productNo);
+			
+			request.setAttribute("p", p);
+			request.setAttribute("cList", cList);
+			request.setAttribute("phList", phList);
+			
+			request.getRequestDispatcher("views/admin/adminProductUpdateView.jsp").forward(request, response);
+		}else {
+			request.setAttribute("message", "관리자만 들어올 수 있는 공간임 나가");
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**
@@ -163,11 +174,11 @@ public class AdminProductUpdateController extends HttpServlet {
 					}
 				}
 				session.setAttribute("message", "상품 수정을 성공했습니다.");
-				response.sendRedirect(request.getContextPath() + "/admin_detail.pd?pno="+ productNo);
+				response.sendRedirect(request.getContextPath() + "/pet.admin.detail.pd?pno="+ productNo);
 			}else {
 				//실패시에 상세페이지로 실패메시지와 함께
 				session.setAttribute("message", "상품 수정을 실패했습니다.");
-				response.sendRedirect(request.getContextPath() + "/admin_detail.pd?pno="+ productNo);
+				response.sendRedirect(request.getContextPath() + "/pet.admin.detail.pd?pno="+ productNo);
 			}
 			
 		}
