@@ -65,122 +65,87 @@
   <div class="wrap" > 
   <form action="<%=contextPath%>/pet.updateInfo" method="post">  
     <fieldset id="update-form">
-      <h2>PERSONAL PET-MATE <br> 회원 정보 수정</h2>
+      <h2>PERSONAL PET-MATE <br> 진단테스트 수정</h2>
       <br>
 
-    
-    <div class="basicInfo">
-      <h3>기본정보</h3>
-    <table class="" border="1">
-    
-      <tbody>
-      <tr>
-        <th id="coreName">아이디 </th>
-      	<td><input type="text" class="input-area" id="userId" name="userId" value="${loginUser.userId }" readonly> </td> <!-- 메뉴바에있는 loginUser를 이용해서 기존정보나타내기 -->	   
-      </tr>
 
-     <tr>
-   		<th id="coreName">비밀번호</th>
- 	 	<td>
- 	 		<input type="password" class="input-area" id="userPwd" name="userPwd" value="${loginUser.userPwd }" readonly>
- 	 		
- 	 	</td> 
- 	 	
-    </tr>
-    
-     <tr>
-   	   <th id="coreName">이름</th>
-  	   <td><input type="text" class="input-area" id="userName" name="userName" value="${loginUser.userName }" required></td>
-    </tr>
-
-    <tr>
-      <th id="coreName">성별</th>
-  	<td>
-   		<input type="radio" name="gender" id="gen" value="남"><label for="gen">남</label> 
-   		<input type="radio" name="gender" id="gen" value="여"><label for="gen">여</label> 
-  	</td>
-  </tr>
-
-  <tr>
-  	 <th id="coreName">휴대전화</th>
- 	 <td>
-  		<input type="text" class="input-area" id="phone" name="phone" value="${loginUser.phone}"> 
- 	 </td>
-  </tr>
-  
-			 	<!-- 이메일 @를 기준으로 나눠주기 -->
-			 	<c:set var="parts" value ="${fn:split(loginUser.email,'@')}"></c:set>
-			 	
-			 	<tr>
-                 	 <th id="coreName">이메일</th>
-               	 		  <td class="rest" colspan="4">    
-                  			  <c:choose>
-						            <c:when test="${loginUser.email != null}">
-						                <input type="text" id="emailId" name="emailId" style="width: 120px;" value="${parts[0] }">
-						                @
-						                <input type="text" id="domain" name="domain" style="width: 110px;" value="${parts[1] }">
-						            </c:when>
-						            <c:otherwise>
-						                <input type="text" id="emailId" name="emailId" style="width: 120px;">
-						                @
-						                <input type="text" id="domain" name="domain" style="width: 110px;">
-						            </c:otherwise>
-					        </c:choose>
-                   			  <select name="emailSelect" id="emailSelect" style="width: 80px;">
-	                 			    <option value="selec" selected>선택</option>
-	                    			<option value="self">직접입력</option>
-				                    <option value="naver.com">naver.com</option>
-				                    <option value="gmail.com">gmail.com</option>
-				                    <option value="daum.com">daum.com</option>
-				                    <option value="nate.com">nate.com</option>
-				                    <option value="hanmail.com">hanmail.com</option>
-                 			   </select>
-                		  </td>              		
-                </tr>
-			 	
-			 	
-			 	
-			 	<%-- 
-				<tr>
-                 	 <th id="coreName">이메일</th>
-               	 		  <td class="rest" colspan="4">    
-                  			  <c:choose>
-						            <c:when test="${loginUser.email != null}">
-						                <input type="text" id="emailId" name="emailId" style="width: 120px;" value="<%=emailId%>">
-						                @
-						                <input type="text" id="domain" name="domain" style="width: 110px;" value="<%=domain%>">
-						            </c:when>
-						            <c:otherwise>
-						                <input type="text" id="emailId" name="emailId" style="width: 120px;">
-						                @
-						                <input type="text" id="domain" name="domain" style="width: 110px;">
-						            </c:otherwise>
-					        </c:choose>
-                   			  <select name="emailSelect" id="emailSelect" style="width: 80px;">
-	                 			    <option value="selec" selected>선택</option>
-	                    			<option value="self">직접입력</option>
-				                    <option value="naver.com">naver.com</option>
-				                    <option value="gmail.com">gmail.com</option>
-				                    <option value="daum.com">daum.com</option>
-				                    <option value="nate.com">nate.com</option>
-				                    <option value="hanmail.com">hanmail.com</option>
-                 			   </select>
-                		  </td>              		
-                </tr>
-                
-                --%>
-
-
-  <tr>
-     <th id="coreName">주소 </th>
- 	 <td>
-   		 <input type="text" class="input-area" id="address" name="address" value="${loginUser.address}"> 
-  	</td>
-  </tr>
-</tbody>
-  </table>
-</div>
+    <h3>추가정보</h3>
+    <div class="addInfo">
 	
+	<table border="1">
+	
+		<tr>
+		      <th id="coreName">성별</th>
+		  	<td>
+		   		<input type="radio" name="gender" id="gen" value="남"><label for="gen">남</label> 
+		   		<input type="radio" name="gender" id="gen" value="여"><label for="gen">여</label> 
+		  	</td>
+	   </tr>
+	
+	
+	
+		<tr>   
+    	<th id="coreName">반려견 음식 관심분야</th>
+    	<td>
+        <input type="radio" name="foodInterest" id="dry" value="건식">
+        <label for="dry">건식</label>
+        
+        <input type="radio" name="foodInterest" id="wet" value="습식">
+        <label for="wet">습식</label>
+        
+        <input type="radio" name="foodInterest" id="cooked" value="화식">
+        <label for="cooked">화식</label>
+        
+        <input type="radio" name="foodInterest" id="semiwet" value="반습식">
+        <label for="semiwet">반습식</label>
+        
+        <br>
+        
+        <input type="radio" name="foodInterest" id="allergy" value="알러지">
+        <label for="allergy">알러지</label>
+        
+        <input type="radio" name="foodInterest" id="medicine" value="약품">
+        <label for="medicine">약품</label>
+        
+        <input type="radio" name="foodInterest" id="nutrient" value="영양제">
+        <label for="nutrient">영양제</label>
+        
+        <input type="radio" name="foodInterest" id="nothing1" value="선택안함">
+        <label for="nothing1">선택안함</label>
+     	</td>
+	</tr> 
+     
+     <tr>
+    <th id="coreName">반려견 목욕 관심분야</th>
+   		<td>
+      <input type="radio" name="cleanInterest" id="long" value="장모용샴푸">
+      <label for="long">장모용샴푸</label>
+
+      <input type="radio" name="cleanInterest" id="short" value="단모용샴푸">
+      <label for="short">단모용샴푸</label>
+
+      <input type="radio" name="cleanInterest" id="impulse" value="저자극샴푸">
+      <label for="impulse">저자극샴푸</label>
+
+      <br>
+
+      <input type="radio" name="cleanInterest" id="unscented" value="무향샴푸">
+      <label for="unscented">무향샴푸</label>
+
+      <input type="radio" name="cleanInterest" id="rinse" value="린스">
+      <label for="rinse">린스</label>
+
+      <input type="radio" name="cleanInterest" id="treatment" value="트리트먼트">
+      <label for="treatment">트리트먼트</label>
+
+      <input type="radio" name="cleanInterest" id="nothing2" value="선택안함">
+      <label for="nothing2">선택안함</label>
+    	</td>
+  
+  	</tr>
+  	
+  </table>
+  </div>
       
       
       

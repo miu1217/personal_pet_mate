@@ -52,7 +52,7 @@
 <body>
 	  <%@include file="../common/menubar.jsp"%> <!-- 로그인유저의 정보가 담겨져있음 input hidden으로 숨겨서 로그인유저의 비밀번호를 보내주고 서블릿하나만들어서 입력한 비밀번호가 같으면 updateForm.jsp로 보내주는 작업하기  -->
 	<!-- 만약 여기서 입력한 비밀번호가 loginUser의 비밀번호와 같으면 updateController로 이동해야함 or updateForm.jsp로 이동-->
-     <form action="<%=contextPath %>/pet.test" method="post">   <!-- 비밀번호를 입력해서 만약 비밀번호가 로그인유저와 일치하면 수정서블릿으로 이동 -->
+     <form action="<%=contextPath %>/pet.beforeChk" method="post">   <!-- 비밀번호를 입력해서 만약 비밀번호가 로그인유저와 일치하면 수정서블릿으로 이동 -->
   		<input type ="hidden" name="userPwd" value="${loginUser.userPwd }"> <!-- 서블렛에서 파라미터영역에서 꺼내올수있음 -->
         <div class="wrap">
             <h1 align="center">회원정보 수정</h1>
@@ -62,16 +62,17 @@
             <h2>회원정보를 수정하시려면 비밀번호를 입력하셔야 합니다.</h2>
             회원님의 개인정보 보호를 위한 본인 확인 절차이오니, PersonalMate 회원 로그인 시 사용하시는 비밀번호를 입력해주세요. <br><br><br>
            
-           <div class="all">
-            <div class="content_1">
-              <input type="password" name="passwordChk"  placeholder="비밀번호를 입력해주세요." required> <br>
-          </div>  
-            <br>
-            <div class="content_2">
-              <button type="submit" onclick="return passwordChk2();" class="okay" >확인</button>   <!--form태그내에서 input태그에 있는 name과 onclick의 이름이 같게하면 input태그에 있는 name을 먼저 찾아서 오류가 발생함-->
-              <button onclick="location.href='<%=contextPath%>/pet.myPage'"  class="cancel">취소</button>
+            <div class="all">
+            	<div class="content_1">
+            		  <input type="password" name="passwordChk"  placeholder="비밀번호를 입력해주세요." required> <br>
+         		</div>  
+           		 <br>
+            
+           		 <div class="content_2">
+              		  <button type="submit" onclick="return passwordChk2();" class="okay" >확인</button>   <!--form태그내에서 input태그에 있는 name과 onclick의 이름이 같게하면 input태그에 있는 name을 먼저 찾아서 오류가 발생함-->
+            		  <button onclick="location.href='<%=contextPath%>/pet.myPage'"  class="cancel">취소</button>
+            	 </div>
             </div>
-          </div>
 
           </div>
         </div>
@@ -84,8 +85,8 @@
         
 		
 				var chkPwd = $("input[name='passwordChk']").val();
-			//	var nowPwd = $("loginUser.userPwd").val();
-				var nowPwd = ${loginUser.userPwd};
+				//var nowPwd = $("loginUser.userPwd").val();
+				var nowPwd = "${loginUser.userPwd}";
 				
 				console.log(chkPwd);
 				console.log(nowPwd);
@@ -95,7 +96,7 @@
 					return false; 
 				}else {
 				
-				return true;
+					return true;
 				}
 				
        }

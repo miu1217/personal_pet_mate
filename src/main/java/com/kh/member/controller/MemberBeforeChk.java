@@ -1,27 +1,23 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
-
 /**
- * Servlet implementation class FindIdController
+ * Servlet implementation class MemberTest
  */
-@WebServlet("/pet.findId")
-public class FindIdController extends HttpServlet {
+@WebServlet("/pet.beforeChk")
+public class MemberBeforeChk extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindIdController() {
+    public MemberBeforeChk() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,21 +34,7 @@ public class FindIdController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		String useName = request.getParameter("findUseName");
-		String usePhone = request.getParameter("findUsePhone");
-		
-		Member m = new MemberService().findId(useName, usePhone);
-		
-		
-		
-		if(m!=null) {
-			//request.setAttribute("findMyId", m.getUserId());
-			response.getWriter().print(m.getUserId());
-			
-		}
-		
+		request.getRequestDispatcher("views/member/updateForm.jsp").forward(request, response);
 	}
 
 }
