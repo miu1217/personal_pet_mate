@@ -76,17 +76,22 @@ body {
       border-top : 2px solid grey;
       border-bottom: 2px solid grey;
       text-align: center;
+      float: right;
     }
     #ti{
       font-size: 25px;
       border-bottom: 2px solid grey;
       text-align: left;
-      padding-left: 5%;
+      padding-left: 2%;
     }
-	/* 뒤로가기버튼 */
-    #back{
-      margin-left: 90%;
-      
+    
+ 	#btn{
+        border-top: 2px solid gray;
+        border-bottom: 2px solid gray;
+    }
+
+    #update{
+      margin-left: 30%;
     }
 
     #wr, #dav, #co, #cov{
@@ -147,7 +152,6 @@ body {
       box-sizing: border-box;
       resize: none;
       border: 2px solid grey;
-     
     }
   </style>
 </head>
@@ -173,10 +177,24 @@ body {
 
       <div class="insert">
         <div class="info">
-          <input type="hidden" name="bno" value="${b.boardNo }">
+          <input type="hidden" id="bno" name="bno" value="${b.boardNo }">
+
           <table >
             <tr>
-              <td id="ti" colspan="10" style="font-size: 25px;">${b.boardTitle } <span id="back"><a href="javascript:window.history.go(-1);" class="btn btn-success">목록가기</a></span></td>
+				<td id="ti" colspan="10" style="font-size: 25px;">${b.boardTitle } </td>
+                <td id="btn">
+				<c:choose>
+	                <c:when test="${(loginUser.userId eq b.boardWriter) or (loginUser.userId eq 'admin')}">
+                    <span id="update"><a href="${contextPath }/pet.boardUpdate?bno=${b.boardNo}" class="btn btn-success">수정</a></span>
+                    <span id="delete"><a  href="${contextPath }/pet.boardDelete?bno=${b.boardNo}"  class="btn btn-success">삭제</a></span>
+                    <span id="back"><a href="${contextPath}/pet.boardMain?currentPage=1" class="btn btn-success">목록가기</a></span>
+	                </c:when>
+	                <c:otherwise>
+	                	  <span id="back"><a href="${contextPath}/pet.boardMain?currentPage=${pb.currentPage}" class="btn btn-success">목록가기</a></span>
+	                </c:otherwise>
+				</c:choose>
+				
+                </td>
             </tr>
             <tr>
               <td id="wr">작성자 </td>
@@ -191,11 +209,10 @@ body {
             <div class="content" id="mainContent">
           <textarea type="text" id="contentText" name="content" readonly>${b.boardContent }</textarea>
           <br>
-         
+         <c:if test="${not empty at }">
           <img id="inputImg" src="${contextPath}${at.filePath}${at.changeName}">
-         
+         </c:if>
         </div>
-        
         <div class="reply">
           <table>
               <tr>
@@ -207,7 +224,7 @@ body {
                 </td>
                 <c:choose>
                 <c:when test="${not empty loginUser }">
-	                <td><button onclick="" class="btn btn-success">작성</button></td>
+	                <td><button onclick="${contextPath}/pet.insertRe" class="btn btn-success">작성</button></td>
                 </c:when>
                 <c:otherwise>
                   <td><button onclick="window.alert('로그인 후 이용 가능합니다.'); return false;" class="btn btn-success">작성</button></td>
@@ -240,7 +257,7 @@ body {
     
     window.addEventListener("load", resize);
     window.onresize = resize;
-    
+   
    
 </script>
   

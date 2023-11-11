@@ -185,27 +185,30 @@
 		</nav>
 	</header>
     
-    <div class="insertTop">게시글 작성</div>
-    <form action="${contextPath }/pet.insertBo" method="post" id="goInsert" encType="multipart/form-data">
-    	<input type=hidden name="userNo" value="${loginUser.userNo }">
+    <div class="insertTop">게시글 수정</div>
+    <form action="${contextPath }/pet.boardUpdate" method="post" id="goUpdate" encType="multipart/form-data">
+    	<input type=hidden name="bno" value="${b.boardNo }">
       <main>
         <div class="insert">
           <div class="subject">
-            <input name="title" id="title" class="insertT" type="text" value="" placeholder="제목을 입력하세요.">
+            <input name="title" id="title" class="insertT" type="text" value="${b.boardTitle }">
             <span class="num_byte">
               <span class="screen_out">입력된 글자 수 : </span>
               <span id="subject_limit" class="current_num">0</span> / 60 bytes (한글 30자)
             </span>
           </div>
           <div class="filebox">
-              <input class="upload-name"  value="첨부파일" placeholder="첨부파일">
-              <label for="file">파일찾기</label> 
-              <input type="file" id="file" name="file" onchange="loadImg(this,1);">
+              <input class="upload-name"  value="${at.originName }" >
+              <label for="refile">파일찾기</label> 
+              <input type="file" id="refile" name="refile" onchange="loadImg(this,1);">
+   
           </div>
           <div class="content" id="mainContent">
-            <textarea type="text" id="content" name="content"  rows="1" placeholder="내용을 입력하세요."></textarea> <br>
+            <textarea type="text" id="content" name="content"  rows="1" placeholder="내용을 입력하세요.">${b.boardContent }</textarea> <br>
      
             <img id="inputImg" src="${contextPath}${at.filePath}${at.changeName}">
+            
+            
         </div>
         </main>
 </form>
@@ -250,8 +253,8 @@
 				}
 			}
 
-        $("#file").on('change',function(){
-            var fileName = $("#file").val();
+        $("#refile").on('change',function(){
+            var fileName = $("#refile").val();
         $(".upload-name").val(fileName);
         });
 
@@ -268,17 +271,17 @@
 
 	/* 글작성 버튼 클릭시 */
         function insertChk(){
-        	if($("#title") == null){
+        	if($("#title") == ''){
         		alert("제목을 입력해주세요.");
         		return false;
         	}
         	
-        	if($("#insertContent") == null){
+        	if($("#insertContent") == ''){
         		alert("내용을 입력해주세요.");
         		return false;
         	}
         	
-        	$("#goInsert").submit();
+        	$("#goUpdate").submit();
         }
         
 
