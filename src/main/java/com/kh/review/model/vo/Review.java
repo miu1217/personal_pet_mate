@@ -21,6 +21,7 @@ public class Review {
 	
 	
 	private String imgSrc;
+	private String titleImg;
 	private String productName;
 	private String userId;
 	
@@ -29,6 +30,19 @@ public class Review {
 		super();
 	}
 
+	
+	//내가 쓴 리뷰만 보는 매개변수생성자
+	public Review(String titleImg, String productName, String userId, Date createDate) {
+		super();
+		this.titleImg = titleImg;
+		this.productName = productName;
+		this.userId = userId;
+		this.createDate = createDate;
+	}
+
+	
+
+	
 	public Review(int reviewNo, int userNo, int productNo, String reviewContent, int count, Date createDate,
 			String status) {
 		super();
@@ -105,6 +119,16 @@ public class Review {
 	
 	
 	
+
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+
 
 	public int getReviewNo() {
 		return reviewNo;
