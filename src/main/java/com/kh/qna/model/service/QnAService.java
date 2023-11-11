@@ -69,4 +69,45 @@ public class QnAService {
 		return at;
 	}
 
+	
+	
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	
+	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ내가 쓴 QnA 수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	public int qnaCount(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int count =new QnADao().qnaCount(conn,userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return count;
+	}
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ내가 쓴 QnA 페이징처리해서 목록 조회
+	public ArrayList<QnA> selectMyQnAList(PageInfo pi, int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<QnA> list = new QnADao().selectMyQnAList(conn,pi,userNo); 
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ최근 30일 QnA 5개 정보담기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	public ArrayList<QnA> recentMyQnAList(int userNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<QnA> list = new QnADao().recentMyQnAList(conn,userNo); 
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
+	
+	
+	
+	
 }

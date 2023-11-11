@@ -203,5 +203,134 @@ public class QnADao {
 
 		return at;
 	}
+	
+	
+	
+	
+	
+	
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	
+	
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 내가 쓴 QnA 총 수 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+		public int qnaCount(Connection conn, int userNo) {
+			int count= 0;
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("qnaCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				
+				rset=pstmt.executeQuery();
+				
+				if(rset.next()) {
+					count=rset.getInt("COUNT");
+				}
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return count;
+		}
+
+
+
+		// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징 처리 한 내가 쓴 QnA 정보목록 조회 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+		public ArrayList<QnA> selectMyQnAList(Connection conn, PageInfo pi, int userNo) {
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("selectMyQnAList");
+			ArrayList<QnA> list =new ArrayList<>();
+			
+			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit() +1;
+			int endRow = pi.getCurrentPage()*pi.getBoardLimit();
+			
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				
+				
+				
+				while(rset.next()) {
+					list.add(new QnA(rset.getInt("QNA_NO")
+							,rset.getString("CATEGORY_NAME")
+							,rset.getString("QNA_TITLE")
+							,rset.getString("USER_ID")
+							,rset.getDate("CREATE_DATE")));
+				}
+				
+				System.out.println(list);
+				
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+
+
+			
+			
+			return list;
+		}
+
+
+
+		//ㅡㅡㅡㅡㅡㅡㅡㅡㅡ최근 30일동안 작성한 QnA 5개 정보 조회ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+		public ArrayList<QnA> recentMyQnAList(Connection conn, int userNo) {
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("recentMyQnAList");
+			ArrayList<QnA> list =new ArrayList<>();
+			
+			
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);	
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new QnA(rset.getString("QNA_TITLE")
+							,rset.getDate("CREATE_DATE")));
+				}
+				
+				//System.out.println(list);
+				
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+
+
+			
+			
+			return list;
+		}
+	
+	
 
 }

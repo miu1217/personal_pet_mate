@@ -62,5 +62,57 @@
 		WHERE QNA_NO = ?
 		AND STATUS = 'Y'
 	</entry>
+	
+	
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	
+	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡ 내가 쓴 QnA 총 개수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="qnaCount">
+		SELECT COUNT(*) COUNT
+		FROM QNA
+		WHERE USER_NO = ?
+		AND STATUS ='Y'
+	</entry>
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징처리한 내가 쓴 QnA리스트 조회ㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="selectMyQnAList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+          	  FROM
+                	(SELECT 
+	                        QNA_NO
+	                        ,CATEGORY_NAME
+	                        ,QNA_TITLE
+	                        ,USER_ID
+	                        ,Q.CREATE_DATE
+               		 FROM QNA Q
+                	 JOIN MEMBER M USING (USER_NO)
+                     JOIN QNA_CATEGORY USING (CATEGORY_NO)
+               		 WHERE USER_NO = ?
+                	 ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡ최근 30일동안 작성한 게시글 5개 정보 조회ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	<entry key="recentMyQnAList">
+		
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+          	  FROM
+                	(SELECT QNA_TITLE
+	                        ,CREATE_DATE
+               		 FROM QNA 
+               		 WHERE USER_NO = ?
+                     AND CREATE_DATE >= SYSDATE - INTERVAL '30' DAY
+                	 ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN 1 AND 5
+		
+	</entry>
+	
+	
+	
 
 </properties>
