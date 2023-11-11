@@ -158,6 +158,18 @@ nav {
 </style>
 </head>
 <body>
+
+	<script>
+		var message = "<%=message%>";
+		if(message != 'null') {
+			alert(message);
+			<%session.removeAttribute("message");%>
+		}
+	</script>
+	
+
+
+
 	<div class="nav-bar">
 		<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 		<nav>

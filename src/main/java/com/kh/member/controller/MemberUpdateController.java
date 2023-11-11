@@ -52,10 +52,19 @@ public class MemberUpdateController extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
+		String emailId = request.getParameter("emailId");
+		String domain = request.getParameter("domain");
 		String address = request.getParameter("address");
 		String[] foodInters = request.getParameterValues("foodInterest");
 		String[] cleanInters = request.getParameterValues("cleanInterest");
+		
+		String email = null;
+		if((emailId != "") && (domain != "")) {
+			email = emailId + "@" + domain;
+			
+		}
+		
+		
 		
 		String foodInter= "";
 		String cleanInter="";
@@ -83,7 +92,7 @@ public class MemberUpdateController extends HttpServlet {
 		
 		//업데이트된 회원정보들을 가져옴
 		Member updateMember = new MemberService().updateInfo(m);
-		System.out.println(updateMember); //업데이트된 회원정보 잘전달됨
+		//System.out.println(updateMember); //업데이트된 회원정보 잘전달됨
 		
 		HttpSession session = request.getSession();
 		if(updateMember == null) {   //실패했으면

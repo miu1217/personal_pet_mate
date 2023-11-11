@@ -35,16 +35,7 @@ public class MemberBeforeUpdateChkController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//페이지에서 비밀번호를 입력했으니깐 그 비밀번호가 현재로그인된 비밀번호가 일치하면 회원정보수정페이지로 이동시키기
-//		String userPwd = request.getParameter("userPwd");
-//		String loginUserPwd = request.getParameter("loginUser.userPwd");
-//		
-//		if(userPwd.equals(loginUserPwd)) {
-//			request.getRequestDispatcher("views/member/updateForm.jsp");
-//		}else {
-//			request.setAttribute("message", "오류 발생");
-//		}
-		
+
 		doGet(request, response);
 		
 	}

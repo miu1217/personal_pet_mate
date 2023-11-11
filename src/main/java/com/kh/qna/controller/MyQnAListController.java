@@ -1,4 +1,4 @@
-package com.kh.member.controller;
+package com.kh.qna.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,25 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Board;
+import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.vo.Member;
 import com.kh.qna.model.service.QnAService;
 import com.kh.qna.model.vo.QnA;
-import com.kh.review.model.service.ReviewService;
-import com.kh.review.model.vo.Review;
 
 /**
- * Servlet implementation class MemberMyPageController
+ * Servlet implementation class MyQnAListController
  */
-@WebServlet("/pet.myPage")
-public class MemberMyPageController extends HttpServlet {
+@WebServlet("/pet.myQnA")
+public class MyQnAListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberMyPageController() {
+    public MyQnAListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,35 +34,42 @@ public class MemberMyPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		int currentPage;   
+		int startPage;      
+		int endPage; 	    
+		int qnaCount;      
+		int maxPage;        
+		int qnaLimit=7;     
+		int pageLimit=5;
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		
-		ArrayList<Board> bList= new BoardService().recentMyBoardList(userNo);
-		ArrayList<Review> rList= new ReviewService().recentMyReviewList(userNo);
-		ArrayList<QnA> qList = new QnAService().recentMyQnAList(userNo);
 		
-		//list에 최신게시글 잘담김
-//		for(Board b : list) {
-//			System.out.println(b);
-//		}
-	
+		//-----내가 쓴 총 QnA 수 가져오기 (userNo를 전달해주기)
+		qnaCount = new QnAService().qnaCount(userNo);
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		maxPage = (int)Math.ceil((double)qnaCount/qnaLimit);
+		startPage = (currentPage-1) / pageLimit * pageLimit + 1;
+		endPage = startPage + pageLimit -1; 
 		
-//		for(Review r : rList) {
-//			System.out.println(r);
-//		}
+		if(maxPage<endPage) {
+			endPage = maxPage;
+		}
+		PageInfo pi = new PageInfo(qnaCount,currentPage,pageLimit,qnaLimit,maxPage,startPage,endPage);
 		
-		for(QnA q : qList) {
-			System.out.println(q);
+		ArrayList<QnA> list= new QnAService().selectMyQnAList(pi,userNo);
+		
+		for(QnA q : list) {
+		System.out.println(q);
 		}
 		
-		request.setAttribute("bList", bList);
-		request.setAttribute("rList", rList);
-		request.setAttribute("qList", qList);
+		request.setAttribute("qList", list);
+		request.setAttribute("pi", pi);
 		
-		request.getRequestDispatcher("views/member/myPage.jsp").forward(request, response);
+		session.setAttribute("qnaCount", qnaCount);
+		request.getRequestDispatcher("views/qna/myQnAList.jsp").forward(request, response);
 	}
 
 	/**

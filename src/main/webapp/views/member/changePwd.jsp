@@ -105,7 +105,7 @@
  </form>	
     <!--비밀번호 주의사항 영역-->
     <div style="margin-left: 200px;" class="tipText">
-    <img src="../resources/icons/팁아이콘.png" alt="팁아이콘" width="70" height="70"> <h3>꼭 읽어주세요</h3>
+    <img src="./resources/icons/팁아이콘.png" alt="팁아이콘" width="70" height="70"> <h3>꼭 읽어주세요</h3>
     <ul>
         <li>
             비밀번호는 도난방지, 보안설정을 위하여 3개월~6개월 사이에 주기적으로 변경하는 것이 안전합니다.
@@ -168,8 +168,8 @@
     		         var newPwd = $("input[name=newPwd]").val();   //jquery 어쩌구 형식으로 뜸 그래서 .val()을 해줘야함
      				var newPwdChk = $("#newPwdChk").val();
      				
-     				console.log(newPwd);
-     				console.log(newPwdChk);
+     				//console.log(newPwd);
+     				//console.log(newPwdChk);
      				
      				//두 요소객체의 value값이 같지 않다면
      				if(newPwd!=newPwdChk) {
