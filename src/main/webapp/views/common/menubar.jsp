@@ -196,7 +196,11 @@ nav {
 					<b><%=loginUser.getUserName()%>님 환영합니다</b>
 				</div>
 				<div class="button-div">
-					<button class="main-button" onclick="location.href='<%=contextPath%>/pet.myPage'">마이페이지</button>
+					<%if (loginUser.getUserNo() == 1) {%>
+					 	<button class="main-button" onclick="location.href='<%=contextPath%>/pet.admin.list.m'">어드민페이지</button>
+					<%}else { %>
+						<button class="main-button" onclick="location.href='<%=contextPath%>/pet.myPage'">마이페이지</button>
+					 <%} %>
 					<button class="main-button" onclick="location.href='<%=contextPath%>/pet.logout'">로그아웃</button>
 				</div>
 
