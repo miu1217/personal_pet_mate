@@ -75,7 +75,7 @@ public class BoardFreeBController extends HttpServlet {
 		session.setAttribute("pb", pb);
 		
 		
-		response.sendRedirect("views/board/freeBoardPage.jsp");
+		request.getRequestDispatcher("views/board/freeBoardPage.jsp").forward(request, response);
 		
 	}
 

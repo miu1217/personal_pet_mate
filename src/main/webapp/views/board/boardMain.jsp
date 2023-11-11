@@ -22,6 +22,8 @@ header {
 	width: 1400px;
 	height: 80px;
 	text-align: center;
+	font-family: Arial, sans-serif;
+	margin: auto;
 }
 
 main {
@@ -85,11 +87,11 @@ tbody #title {text-align: left}
 		<nav class="navbar navbar-expand-lg" data-bs-theme="light">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link active"
-					href="${pageContext.request.contextPath  }/pet.boardMain?currentPage=1">전체게시글 </a></li>
+					href="${contextPath  }/pet.boardMain?currentPage=1">전체게시글 </a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="${pageContext.request.contextPath  }/pet.notice?currentPage=1">공지사항</a></li>
+					href="${contextPath  }/pet.notice?currentPage=1">공지사항</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="${pageContext.request.contextPath  }/pet.freeBoard?currentPage=1">자유게시판</a></li>
+					href="${contextPath  }/pet.freeBoard?currentPage=1">자유게시판</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -121,8 +123,8 @@ tbody #title {text-align: left}
 								<td>${b.boardNo }</td>
 								<td>${b.boardTitle }</td>
 								<td>${b.boardWriter }</td>
-								<td>${b.count }</td>
 								<td>${b.createDate }</td>
+								<td>${b.count }</td>
 							</tr>
 						</c:forEach>
 					</c:otherwise>
@@ -138,7 +140,7 @@ tbody #title {text-align: left}
 					<button disabled>이전</button>
 				</c:when>
 				<c:otherwise>
-					<button onclick="location.href='pet.boardMain?currentPage=${pb.startPage-10}'">이전</button>
+					<button onclick="location.href='pet.boardMain?currentPage=${pb.currentPage-1 }'">이전</button>
 				</c:otherwise>
 			</c:choose>
 

@@ -1,6 +1,6 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +21,9 @@
 header {
 	width: 1400px;
 	height: 80px;
+	font-family: Arial, sans-serif;
 	text-align: center;
+	margin: auto;
 }
 
 main {
@@ -101,16 +103,15 @@ tbody #title {
 
 <body>
 	<%@include file="../common/menubar.jsp"%>
-				<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 	<header>
 		<nav class="navbar navbar-expand-lg" data-bs-theme="light">
 		<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link active"
-					href="${pageContext.request.contextPath }/pet.boardMain?currentPage=1">전체게시글 </a></li>
+					href="${contextPath }/pet.boardMain?currentPage=1">전체게시글 </a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="${pageContext.request.contextPath }/pet.notice?currentPage=1">공지사항</a></li>
+					href="${contextPath }/pet.notice?currentPage=1">공지사항</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="${pageContext.request.contextPath }/pet.freeBoard?currentPage=1">자유게시판</a></li>
+					href="${contextPath }/pet.freeBoard?currentPage=1">자유게시판</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -141,8 +142,8 @@ tbody #title {
 								<td>${b.boardNo }</td>
 								<td>${b.boardTitle }</td>
 								<td>${b.boardWriter }</td>
-								<td>${b.count }</td>
 								<td>${b.createDate }</td>
+								<td>${b.count }</td>
 							</tr>
 						</c:forEach>
 					</c:otherwise>
@@ -158,7 +159,7 @@ tbody #title {
 					<button disabled>이전</button>
 				</c:when>
 				<c:otherwise>
-					<button onclick="location.href='pet.freeBoard?currentPage=${pb.startPage-10}'">이전</button>
+					<button onclick="location.href='pet.freeBoard?currentPage=${pb.startPage-1}'">이전</button>
 				</c:otherwise>
 			</c:choose>
 
@@ -177,11 +178,16 @@ tbody #title {
 			</c:choose>
 		</div>
 		<!-- 글작성 버튼 -->
+		<!-- 관리자는 무조건 공지글만 올릴 수 있다!! -->
 		<div id="insert" style="margin: end;">
-			<c:if test="${not empty loginUser}"> 
-			<!-- 로그인한 회원만 볼 수 있도록 작업 -->
-			<a href="${contextPath }/pet.insertBo" class="btn btn-info">글작성</a>
-			</c:if>
+		<c:choose> 
+			<c:when test="${loginUser.userId eq 'admin' }">
+					<a href="${contextPath }/pet.insertNo" class="btn btn-info">글작성</a>
+			</c:when>
+			<c:when test="${not empty loginUser}"> 
+				<a href="${contextPath }/pet.insertBo" class="btn btn-info">글작성</a>
+			</c:when>
+		</c:choose>
 
 		</div>
 	</footer>

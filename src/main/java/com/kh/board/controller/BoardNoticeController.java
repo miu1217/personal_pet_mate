@@ -74,7 +74,7 @@ public class BoardNoticeController extends HttpServlet {
 		session.setAttribute("pb", pb);
 		
 		
-		response.sendRedirect("views/board/noticePage.jsp");
+		request.getRequestDispatcher("views/board/noticePage.jsp").forward(request, response);
 		
 	}
 

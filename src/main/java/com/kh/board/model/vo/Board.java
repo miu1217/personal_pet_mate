@@ -3,16 +3,21 @@ package com.kh.board.model.vo;
 import java.sql.Date;
 
 public class Board {
-	private int boardNo; //게시글번호
-	private int boardType; //게시글 타입 (1 공지 / 2 자유)
-	private String boardTitle; 
+
+	private int boardNo;
+	private int userNo;
+	private int boardType;
+	private String boardTitle;
 	private String boardContent;
-	private String boardWriter; //조회시엔 작성자명으로 조회
-	private int count; //조회수
+	private int count;
 	private Date createDate;
 	private String status;
 	
+	private String boardWriter; //조회시엔 작성자명으로 조회
 	private String imgsrc; //자유게시판 사진주소용 
+	
+	private String userId;
+	
 	
 	
 	public Board() {
@@ -28,10 +33,9 @@ public class Board {
 		this.createDate = createDate;
 	}
 
-
-
-	public Board(String boardTitle, String boardContent, String boardWriter, int count, Date createDate) {
+	public Board(int boardNo, String boardTitle, String boardContent, String boardWriter, int count, Date createDate) {
 		super();
+		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardWriter = boardWriter;
@@ -39,8 +43,16 @@ public class Board {
 		this.createDate = createDate;
 	}
 
-
-
+	public Board(int boardNo, int boardType, String boardTitle, String userId, Date createDate, int count) {
+		super();
+		this.boardNo = boardNo;
+		this.boardType = boardType;
+		this.boardTitle = boardTitle;
+		this.userId = userId;
+		this.createDate = createDate;
+		this.count = count;
+	}
+	
 	public Board(int boardNo, int boardType, String boardTitle, String boardContent, String boardWriter, int count,
 			Date createDate, String status) {
 		super();
@@ -55,6 +67,39 @@ public class Board {
 	}
 
 
+	public Board(int boardNo, int userNo, int boardType, String boardTitle, String boardContent, int count,
+			Date createDate, String status) {
+		super();
+		this.boardNo = boardNo;
+		this.userNo = userNo;
+		this.boardType = boardType;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.count = count;
+		this.createDate = createDate;
+		this.status = status;
+	}
+
+
+	
+	
+	
+	public String getBoardWriter() {
+		return boardWriter;
+	}
+
+	public void setBoardWriter(String boardWriter) {
+		this.boardWriter = boardWriter;
+	}
+
+	public String getImgsrc() {
+		return imgsrc;
+	}
+
+	public void setImgsrc(String imgsrc) {
+		this.imgsrc = imgsrc;
+	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -62,6 +107,16 @@ public class Board {
 
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
+	}
+
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 
@@ -95,16 +150,6 @@ public class Board {
 	}
 
 
-	public String getBoardWriter() {
-		return boardWriter;
-	}
-
-
-	public void setBoardWriter(String boardWriter) {
-		this.boardWriter = boardWriter;
-	}
-
-
 	public int getCount() {
 		return count;
 	}
@@ -133,24 +178,29 @@ public class Board {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+	
+	
+	public String getUserId() {
+		return userId;
+	}
 
 	
 
-	public String getImgsrc() {
-		return imgsrc;
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 
-	public void setImgsrc(String imgsrc) {
-		this.imgsrc = imgsrc;
-	}
 
 
 	@Override
 	public String toString() {
-		return "Board [게시글번호 : " + boardNo + ", 타입 : " + boardType + ", 제목 : " + boardTitle
-				+ ", 내용 : " + boardContent + ", 작성자 : " + boardWriter + ", 조회수 : " + count
-				+ ", 작성일 : " + createDate + ", 상태값 : " + status + "]";
+		return "Board [boardNo=" + boardNo + ", userNo=" + userNo + ", boardType=" + boardType + ", boardTitle="
+				+ boardTitle + ", boardContent=" + boardContent + ", count=" + count + ", createDate=" + createDate
+				+ ", status=" + status + "]";
 	}
 	
 	
