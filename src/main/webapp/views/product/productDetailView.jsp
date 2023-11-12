@@ -211,7 +211,10 @@ body {
 								data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">
 									제품 리뷰</a></li>		
 						</ul>
-						<div align="right"><button>리뷰 작성</button></div>
+						<div align="right">
+						
+						<button type="button" class="btn btn-light" style="background-color: #89725B; border: 1px solid #89725B;"
+							onclick="location.href='${contextPath}/pet.insert.r?pno=${p.productNo }'">Success</button></div>
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabs-1" role="tabpanel">
 								<div class="product__details__tab">
