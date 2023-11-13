@@ -214,7 +214,7 @@ body {
 						<div align="right">
 						
 						<button type="button" class="btn btn-light" style="background-color: #89725B; border: 1px solid #89725B;"
-							onclick="location.href='${contextPath}/pet.insert.r?pno=${p.productNo }'">Success</button></div>
+							onclick="location.href='${contextPath}/pet.insert.r?pno=${p.productNo }'">리뷰 작성</button></div>
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabs-1" role="tabpanel">
 								<div class="product__details__tab">
@@ -230,14 +230,24 @@ body {
 							</div>
 							<div class="tab-pane" id="tabs-2" role="tabpanel">
 								<div class="product__review__tab">
-									<c:forEach items="${prList }" var="pr">
-										<div class="tab-content">
-										${pr.reviewContent }
-										<c:if test="${pr.imgSrc != null }">
-										
-										<img id="subImg" src="${contextPath}${pr.imgSrc}">
-										</c:if>
-										</div>
+									<c:forEach items="${prList}" var="pr">
+										<c:choose>
+											<c:when test="${pr.imgSrc != null}">
+												<div class="tab-pane" data-review-no="${pr.reviewNo }">
+												<input type="hidden"  value="${pr.reviewNo }" id="reviewNo">
+												${pr.reviewContent }
+												<div id="reviewImg" >
+														<img id="Img" width="150" height="150" src="${contextPath}${pr.imgSrc}">
+													</div>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="tab-pane">
+												<input type="hidden"  value="${pr.reviewNo }" id="reviewNo">
+												${pr.reviewContent }
+												</div>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 								</div>
 							</div>
@@ -249,6 +259,21 @@ body {
 	</section>
 	<!-- Product Details Section End -->
 	<script>
+	
+	
+	$(function(){
+		
+		//테이블에 tbody -> tr이 클릭되었을때 해당 글번호를 추출하여 detail.bo?bno=글번호
+		$(".product__review__tab>.tab-pane").click(function(){
+			
+			//$(this).children().eq(0).text() : 글번호 추출
+			console.log($(this).children().eq(0).val());
+			location.href="pet.detail.r?rno="+ $(this).children().eq(0).val();
+			
+		});
+		
+		
+	});
 	//이미지를 읽어줄 함수 
             function loadImg(inputFile,num){
                 //inputFile : 이벤트가 발생된 요소 객체 
@@ -271,18 +296,19 @@ body {
                         console.log(e.target.result);
 
                         switch(num){
-                            case 1: $("#subImg").attr("src",e.target.result); break;
+                            case 1: $("#Img").attr("src",e.target.result); break;
                         }
 
                     }
 
                 }else{//length가 1이 아니면 
                     switch(num){
-                            case 1: $("#subImg").attr("src",null); break;
+                            case 1: $("#Img").attr("src",null); break;
                         }
 
                 }
             }
+
 
 	</script>
 	<!-- Js Plugins -->
