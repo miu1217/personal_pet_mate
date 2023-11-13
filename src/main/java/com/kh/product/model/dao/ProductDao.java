@@ -198,7 +198,8 @@ public class ProductDao {
 					ipList.add(new Product(rset.getInt("PRODUCT_NO")
 										  ,rset.getString("PRODUCT_NAME")
 										  ,rset.getString("TITLEIMG")
-										  ,rset.getString("CATEGORY_NAME")));
+										  ,rset.getString("CATEGORY_NAME")
+										  ,rset.getInt("PARENT_CATEGORY_NO")));
 				}
 				
 			} catch (SQLException e) {
