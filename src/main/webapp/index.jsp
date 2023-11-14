@@ -11,6 +11,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Main Page</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+	crossorigin="anonymous">
 <style>
 body {
 	font-family: 'Nunito', sans-serif;
@@ -20,9 +25,8 @@ body {
 }
 
 .container {
-	width: 70%;
+	width: 100%;
 	min-width: 1000px;
-	margin: auto;
 }
 
 .main-image {
@@ -33,14 +37,6 @@ body {
 	line-height: 400px;
 	font-size: 2em;
 	color: #333;
-}
-
-.product-list1, .product-list2, .product-list3 {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 20px;
-	margin-top: 20px;
-	justify-content: center;
 }
 
 .product {
@@ -56,9 +52,18 @@ body {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
+.product img {
+	width: 100%;
+	height: 60%;
+	object-fit: cover;
+	border-bottom: 2px solid #ccc;
+}
+
 .product span {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: bold;
+	padding: 10px;
+	display: block;
 }
 
 .product:hover {
@@ -68,6 +73,66 @@ body {
 span {
 	font-size: 20px;
 }
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+
+.wrap {
+	padding: 15px;
+	letter-spacing: -0.5px;
+}
+
+.tab_menu {
+	position: relative;
+	margin: auto;
+	text-align: center;
+	overflow: hidden;
+}
+
+.tab_menu .list {
+	overflow: hidden;
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	margin-top: 40px;
+}
+
+.tab_menu .list li {
+	margin-right: 14px;
+}
+
+.tab_menu .list .btn {
+	font-size: 16px;
+}
+
+.tab_menu .list li.is_on .btn {
+	font-weight: bold;
+	color: green;
+}
+
+.cont {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px;
+	margin-top: 20px;
+	justify-content: center;
+}
+
+#tab2, #tab3, #tab4, #tab5 {
+	margin-top: 40px;
+}
 </style>
 </head>
 <body>
@@ -75,19 +140,58 @@ span {
 	<div class="container">
 		<div class="main-content">
 			<div class="main-image">Main Image</div>
-			<c:choose>
-				<c:when test="${loginUser != null}">
-					<div class="product-list1"></div>
-					<div class="product-list2"></div>
-				</c:when>
-				<c:otherwise>
-					<div class="product-list1"></div>
-					<div class="product-list2"></div>
-				</c:otherwise>
-			</c:choose>
+			<div class="tab_menu">
+				<ul class="list">
+					<li class="is_on"><a href="#tab1" class="btn"
+						onclick="location.href='${contextPath}'">All</a></li>
+					<li><a href="#tab2" class="btn">Eat</a></li>
+					<li><a href="#tab3" class="btn">Shower</a></li>
+					<li><a href="#tab4" class="btn">Nutrients</a></li>
+					<c:if test="${loginUser != null }">
+						<li><a href="#tab5" class="btn">추천상품</a></li>
+					</c:if>
+				</ul>
+				<div class="cont_area">
+					<div id="tab1" class="cont"></div>
+					<div id="tab2" class="cont"></div>
+					<div id="tab3" class="cont"></div>
+					<div id="tab4" class="cont"></div>
+					<div id="tab5" class="cont"></div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<br>
+	<script>
+		const tabList = document.querySelectorAll('.tab_menu .list li');
+		const contents = document
+				.querySelectorAll('.tab_menu .cont_area .cont')
+		let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
+
+		for (var i = 0; i < tabList.length; i++) {
+			tabList[i]
+					.querySelector('.btn')
+					.addEventListener(
+							'click',
+							function(e) {
+								e.preventDefault();
+								for (var j = 0; j < tabList.length; j++) {
+									// 나머지 버튼 클래스 제거
+									tabList[j].classList.remove('is_on');
+
+									// 나머지 컨텐츠 display:none 처리
+									contents[j].style.display = 'none';
+								}
+
+								// 버튼 관련 이벤트
+								this.parentNode.classList.add('is_on');
+
+								// 버튼 클릭시 컨텐츠 전환
+								activeCont = this.getAttribute('href');
+								document.querySelector(activeCont).style.display = 'flex';
+
+							});
+		}
+	</script>
 	<script>
 		$(document)
 				.ready(
@@ -100,9 +204,14 @@ span {
 											var ipList = result.ipList;
 											var pcList = result.pcList;
 											var mList = result.mList;
+											var loginUser = "${loginUser}";
 
-											var productList1 = ""; // productList1에 추가할 HTML 문자열
-											var productList2 = "";
+											// productList1에 추가할 HTML 문자열
+											var productListAll = ""; //전체
+											var productListEat = ""; //사료
+											var productListShower = ""; //샤워
+											var productListNutrient = ""; //영양제
+											var productListUser = ""; //로그인유저추천타입
 
 											for (var i = 0; i < ipList.length; i++) {
 												var productHtml = "<div class='product' onclick=location.href='${contextPath}/pet.productDetail?pno="
@@ -112,31 +221,40 @@ span {
 														+ "><span>"
 														+ ipList[i].productName
 														+ "</span></div>";
-
-												if (i == 10) {
-													break;
+														
+												if(loginUser != "" || loginUser == ""){ //all 활성화시 다른 카테고리도 같이들어오는 제거 작업
+													productListAll += productHtml;
+													document.querySelector('#tab2').style.display = 'none';	
+													document.querySelector('#tab3').style.display = 'none';	
+													document.querySelector('#tab4').style.display = 'none';	
+													document.querySelector('#tab5').style.display = 'none';																								
+												}
+													
+												if (ipList[i].parentCategoryNo == 1) { //사료
+													productListEat += productHtml;
+												} else if (ipList[i].parentCategoryNo == 4
+														|| ipList[i].parentCategoryNo == 5) { //샴푸,컨디셔너
+													productListShower += productHtml;
+												} else if (ipList[i].parentCategoryNo >= 6
+														&& ipList[i].parentCategoryNo <= 9) { //영양제
+													productListNutrient += productHtml;
 												}
 
-												if (mList == null && i < 5) {
-													productList1 += productHtml;
-												} else if (mList == null
-														&& 4 < i < 10) {
-													productList2 += productHtml;
-												} else if (ipList[i].categoryName == mList[0]
-														&& i < 5) {
-													productList1 += productHtml; // mList == 0
-												} else if (ipList[i].categoryName == mList[1]
-														&& i < 5) {
-													productList2 += productHtml; // mList == 1
+												if (loginUser != "") { //로그인 정보 조건 처리
+													if (ipList[i].categoryName == mList[0]
+															|| ipList[i].categoryName == mList[1]) {
+														productListUser += productHtml;
+													}
 												}
+
 											}
+		
+											$("#tab1").html(productListAll);
+											$("#tab2").html(productListEat);
+											$("#tab3").html(productListShower);
+											$("#tab4").html(productListNutrient);
+											$("#tab5").html(productListUser);
 
-											$(
-													".container > .main-content > .product-list1")
-													.html(productList1);
-											$(
-													".container > .main-content > .product-list2")
-													.html(productList2);
 										},
 										error : function() {
 											console.log("통신 실패");
@@ -144,5 +262,9 @@ span {
 									});
 						});
 	</script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
 </body>
 </html>
