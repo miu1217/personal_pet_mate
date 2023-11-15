@@ -119,6 +119,19 @@ public class Review {
 	
 	
 	
+	
+
+	
+
+	public Review(int reviewNo, String titleImg, String productName, String userId, Date createDate) {
+		super();
+		this.reviewNo = reviewNo;
+		this.createDate = createDate;
+		this.titleImg = titleImg;
+		this.productName = productName;
+		this.userId = userId;
+	}
+
 
 	public String getTitleImg() {
 		return titleImg;

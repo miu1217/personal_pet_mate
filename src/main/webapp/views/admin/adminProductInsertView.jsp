@@ -55,6 +55,17 @@
   border: 0 none;
   transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease; 
   width: 120%}
+  
+
+  
+.btn.btn-primary.btn-round {
+  background-color: #677E52 !important; /* Change this to the desired hover color */
+  
+}
+.btn.btn-primary.btn-sm:hover {
+  background-color: #4a5a3b !important; /* Change this to the desired hover color */
+  transition: background-color 0.3s ease !important; /* Add a transition effect */
+}
 </style>
 <body class="">
 
@@ -105,7 +116,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">Product Insert</a>
+            <a class="navbar-brand" href="javascript:;" style="font-weight: bold;">Product Insert</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
           </div>
@@ -118,7 +129,7 @@
         <div class="col-md-8">
           <div class="card card-user">
             <div class="card-header">
-              <h5 class="card-title">Product Insert</h5>
+              <h5 class="card-title" style="font-weight: bold;">Product Insert</h5>
             </div>
             
             
@@ -191,7 +202,7 @@
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round"> Submit </button>
+                      <button type="submit" class="btn btn-primary btn-round"  style="background-color: #677E52;"> Submit </button>
                     </div>
                   </div>
                   </div>
@@ -201,8 +212,8 @@
                     선언석함수를 내부에 작성할때 해당 이벤트가 발생한시점에 요소객체를 전달하는 방법
                     함수(this) 
 		                -->
-						<input type="file" id="file1" name="file1" onchange="loadImg(this,1)" required> <!-- 대표이미지 필수  -->
-						<input type="file" id="file2" name="file2" onchange="loadImg(this,2)" required>
+						<input type="file"  class="form-control" id="file1" name="file1" onchange="loadImg(this,1)" required> <!-- 대표이미지 필수  -->
+						<input type="file"  class="form-control" id="file2" name="file2" onchange="loadImg(this,2)" required>
 					
 					</div>
                 </form>

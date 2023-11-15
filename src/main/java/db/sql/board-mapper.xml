@@ -85,7 +85,8 @@
 	</entry>
 
 	<entry key="detailBoard">
-		SELECT BOARD_TITLE
+		SELECT BOARD_TYPE
+					,BOARD_TITLE
 					,BOARD_NO
 					,USER_ID
 					,BOARD_CONTENT
@@ -104,6 +105,7 @@
 					, FILE_PATH
 		FROM BOARD_ATTACHMENT
 		WHERE BOARD_NO = ?
+		AND STATUS = 'Y'
 	</entry>
 
 	<entry key="insertBoard">
@@ -143,15 +145,15 @@
 	
 	<entry key="insertNewAttachment">
 		INSERT INTO BOARD_ATTACHMENT(FILE_NO
-																	,BOARD_NO
-																	,ORIGIN_NAME
-																	,CHANGE_NAME
-																	,FILE_PATH)
-													VALUES(SEQ_BANO.NEXTVAL
-													,?
-													,?
-													,?
-													,?)
+									,BOARD_NO
+									,ORIGIN_NAME
+									,CHANGE_NAME
+									,FILE_PATH)
+								VALUES(SEQ_BANO.NEXTVAL
+										,?
+										,?
+										,?
+										,?)
 	</entry>
 	
 	<entry key="updateAttachment">
@@ -164,7 +166,100 @@
 	AND STATUS = 'Y'
 	</entry>
 	
+	<entry key="updateNotice">
+	UPDATE BOARD
+    SET BOARD_TITLE = ?
+       ,BOARD_CONTENT = ?
+    WHERE BOARD_NO = ?
+    AND STATUS = 'Y'
+	</entry>
 	
+	<entry key="insertReply">
+		INSERT INTO BOARD_REPLY(REPLY_NO
+						,BOARD_NO
+						,USER_NO
+						,REPLY_CONTENT
+						,CREATE_DATE)
+					VALUES (SEQ_BRNO.NEXTVAL
+							,?
+							,?
+							,?
+							,SYSDATE) 
+	</entry>
+	
+	<entry key="selectReplyList">
+		SELECT REPLY_NO
+				,BOARD_NO
+				,USER_ID
+		  		,REPLY_CONTENT
+				,R.CREATE_DATE
+		FROM BOARD_REPLY R
+		JOIN MEMBER M USING(USER_NO)
+		WHERE BOARD_NO = ?
+		AND R.STATUS ='Y'
+		ORDER BY CREATE_DATE DESC
+ </entry>
+ <entry key="deleteReply">
+ 	   DELETE FROM  BOARD_REPLY
+       WHERE REPLY_NO = ?
+ </entry>
+ 
+ <entry key="updateReply">
+ 	UPDATE BOARD_REPLY
+    SET REPLY_CONTENT= ?
+    WHERE REPLY_NO = ?
+ </entry>
+ 
+	
+ <entry key="searchBoard">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+					FROM (SELECT BOARD_NO
+								,BOARD_TITLE
+								,USER_ID
+								,COUNT
+								,B.CREATE_DATE
+								FROM BOARD B
+								JOIN MEMBER M USING (USER_NO)
+								WHERE (BOARD_CONTENT LIKE '%' || ? || '%'
+								OR BOARD_TITLE LIKE '%' || ? || '%')
+								AND B.STATUS = 'Y'
+								ORDER BY BOARD_NO DESC) A
+		)
+ </entry>
+ 
+  <entry key="searchByTitle">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+					FROM (SELECT BOARD_NO
+								,BOARD_TITLE
+								,USER_ID
+								,COUNT
+								,B.CREATE_DATE
+								FROM BOARD B
+								JOIN MEMBER M USING (USER_NO)
+								WHERE BOARD_TITLE LIKE '%' || ? || '%'
+								AND B.STATUS = 'Y'
+								ORDER BY BOARD_NO DESC) A
+		)
+ </entry>
+ 
+   <entry key="searchByContent">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+					FROM (SELECT BOARD_NO
+								,BOARD_TITLE
+								,USER_ID
+								,COUNT
+								,B.CREATE_DATE
+								FROM BOARD B
+								JOIN MEMBER M USING (USER_NO)
+								WHERE BOARD_CONTENT LIKE '%' || ? || '%'
+								AND B.STATUS = 'Y'
+								ORDER BY BOARD_NO DESC) A
+		)
+ </entry>
+
 	
 	
 	

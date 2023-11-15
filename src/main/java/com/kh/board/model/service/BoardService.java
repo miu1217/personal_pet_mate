@@ -7,6 +7,7 @@ import com.kh.board.model.dao.BoardDao;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.PagingBar;
+import com.kh.board.model.vo.Reply;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.PageInfo;
 
@@ -36,10 +37,10 @@ public class BoardService {
 		}
 
 		// 공지게시판 조회
-		public ArrayList<Board> selecNtList(PagingBar pb) {
+		public ArrayList<Board> selecNtList(PagingBar pn) {
 			Connection conn = JDBCTemplate.getConnection();
 
-			ArrayList<Board> nlist = new BoardDao().selecNtList(conn, pb);
+			ArrayList<Board> nlist = new BoardDao().selecNtList(conn, pn);
 
 			JDBCTemplate.close(conn);
 
@@ -47,10 +48,10 @@ public class BoardService {
 		}
 
 	//자유게시판 목록조회
-		public ArrayList<Board> selecFList(PagingBar pb) {
+		public ArrayList<Board> selecFList(PagingBar pf) {
 			Connection conn = JDBCTemplate.getConnection();
 
-			ArrayList<Board> flist = new BoardDao().selecFList(conn, pb);
+			ArrayList<Board> flist = new BoardDao().selecFList(conn, pf);
 
 			JDBCTemplate.close(conn);
 
@@ -62,7 +63,13 @@ public class BoardService {
 			Connection conn = JDBCTemplate.getConnection();
 
 			int result = new BoardDao().increaseCount(conn, bno);
-
+			
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
 			JDBCTemplate.close(conn);
 			return result;
 		}
@@ -143,6 +150,7 @@ public class BoardService {
 			return result;
 		}
 
+		//게시판 수정
 		public int updateBoard(Board b, Attachment at) {
 			Connection conn = JDBCTemplate.getConnection();
 			
@@ -155,21 +163,129 @@ public class BoardService {
 				if(at.getFileNo() != 0) {
 					result2 = new BoardDao().updateAttachment(conn, at);
 				}else { //기존에 첨부파일이 없었다면 - insert
-					//기존에 첨부파일 추가 메소드에서는 sql구문이
-					//refBno(참조게시글번호) 부분이 currval(전체시퀀스번호)로 들어가있어서 사용할 수 없다.
 					//controller에서 가져온 boardNo를 넣어서 추가해야한다.
 					result2 = new BoardDao().insertNewAttachment(conn,at);
 				}
 				
+				if(result*result2>0) {
+					JDBCTemplate.commit(conn);
+				}else {
+					JDBCTemplate.rollback(conn);
+				}
 				
 			}
-			return 0;
+			return result*result2;
 		}
-	
-	
-	
-	
-	
+
+		public int updateNotice(Board b) {
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = new BoardDao().updateNotice(conn,b);
+			
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			
+			return result;
+		}
+		
+		public ArrayList<Reply> selectReplyList(int bno) {
+			Connection conn = JDBCTemplate.getConnection();
+			
+			ArrayList<Reply> rlist = new BoardDao().selectReplyList(conn, bno);
+			
+			JDBCTemplate.close(conn);
+			
+			return rlist;
+		}
+
+		public int insertReply(Reply r) {
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = new BoardDao().insertReply(conn, r);
+			
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			
+			return result;
+		}
+
+		public int deleteReply(int replyNo) {
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = new BoardDao().deleteReply(conn, replyNo);
+			
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			return result;
+		}
+
+		public int updateReply(int replyNo, String updateReply) {
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = new BoardDao().updateReply(conn,replyNo, updateReply);
+			
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			return result;
+		}
+
+		public ArrayList<Board> boardSearch(String searchText) {
+			Connection conn = JDBCTemplate.getConnection();
+			
+			ArrayList<Board> slist = new BoardDao().boardSearch(conn, searchText);
+			
+			JDBCTemplate.close(conn);
+			
+			return slist;
+			
+		}
+
+		public ArrayList<Board> searchByTitle(String titleKeyword) {
+			Connection conn = JDBCTemplate.getConnection();
+			
+			ArrayList<Board> slist = new BoardDao().searchByTitle(conn, titleKeyword);
+			
+			JDBCTemplate.close(conn);
+			
+			return slist;
+		}
+
+		public ArrayList<Board> searchByContent(String contentKeyword) {
+			Connection conn = JDBCTemplate.getConnection();
+			
+			ArrayList<Board> slist = new BoardDao().searchByContent(conn, contentKeyword);
+			
+			JDBCTemplate.close(conn);
+			
+			return slist;
+		}
+
+		public Attachment selectOriginAttachment(int originFileNo) {
+			Connection conn = JDBCTemplate.getConnection();
+			
+			Attachment at = new BoardDao().selectOriginAttachment(conn, originFileNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return at;
+		}
 	
 	
 	

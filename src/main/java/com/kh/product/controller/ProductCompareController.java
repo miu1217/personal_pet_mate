@@ -79,7 +79,6 @@ public class ProductCompareController extends HttpServlet {
 			request.getRequestDispatcher("views/product/productCompareView.jsp").forward(request, response);
 
 		} catch (ArrayIndexOutOfBoundsException e) {
-			e.printStackTrace();
 
 			int pno1 = Integer.parseInt(productNumbers[0]);
 			int pno2 = Integer.parseInt(productNumbers[1]);
@@ -95,6 +94,8 @@ public class ProductCompareController extends HttpServlet {
 
 			// 상품사진가져오기
 			ArrayList<ProductAttachment> phList2 = aps.selectProductAttachmentList(pno2);
+			
+			System.out.println(p1);
 
 			// 상품정보담기
 			request.setAttribute("p1", p1);

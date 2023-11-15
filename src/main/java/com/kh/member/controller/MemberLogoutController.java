@@ -1,6 +1,7 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,9 +34,9 @@ public class MemberLogoutController extends HttpServlet {
 		
 		//세션 정보 전부 지우기 (세션만료) -> 초기화
 		//session.invaildate();
-		
+		String before = request.getHeader("referer");
 		//사용자에게는 메인화면 보여주기(재요청)
-		response.sendRedirect(request.getContextPath()); // /jsp와 동일
+		response.sendRedirect(before); // /jsp와 동일
 	}
 
 	/**

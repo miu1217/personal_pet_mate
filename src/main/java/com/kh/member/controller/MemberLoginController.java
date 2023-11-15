@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
@@ -74,9 +73,6 @@ public class MemberLoginController extends HttpServlet {
 			//System.out.println(loginUser);
 			
 			HttpSession session = request.getSession();
-			
-			
-			
 			if(loginUser == null) {
 				session.setAttribute("message", "로그인 실패");
 				request.getRequestDispatcher("/views/member/loginPage.jsp").forward(request, response);

@@ -258,8 +258,26 @@ public class QnADao {
 	}
 
 	public int insertQnaAttachment(Connection conn, Attachment at) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQnAAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
 	}
 
 	public ArrayList<QnACategory> selectQnACategory(Connection conn) {
@@ -375,6 +393,118 @@ public class QnADao {
 
 		return result;
 	}
+
+	public QnAAttachment selectOriginAttachment(Connection conn, int originFileNo) {
+		String sql = prop.getProperty("selectQnaAttachment");
+		QnAAttachment at = null;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, originFileNo);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {	
+				at = new QnAAttachment(rset.getInt("FILE_NO"), rset.getString("ORIGIN_NAME"),
+						rset.getString("CHANGE_NAME"), rset.getString("FILE_PATH"));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+
+		return at;
+	}
+
+	public int updateBoard(Connection conn, QnA q) {
+		int result = 0;
+		String sql = prop.getProperty("updateQna");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, q.getQnaTitle());
+			pstmt.setString(2, q.getQnaContent());
+			pstmt.setInt(3, q.getQnaNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateQnaAttachment(Connection conn, QnAAttachment at) {
+		int result = 0;
+		String sql = prop.getProperty("updateQnaAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertNewQnaAttachment(Connection conn, QnAAttachment at) {
+		int result = 0;
+		String sql = prop.getProperty("insertNewQnaAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, at.getQnaNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int deleteQna(Connection conn, int qno) {
+		int result = 0;
+		String sql = prop.getProperty("deleteQna");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+	
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

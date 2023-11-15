@@ -56,6 +56,10 @@ background-color : #B0CC99;
   border: 0 none;
   transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease; 
   width: 120%}
+  .btn.btn-primary.btn-round:hover {
+  background-color: #4a5a3b !important; /* Change this to the desired hover color */
+  transition: background-color 0.3s ease !important; /* Add a transition effect */
+}
 </style>
 <body class="">
 
@@ -106,7 +110,7 @@ background-color : #B0CC99;
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">User Update</a>
+            <a class="navbar-brand" href="javascript:;" style="font-weight: bold;">User Update</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
           </div>
@@ -119,7 +123,7 @@ background-color : #B0CC99;
         <div class="col-md-8">
           <div class="card card-user">
             <div class="card-header">
-              <h5 class="card-title">User Update</h5>
+              <h5 class="card-title" style="font-weight: bold;">User Update</h5>
             </div>
              <form action="${contextPath }/pet.admin.update.m" method="post" id="update-area">
             	<input type="hidden" name="userNo" value="${m.userNo }">
@@ -198,7 +202,7 @@ background-color : #B0CC99;
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round"> Submit </button>
+                      <button type="submit" class="btn btn-primary btn-round"  style="background-color: #677E52;"> Submit </button>
                     </div>
 	                  </div>
 	               </div>

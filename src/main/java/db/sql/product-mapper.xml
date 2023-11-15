@@ -5,7 +5,7 @@
 		select * from products where status ='Y'
 	</entry>
 	<entry key="selectProductCategoryList">
-		select * from category
+		select * from category where category_no between 1 and 40
 	</entry>
 	<entry key="selectProductDetail">
 		SELECT PRODUCT_NO
@@ -62,6 +62,7 @@
 	<entry key="sortListProductReviewCount">
 		SELECT PRODUCT_NO
 		,CATEGORY_NO
+		,CATEGORY_NAME
 		,PRODUCT_NAME
 		,PRODUCT_PRICE
 		,FILE_PATH || CHANGE_NAME TITLEIMG

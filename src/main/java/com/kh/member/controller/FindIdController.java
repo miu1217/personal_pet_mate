@@ -38,13 +38,14 @@ public class FindIdController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		//아이디 찾기!!!!!!!!!
 		request.setCharacterEncoding("UTF-8");
 		
 		String useName = request.getParameter("findUseName");
 		String usePhone = request.getParameter("findUsePhone");
 		
 		Member m = new MemberService().findId(useName, usePhone);
-		
 		
 		
 		if(m!=null) {

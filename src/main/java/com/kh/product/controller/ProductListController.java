@@ -76,7 +76,6 @@ public class ProductListController extends HttpServlet {
 			cno = Integer.parseInt(request.getParameter("productCategory"));
 
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
 			cno = 0;
 		}
 

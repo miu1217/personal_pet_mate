@@ -46,17 +46,14 @@ public class QnAlistController extends HttpServlet {
 
 		int cno;
 
-		listCount = new QnAService().listCount();
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		try {
 			cno = Integer.parseInt(request.getParameter("category"));
 
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
 			cno = 0;
 		}
-
-		System.out.println(cno);
+		listCount = new QnAService().listCount(cno);
 
 		pageLimit = 10;
 		boardLimit = 10;
@@ -79,8 +76,13 @@ public class QnAlistController extends HttpServlet {
 			qlist = new QnAService().selectListAll(pi);
 		}
 
+		System.out.println(cno);
+		System.out.println(qlist);
+		System.out.println(pi);
+
 		request.setAttribute("qlist", qlist);
 		request.setAttribute("pi", pi);
+		request.setAttribute("cno", cno);
 
 		request.getRequestDispatcher("views/qna/qnaListView.jsp").forward(request, response);
 	}

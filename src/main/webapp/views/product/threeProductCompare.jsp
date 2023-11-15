@@ -5,83 +5,119 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-/* 이미지에 대한 스타일 */
-.product-img {
-	max-width: 100%; /* 너비를 테이블 셀에 맞게 조정 */
-	max-height: 200px; /* 최대 높이를 200px로 설정 */
-	height: auto; /* 이미지의 비율을 유지하면서 높이를 조정 */
-	display: block; /* 이미지를 블록 레벨 요소로 만들어 줄 바꿈 효과를 줌 */
-	margin: 0 auto; /* 상하 마진 없이 좌우 마진을 자동으로 설정해 중앙 정렬 */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background: #ffffff;
 }
 
-/* 테이블에 대한 추가 스타일 (선택적) */
-.comparison-table {
-	width: 100%; /* 테이블 너비 전체 사용 */
-	table-layout: fixed; /* 열 너비 고정 */
-}
-
-.product-specs, .product-header {
-	text-align: center; /* 텍스트 중앙 정렬 */
-}
-
-.product-price-div {
+.compares-div {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: center;
+	gap: 2rem;
+	padding: 2rem;
+}
+
+.compare-product {
+	width: 300px;
+	overflow: hidden;
+	text-align: center;
+}
+
+.compare-product img {
+	max-width: 100%;
+	height: 300px;
+}
+
+.compare-product-div {
+	padding: 1rem;
+}
+
+.compare-product h3 {
+	margin: 0.5rem 0;
+	font-size: 1.2rem;
+	color: #333;
+}
+
+.compare-product p {
+	margin: 0;
+	font-size: 1rem;
+	color: #666;
+}
+
+.compare-product-info {
+	padding: 1rem;
+	background: #ffffff;
+}
+
+.infomation-product, .ingredient-product, .brand-product {
+	margin-bottom: 1rem;
+}
+
+.price {
+	font-weight: bold;
+	color: #ff6f61;
+	margin: 1rem 0;
+}
+
+.div-line {
+	background-color: #e1e1e1;
+	height: 1px;
+	width: 100%;
+	margin: 20px 0;
 }
 </style>
 </head>
 <body>
-	<table class="comparison-table">
-		<thead>
-			<tr>
-				<!-- Product Titles -->
-				<th class="product-header">${p1.productName }</th>
-				<th class="product-header">${p2.productName }</th>
-				<c:set var="p3Name" value="${p3.productName != null ? (p3.productName) : ('빈 값입니다') }" />
-				<th class="product-header">${p3Name }</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><img class="product-img" src="${contextPath }${phList1[0].filePath }${phList1[0].changeName }" alt="Product 1"></td>
-				<td><img class="product-img" src="${contextPath }${phList2[0].filePath }${phList2[0].changeName }" alt="Product 2"></td>
-				<c:set var="p3Img" value="${not empty phList3[0].changeName ? (contextPath += phList3[0].filePath += phList3[0].changeName) : '' }" />
-				<td><img class="product-img" src="${p3Img }" alt="${p3Img }"></td>
-			</tr>
-			<tr>
-				<td class="product-specs"><div class="product-price-div">
-						<div>가격 :</div>
-						<div>${p1.productPrice }</div>
-					</div></td>
-				<td class="product-specs"><div class="product-price-div">
-						<div>가격 :</div>
-						<div>${p2.productPrice }</div>
-					</div></td>
-				<c:set var="p3Price" value="${p3.productPrice != null ? (p3.productPrice) : ('x') }" />
-				<td class="product-specs"><div class="product-price-div">
-						<div>가격 :</div>
-						<div>${p3Price }</div>
-					</div></td>
-			</tr>
-			<tr>
-				<td class="product-ingredient">${p1.productIngredient }</td>
-				<td class="product-ingredient">${p2.productIngredient }</td>
-				<c:set var="p3Ingredient" value="${p3.productIngredient != null ? (p3.productIngredient) : ('x') }" />
-				<td class="product-ingredient">${p3Ingredient }</td>
-			</tr>
-			<tr>
-				<td class="product-brand">${p1.productBrand }</td>
-				<td class="product-brand">${p2.productBrand }</td>
-				<c:set var="p3Brand" value="${p3.productBrand != null ? (p3.productBrand) : ('x') }" />
-				<td class="product-brand">${p3Brand }</td>
-			</tr>
-			<tr>
-				<td class="product-tag">${p1.productTag }</td>
-				<td class="product-tag">${p2.productTag }</td>
-				<c:set var="p3Tag" value="${p3.productTag != null ? (p3.productTag) : ('x') }" />
-				<td class="product-tag">${p3Tag }</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="compares-div">
+		<div class="compare-product">
+			<div class="compare-product-div">
+				<img class="product-img" src="${contextPath }${phList1[0].filePath }${phList1[0].changeName }">
+				<h3>${p1.productName }</h3>
+				<p>${p1.productPrice }</p>
+			</div>
+			<div class="div-line"></div>
+			<div class="compare-product-info">
+				<div class="ingredient-product">${p1.productIngredient }</div>
+				<div class="infomation-product">${p1.productInfo }</div>
+				<div class="brand-product">${p1.productBrand }</div>
+			</div>
+		</div>
+		<div class="compare-product">
+			<div class="compare-product-div">
+				<img class="product-img" src="${contextPath }${phList2[0].filePath }${phList2[0].changeName }">
+				<h3>${p2.productName }</h3>
+				<p>${p2.productPrice }</p>
+			</div>
+			<div class="div-line"></div>
+			<div class="compare-product-info">
+				<div class="ingredient-product">${p2.productIngredient }</div>
+				<div class="infomation-product">${p2.productInfo }</div>
+				<div class="brand-product">${p2.productBrand }</div>
+			</div>
+		</div>
+		<c:if test="${not empty p3.productName }">
+			<div class="compare-product">
+				<div class="compare-product-div">
+					<c:set var="p3Img" value="${not empty phList3[0].changeName ? (contextPath += phList3[0].filePath += phList3[0].changeName) : '' }" />
+					<img class="product-img" src="${p3Img }">
+					<c:set var="p3Name" value="${p3.productName != null ? (p3.productName) : ('빈 값입니다') }" />
+					<h3>${p3Name }</h3>
+					<c:set var="p3Price" value="${p3.productPrice != null ? (p3.productPrice) : ('x') }" />
+					<p>${p3Price }</p>
+				</div>
+				<div class="div-line"></div>
+				<div class="compare-product-info">
+					<c:set var="p3Ingredient" value="${p3.productIngredient != null ? (p3.productIngredient) : ('x') }" />
+					<div class="ingredient-product">${p3Ingredient }</div>
+					<c:set var="p3Info" value="${p3.productInfo != null ? (p3.productInfo) : ('x') }" />
+					<div class="infomation-product">${p3Info }</div>
+					<c:set var="p3Brand" value="${p3.productBrand != null ? (p3.productBrand) : ('x') }" />
+					<div class="brand-product">${p3Brand }</div>
+				</div>
+			</div>
+		</c:if>
+	</div>
 </body>
 </html>

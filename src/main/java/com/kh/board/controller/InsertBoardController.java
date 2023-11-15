@@ -22,13 +22,13 @@ import com.oreilly.servlet.MultipartRequest;
  * Servlet implementation class BoardInsertController
  */
 @WebServlet("/pet.insertBo")
-public class BoardInsertController extends HttpServlet {
+public class InsertBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertController() {
+    public InsertBoardController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -57,8 +57,9 @@ public class BoardInsertController extends HttpServlet {
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
 			String writer = multiRequest.getParameter("userNo"); 
-			
+			int type = 2;
 			Board b = new Board();
+			b.setBoardType(type);
 			b.setBoardWriter(writer);
 			b.setBoardTitle(title);
 			b.setBoardContent(content);

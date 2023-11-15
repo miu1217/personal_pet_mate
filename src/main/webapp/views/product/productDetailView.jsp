@@ -11,7 +11,7 @@
 <meta name="keywords" content="Ogani, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>제품 상세페이지</title>
+<title>제품 상세페이지</title>`
 
 <!-- Google Font -->
 <link
@@ -264,6 +264,11 @@ body {
 							    // 초기 로드
 							    loadMoreReviews();
 
+							    $(".product__review__tab").on("click", ".tab-pane", function () {
+							        console.log($(this).find("#reviewNo").val());
+							        location.href = "pet.detail.r?rno=" + $(this).find("#reviewNo").val();
+							    });
+							    
 							    // 클릭 이벤트 핸들러 등록
 							    $("#loadMoreBtn").click(loadMoreReviews);
 							    
@@ -317,59 +322,59 @@ body {
 		</div>
 	</section>
 	<!-- Product Details Section End -->
-	<script>
-	
-	
-	$(function(){
-		
-		//테이블에 tbody -> tr이 클릭되었을때 해당 글번호를 추출하여 detail.bo?bno=글번호
-		$(".product__review__tab>.tab-pane").click(function(){
+		<script>
+				
+				
+				$(function(){
+					
+					//테이블에 tbody -> tr이 클릭되었을때 해당 글번호를 추출하여 detail.bo?bno=글번호
+					$(".product__review__tab>.tab-pane").click(function(){
+						
+						//$(this).children().eq(0).text() : 글번호 추출
+						console.log($(this).children().eq(0).val());
+						location.href="pet.detail.r?rno="+ $(this).children().eq(0).val();
+						
+					});
+					
+					
+				});
+				//이미지를 읽어줄 함수 
+			            function loadImg(inputFile,num){
+			                //inputFile : 이벤트가 발생된 요소 객체 
+			                console.log(inputFile.files);
+			                //inputFile.files : 파일업로드 정보를 배열의 형태로 반환해주는 속성
+			                //파일을 선택하면 files속성의 length가 1이 반환됨
+			                if(inputFile.files.length == 1){ //파일이 등록되면 
+			                    //해당 파일을 읽어줄 FileReader라고 하는 자바스크립트 객체를 이용한다.
+			                    var reader = new FileReader();
+			                    //파일을 읽어줄 메소드 : reader.readAsDataURL(파일)
+			                    //해당 파일을 읽어서 고유한 url을 부여해주는 메소드 
+			                    //반환받은 url을 미리보기 화면에 넣어주면 된다. 
+			                    reader.readAsDataURL(inputFile.files[0]);
 			
-			//$(this).children().eq(0).text() : 글번호 추출
-			console.log($(this).children().eq(0).val());
-			location.href="pet.detail.r?rno="+ $(this).children().eq(0).val();
+			                    //해당 reader객체가 읽혀진 시점에 img src속성에 부여된 고유 url을 넣어주기
+			                    reader.onload = function(e){//e : event 객체
+			                        console.log(e);
+			                        //이벤트 객체에서 reader가 부여한 고유 url 정보 
+			                        //event.target.result 
+			                        console.log(e.target.result);
 			
-		});
-		
-		
-	});
-	//이미지를 읽어줄 함수 
-            function loadImg(inputFile,num){
-                //inputFile : 이벤트가 발생된 요소 객체 
-                console.log(inputFile.files);
-                //inputFile.files : 파일업로드 정보를 배열의 형태로 반환해주는 속성
-                //파일을 선택하면 files속성의 length가 1이 반환됨
-                if(inputFile.files.length == 1){ //파일이 등록되면 
-                    //해당 파일을 읽어줄 FileReader라고 하는 자바스크립트 객체를 이용한다.
-                    var reader = new FileReader();
-                    //파일을 읽어줄 메소드 : reader.readAsDataURL(파일)
-                    //해당 파일을 읽어서 고유한 url을 부여해주는 메소드 
-                    //반환받은 url을 미리보기 화면에 넣어주면 된다. 
-                    reader.readAsDataURL(inputFile.files[0]);
+			                        switch(num){
+			                            case 1: $("#Img").attr("src",e.target.result); break;
+			                        }
+			
+			                    }
+			
+			                }else{//length가 1이 아니면 
+			                    switch(num){
+			                            case 1: $("#Img").attr("src",null); break;
+			                        }
+			
+			                }
+			            }
+			
 
-                    //해당 reader객체가 읽혀진 시점에 img src속성에 부여된 고유 url을 넣어주기
-                    reader.onload = function(e){//e : event 객체
-                        console.log(e);
-                        //이벤트 객체에서 reader가 부여한 고유 url 정보 
-                        //event.target.result 
-                        console.log(e.target.result);
-
-                        switch(num){
-                            case 1: $("#Img").attr("src",e.target.result); break;
-                        }
-
-                    }
-
-                }else{//length가 1이 아니면 
-                    switch(num){
-                            case 1: $("#Img").attr("src",null); break;
-                        }
-
-                }
-            }
-
-
-	</script>
+			</script>
 	<!-- Js Plugins -->
 	<script
 		src="/personal/resources/assets/productDetailViewCSS/js/jquery-3.3.1.min.js"></script>
