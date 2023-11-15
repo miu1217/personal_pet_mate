@@ -3,21 +3,18 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-  <title>게시글 작성</title>
+  <title>공지사항 수정</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
   <style>
-
     /* 영역설정 */
       body {
       width: 1400px;
@@ -25,7 +22,6 @@
       margin: auto;
       font-family: 'Noto Sans KR', sans-serif;
       font-weight: 500;
-    
     }
 
     main {
@@ -37,11 +33,11 @@
       margin-top: 2%;
       text-align: center;
     }
-/* 네비바 */
+	/* 네비바 */
 .navbar[data-bs-theme=light] {
 	--bs-navbar-color: #000000; 
 	--bs-navbar-hover-color: #af6c64; 
-	--bs-navbar-active-color: #af6c64;
+	--bs-navbar-active-color: #F07160;
 }
 
 .navbar-expand-lg { 
@@ -75,13 +71,12 @@
         font-size: 35px;
         margin: auto;
         text-align: center;
-        margin-top: 3%;
         
     }
 
     .filebox{
         width: 60%;
-        margin-bottom: 1%;
+        margin-bottom: 5px;
     }
 
     .filebox .upload-name {
@@ -102,7 +97,6 @@
         cursor: pointer;
         text-align: center;
         margin-left: 10px;
-        margin-top: 3%;
     }
 
     /* 기존 파일박스 지워주기 */
@@ -122,7 +116,6 @@
       height: auto;
       margin: auto;
       
-      
     }
 
     .content {
@@ -131,8 +124,6 @@
       margin: auto;
       text-align: center;
     }
-    
-    #content_limit{ float: right;}
 
     .content img{
         margin: auto;
@@ -149,12 +140,15 @@
     .subject .insertT{
       width: 700px;
       font-size: 21px;
-      margin-top: 2%;
+      margin-top: 6px;
     }
 
     .num_byte{
       font-size: 14px;
     }
+
+    #content_limit{ float: right;}
+    
 
     .content textarea{
       width: 1000px;
@@ -170,15 +164,14 @@
 
   
     /* 버튼 스타일 */
-    #cancle, #insert{
+    #cancle, #submit{
       width: 80px;
       height: 40px;
       margin: auto;
       text-align: center;
-  	 border-radius: 10px;
+	 border-radius: 10px;
     }
-
-.btn.brown{background-color: rgb(211, 195, 176)}
+    .btn.brown{background-color: rgb(211, 195, 176)}
 
   .btn { 
   position: relative;
@@ -201,7 +194,6 @@
 <body>
 	<%@include file="../common/menubar.jsp"%>
 	
-	
   <div class="outer">
     <div id="insertBo">
 
@@ -214,48 +206,41 @@
 			</ul>
 		</nav>
 	</header>
-	
-    <div class="insertTop">게시글 작성</div>
-    <form action="${contextPath }/pet.insertBo" method="post" id="goInsert" onsubmit="return insertChk();" encType="multipart/form-data">
-    	<input type=hidden name="userNo" value="${loginUser.userNo }">
+    
+    <div class="insertTop">공지사항 수정</div>
+    <form action="${contextPath }/pet.noticeUpdate" method="post" id="goUpdate">
+    	<input type=hidden name="bno" value="${b.boardNo }">
       <main>
         <div class="insert">
           <div class="subject">
-            <input name="title" id="title" class="insertT" type="text" value="" placeholder="제목을 입력하세요.">
+            <input name="title" id="title" class="insertT" type="text" value="${b.boardTitle }">
             <span class="num_byte">
-              <span id="subject_limit" class="current_num">(0/ 30글자)</span>
+              <span id="subject_limit" class="current_num">(${b.boardTitle.length()}/ 30글자)</span>
             </span>
           </div>
-          <div class="filebox">
-              <input class="upload-name"  value="첨부파일" placeholder="첨부파일">
-              <label for="file">파일찾기</label> 
-              <input type="file" id="file" name="file" onchange="loadImg(this,1);">
-          </div>
           <div class="content" id="mainContent">
-            <textarea  id="content" name="content"  rows="1" placeholder="내용을 입력하세요."></textarea> <br>
-             <span class="num_byte">
-             	 <span id="content_limit" class="current_num">(0/ 2000글자)</span>
-            </span> <br>
-            <img id="inputImg" src="${contextPath}${at.filePath}${at.changeName}">
+            <textarea type="text" id="content" name="content"  rows="1" placeholder="내용을 입력하세요.">${b.boardContent }</textarea> <br>
+                        <span class="num_byte">
+             	 <span id="content_limit" class="current_num">(${b.boardContent.length()}/ 2000글자)</span>
+            </span>
         </div>
         </main>
         <footer>
           <div class="choose">
             <button type="button" onclick="isertCancle();" id="cancle" class="btn brown small">취소</button>
-            <button type="submit" id="insert" class="btn brown small">작성</button>
-            <br><br>
+            <button type="submit" id="submit" onclick="return insertChk();" class="btn brown small">작성</button>
           </div>
         </footer>
-	</form>
+</form>
           
         </div>
     </div>
   </div>
   
   <script>
-  //글자 수 카운트
-  	$("#title").keyup(function(e) {
-  		let content = $(this).val();
+//제목 글자 수 카운트
+	$("#title").keyup(function(e) {
+		let content = $(this).val();
 		$("#subject_limit").html("(" + content.length + "/ 30글자)"); //실시간 글자수 카운팅
 		if (content.length > 30) {
 			alert("최대 30글자까지 입력 가능합니다.");
@@ -263,10 +248,10 @@
 			$('#subject_limit').html("(30 / 최대 30글자)");
 		}
 	});
-  
-  
-  	$("#content").keyup(function(e) {
-  		let content = $(this).val();
+
+// 내용 글자수 카운트
+	$("#content").keyup(function(e) {
+		let content = $(this).val();
 		$("#content_limit").html("(" + content.length + "/ 2000글자)"); //실시간 글자수 카운팅
 		if (content.length > 2000) {
 			alert("최대 2000글자까지 입력 가능합니다.");
@@ -274,12 +259,21 @@
 			$('#content_limit').html("(2000 / 최대 2000글자)");
 		}
 	});
-  
-    //글작성 버튼 클릭시
+	
+  //글 작성 중 취소 버튼 누를 시
+  	function isertCancle(){
+  		let result = window.confirm('게시글 작성을 취소하시겠습니까? \n확인을 누르시면 이전페이지로 돌아갑니다.');
+  		
+  		console.log(result);
+  		if(result){ //확인 누르면 이전페이지로 넘김
+  			window.history.back();
+  		}
+  	}
+
+  //글작성 버튼 클릭시
     function insertChk(){
 	  let title = $("#title").val();
 	  let content = $("#content").val();
-	  
     	if(title == ''){
     		alert("제목을 입력해주세요.");
     		return false;
@@ -291,56 +285,8 @@
     	}
     	
     }
-  	
-  //글 작성 중 취소 버튼 누를 시
-  	function isertCancle(){
-  		let result = window.confirm('게시글 작성을 취소하시겠습니까? \n확인을 누르시면 이전페이지로 돌아갑니다.');
-  		
-  		console.log(result);
-  		if(result){ //확인 누르면 이전페이지로 넘김
-  			window.history.back();
-  		}
-  	}
-    //이미지 등록하기
-      function loadImg(inputFile, num) {
-				if (inputFile.files.length == 1) { //파일이 등록되면
-					let reader = new FileReader();
-					//파일을 읽어줄 메소드 :  reader.readAsDataURL(파일)
-					reader.readAsDataURL(inputFile.files[0]);
-
-					reader.onload = function(e) { //e : 이벤트객체
-                        
-						if(num==1) {
-							$("#inputImg").attr("src", e.target.result);
-                            adjustMainContentHeight();
-						}
-					}
-				} else { //사진입력 안할시
-					$("#inputImg").attr("src", null);
-                    adjustMainContentHeight();
-				}
-			}
-
-        $("#file").on('change',function(){
-        	let fileName = $("#file").val();
-        $(".upload-name").val(fileName);
-        });
-
-        // 이미지 등록시 main 높이 자동조절
-        function adjustContentContainerHeight() {
-        	let mainContent = document.querySelector("#mainContent");
-        	let buttonsContainer = document.querySelector(".choose");
-  
- 
-        	let contentHeight = mainContent.scrollHeight;
-            mainContent.mainstyle.height = contentHeight + "px";
-            buttonsContainer.buttonsContainerstyle.height = contentHeight + "px";
-
-        }
         
 
 </script>
-
 </body>
-
 </html>

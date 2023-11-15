@@ -69,6 +69,7 @@ public class ProductListController extends HttpServlet {
 			
 		int cno;
 
+		ArrayList<Product> plist = new ProductService().selectProductList();
 		ArrayList<ProductCategory> clist = new ProductService().selectProductCategoryList();
 		ArrayList<Product> phList = null;
 

@@ -26,7 +26,6 @@ public class Product {
 	public Product() {
 		
 	}
-	
 	public Product(int productNo, String productName, String imgsrc, String categoryName, int parentCategoryNo) {
 		super();
 		this.productNo = productNo;

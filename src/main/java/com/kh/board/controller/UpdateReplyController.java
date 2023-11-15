@@ -1,4 +1,4 @@
-package com.kh.member.controller;
+package com.kh.board.controller;
 
 import java.io.IOException;
 
@@ -8,22 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.kh.board.model.service.BoardService;
 
 /**
- * Servlet implementation class FindIdController
+ * Servlet implementation class UpdateReplyController
  */
-@WebServlet("/pet.findId")
-public class FindIdController extends HttpServlet {
+@WebServlet("/pet.updateReply")
+public class UpdateReplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindIdController() {
+    public UpdateReplyController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -38,22 +36,20 @@ public class FindIdController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		//아이디 찾기!!!!!!!!!
 		request.setCharacterEncoding("UTF-8");
 		
-		String useName = request.getParameter("findUseName");
-		String usePhone = request.getParameter("findUsePhone");
+		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
+		String updateReply = request.getParameter("updateContent");
+	
+		//System.out.println(replyNo);
+		//System.out.println(updateReply);
 		
-		Member m = new MemberService().findId(useName, usePhone);
+		int result = new BoardService().updateReply(replyNo, updateReply);
 		
-		
-		if(m!=null) {
-			//request.setAttribute("findMyId", m.getUserId());
-			response.getWriter().print(m.getUserId());
-			
+		if(result>0) {
+			response.getWriter().print("update");
 		}
-		
 	}
+	
 
 }

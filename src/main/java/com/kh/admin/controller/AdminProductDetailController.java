@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import com.kh.admin.model.service.AdminService;
 import com.kh.member.model.vo.Member;
 import com.kh.product.model.vo.Product;
@@ -34,6 +35,7 @@ public class AdminProductDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		HttpSession session = request.getSession();
 		
 		String userId = ((Member)session.getAttribute("loginUser")).getUserId();

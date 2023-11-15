@@ -15,7 +15,7 @@
 	WHERE CATEGORY_NO BETWEEN 10 AND 40
 	</entry>
 	
-	<entry key="insertProduct">
+	<entry key="insertProdocut">
 	INSERT INTO PRODUCTS(PRODUCT_NO
                          ,CATEGORY_NO
                          ,PRODUCT_NAME
@@ -32,7 +32,7 @@
                        ,?)
 	</entry>
 	
-	<entry key="insertProductPhoto">
+	<entry key="insertProdcutPhoto">
 	INSERT INTO PRODUCTS_ATTACHMENT(FILE_NO
                                     ,PRODUCT_NO
                                     ,ORIGIN_NAME
@@ -109,60 +109,4 @@
 	AND STATUS = 'Y'
 	</entry>
 	
-	<entry key="deleteProduct">
-	UPDATE PRODUCTS
-	SET STATUS = 'N'
-	WHERE PRODUCT_NO = ?
-	AND STATUS = 'Y'
-	</entry>
-	
-	<entry key="deleteProductAttachment">
-	UPDATE PRODUCTS_ATTACHMENT
-	SET STATUS = 'N'
-	WHERE PRODUCT_NO = ?
-	AND STATUS = 'Y'
-	</entry>
-	
-	<entry key="selectMemberList">
-	SELECT USER_NO
-		   ,USER_NAME
-           ,USER_ID
-           ,FOOD_INTEREST
-           ,CLEAN_INTEREST
-           ,CREATE_DATE
-	FROM MEMBER
-	WHERE STATUS = 'Y'
-	</entry>
-	
-	<entry key="selectMember">
-	SELECT USER_NO
-			,USER_ID
-			,USER_PWD
-			,USER_NAME
-			,GENDER
-			,PHONE
-			,EMAIL
-			,ADDRESS
-	FROM MEMBER
-	WHERE USER_NO = ?
-	AND STATUS = 'Y'
-	</entry>
-	
-	<entry key="updateMember">
-	UPDATE MEMBER
-		SET USER_ID = ?
-			,USER_NAME= ?
-			,GENDER = ?
-			,PHONE = ?
-			,EMAIL = ?
-			,ADDRESS = ?
-		WHERE USER_NO = ?
-	</entry>
-	
-	<entry key="deleteMember">
-	UPDATE MEMBER
-	SET STATUS= 'N'
-	WHERE USER_NO= ?
-	AND STATUS= 'Y'
-	</entry>
 </properties>

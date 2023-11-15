@@ -46,7 +46,6 @@ public class QnAlistController extends HttpServlet {
 
 		int cno;
 
-		listCount = new QnAService().listCount();
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		try {
 			cno = Integer.parseInt(request.getParameter("category"));
@@ -56,6 +55,7 @@ public class QnAlistController extends HttpServlet {
 			cno = 0;
 		}
 
+		listCount = new QnAService().listCount(cno);
 		System.out.println(cno);
 
 		pageLimit = 10;

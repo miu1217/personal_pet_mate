@@ -1,5 +1,8 @@
 package com.kh.board.model.vo;
 
+import java.io.Serializable;
+import java.sql.Date;
+
 import java.sql.Date;
 
 public class Board {
@@ -54,7 +57,7 @@ public class Board {
 	}
 	
 	public Board(int boardNo, int boardType, String boardTitle, String boardContent, String boardWriter, int count,
-			Date createDate, String status) {
+			Date createDate) {
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
@@ -63,9 +66,9 @@ public class Board {
 		this.boardWriter = boardWriter;
 		this.count = count;
 		this.createDate = createDate;
-		this.status = status;
 	}
 
+	
 
 	public Board(int boardNo, int userNo, int boardType, String boardTitle, String boardContent, int count,
 			Date createDate, String status) {
