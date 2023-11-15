@@ -10,87 +10,117 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Main Page</title>
+<title>Personal PetMate</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">
 <style>
+
 body {
-	font-family: 'Nunito', sans-serif;
+	font-family: font-family:'Nunito', sans-serif;
 	margin: 0;
 	padding: 0;
 	line-height: 1.6;
+	background-color: #fffff;
+	color: #333;
 }
 
 .container {
 	width: 100%;
-	min-width: 1000px;
+	min-width: 1200px;
 }
+
 
 .main-image {
 	width: 100%;
-	height: 400px;
-	background: #ccc;
+	height: 100%;
 	text-align: center;
-	line-height: 400px;
 	font-size: 2em;
-	color: #333;
+	color: #fff;
+	position: relative;
+	overflow: hidden;
+}
+
+.main-image img {
+	width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+}
+
+.list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	margin-top: 10px;
+}
+
+.list li {
+	margin-right: 20px;
+}
+
+.btn {
+	font-size: 16px;
+	color: #677E52;
+	text-decoration: none;
+	padding: 8px 16px;
+	transition: background-color 0.3s ease;
+}
+
+.cont {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	margin-top: 20px;
+	justify-content: center;
 }
 
 .product {
-	width: 18%;
-	height: 250px;
-	background: #f5f1dc;
+	width: 22%;
+	margin-bottom: 30px;
+	background: #fff;
 	text-align: center;
-	color: #333;
-	transition: background 0.3s ease;
-	border-radius: 10px;
 	overflow: hidden;
-	font-family: 'Roboto', sans-serif;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease;
 }
 
 .product img {
 	width: 100%;
-	height: 60%;
+	height: 400px;
 	object-fit: cover;
-	border-bottom: 2px solid #ccc;
+	border-bottom: 2px solid #eee;
 }
 
 .product span {
+	display: block;
+	padding: 15px;
 	font-size: 18px;
 	font-weight: bold;
-	padding: 10px;
-	display: block;
+	color: #333;
 }
 
 .product:hover {
-	background: #A3C08F;
+	transform: scale(1.05);
 }
 
 span {
 	font-size: 20px;
-}
-
-* {
-	margin: 0;
-	padding: 0;
+	font-family: "Cairo", sans-serif;
 }
 
 ul {
 	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 a {
 	text-decoration: none;
-	color: #333;
-}
-
-.wrap {
-	padding: 15px;
-	letter-spacing: -0.5px;
+	color: #677E52;
 }
 
 .tab_menu {
@@ -98,40 +128,82 @@ a {
 	margin: auto;
 	text-align: center;
 	overflow: hidden;
+	background-color: #fffff;
+	padding: 15px;
+	margin-top: 20px;
 }
 
 .tab_menu .list {
-	overflow: hidden;
 	list-style: none;
 	padding: 0;
 	display: flex;
 	justify-content: center;
-	margin-top: 40px;
+	margin-top: 10px;
 }
 
 .tab_menu .list li {
-	margin-right: 14px;
+	margin-right: 20px;
 }
 
 .tab_menu .list .btn {
-	font-size: 16px;
+	position: relative;
+	  font-size: 16px;
+	  color: black;
+	  text-decoration: none;
+	  transition: color 0.3s ease;
+}
+
+.tab_menu .list .btn:after {
+	content: '';
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 2px;
+	  background-color: transparent; 
+	  transform: scaleX(0);
+	  transform-origin: right;
+ 	 transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .tab_menu .list li.is_on .btn {
 	font-weight: bold;
-	color: green;
+	color: #7fad39;
 }
 
+.tab_menu .list .btn:hover .btn{
+ 	color: #7fad39;
+}
+
+.tab_menu .list li.is_on .btn::after {
+  transform: scaleX(1); 
+  transform-origin: left; 
+  background-color: #7fad39;
+}
+
+.tab_menu .list li:hover .btn::after {
+  transform: scaleX(1);
+  transform-origin: left;
+  background-color: #7fad39;
+}
 .cont {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 24px;
+	gap: 40px;
 	margin-top: 20px;
 	justify-content: center;
 }
 
-#tab2, #tab3, #tab4, #tab5 {
+#tab1, #tab2, #tab3, #tab4, #tab5 {
 	margin-top: 40px;
+}
+
+
+.carousel-inner{
+	width:100%;
+	height:400px;
+	margin-top: 40px;
+    margin-bottom: 40px;
 }
 </style>
 </head>
@@ -139,16 +211,26 @@ a {
 	<%@include file="views/common/menubar.jsp"%>
 	<div class="container">
 		<div class="main-content">
-			<div class="main-image">Main Image</div>
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <img src="resources/assets/mainImg/shutterstock_108537197.jpg" class="d-block w-100" alt="메인이미지1">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="resources/assets/mainImg/shutterstock_275583851.jpg" class="d-block w-100" alt="메인이미지2">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="resources/assets/mainImg/shutterstock_490148839.jpg" class="d-block w-100" alt="메인이미지3">
+			    </div>
+			  </div>
+			</div>
 			<div class="tab_menu">
 				<ul class="list">
-					<li class="is_on"><a href="#tab1" class="btn"
-						onclick="location.href='${contextPath}'">All</a></li>
+					<li class="is_on"><a href="#tab1" class="btn">All</a></li>
 					<li><a href="#tab2" class="btn">Eat</a></li>
 					<li><a href="#tab3" class="btn">Shower</a></li>
 					<li><a href="#tab4" class="btn">Nutrients</a></li>
 					<c:if test="${loginUser != null }">
-						<li><a href="#tab5" class="btn">추천상품</a></li>
+						<li><a href="#tab5" class="btn">Recommend</a></li>
 					</c:if>
 				</ul>
 				<div class="cont_area">
@@ -162,18 +244,15 @@ a {
 		</div>
 	</div>
 	<script>
+		//카테고리작업
 		const tabList = document.querySelectorAll('.tab_menu .list li');
-		const contents = document
-				.querySelectorAll('.tab_menu .cont_area .cont')
+		const contents = document.querySelectorAll('.tab_menu .cont_area .cont')
 		let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
 
 		for (var i = 0; i < tabList.length; i++) {
-			tabList[i]
-					.querySelector('.btn')
-					.addEventListener(
-							'click',
-							function(e) {
-								e.preventDefault();
+			tabList[i].querySelector('.btn').addEventListener('click',function(e) {
+									e.preventDefault();
+									
 								for (var j = 0; j < tabList.length; j++) {
 									// 나머지 버튼 클래스 제거
 									tabList[j].classList.remove('is_on');
@@ -190,21 +269,19 @@ a {
 								document.querySelector(activeCont).style.display = 'flex';
 
 							});
-		}
-	</script>
-	<script>
+			}
+		
+		//상품넣기
 		$(document)
-				.ready(
-						function() {
+				.ready(function() {
 							// productList categoryList
-							$
-									.ajax({
+							$.ajax({
 										url : "ajax1.do",
 										success : function(result) {
 											var ipList = result.ipList;
 											var pcList = result.pcList;
 											var mList = result.mList;
-											var loginUser = "${loginUser}";
+											var loginUser = "${loginUser}"; //로그인정보 
 
 											// productList1에 추가할 HTML 문자열
 											var productListAll = ""; //전체
@@ -221,15 +298,16 @@ a {
 														+ "><span>"
 														+ ipList[i].productName
 														+ "</span></div>";
-														
-												if(loginUser != "" || loginUser == ""){ //all 활성화시 다른 카테고리도 같이들어오는 제거 작업
+
+												if (loginUser != ""
+														|| loginUser == "") { //all 활성화시 다른 카테고리 들어오는 제거 작업
 													productListAll += productHtml;
-													document.querySelector('#tab2').style.display = 'none';	
-													document.querySelector('#tab3').style.display = 'none';	
-													document.querySelector('#tab4').style.display = 'none';	
-													document.querySelector('#tab5').style.display = 'none';																								
+													document.querySelector('#tab2').style.display = 'none';
+													document.querySelector('#tab3').style.display = 'none';
+													document.querySelector('#tab4').style.display = 'none';
+													document.querySelector('#tab5').style.display = 'none';
 												}
-													
+
 												if (ipList[i].parentCategoryNo == 1) { //사료
 													productListEat += productHtml;
 												} else if (ipList[i].parentCategoryNo == 4
@@ -248,7 +326,7 @@ a {
 												}
 
 											}
-		
+
 											$("#tab1").html(productListAll);
 											$("#tab2").html(productListEat);
 											$("#tab3").html(productListShower);
@@ -261,6 +339,35 @@ a {
 										},
 									});
 						});
+		
+		//메인사진슬라이드
+		let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.style.display = 'block';
+                } else {
+                    slide.style.display = 'none';
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        showSlide(currentSlide);
+
+        setInterval(nextSlide, 3000);
+        
 	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
