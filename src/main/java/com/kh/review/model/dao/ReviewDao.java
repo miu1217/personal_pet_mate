@@ -372,16 +372,21 @@ public class ReviewDao {
 
 
 
-	public ArrayList<Review> selectReviewList(Connection conn, int pno) {
+	public ArrayList<Review> selectReviewList(Connection conn, int pno, int startIndex, int reviewsPage) {
 		ArrayList<Review> prList = new ArrayList<>();
 		String sql = prop.getProperty("selectReviewList");
 		
+		reviewsPage = startIndex + reviewsPage -1;
 		
 		try {
 			pstmt  = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, pno);
+			pstmt.setInt(2, startIndex);
+			pstmt.setInt(3, reviewsPage);
 			
+			System.out.println(startIndex);
+			System.out.println(reviewsPage);	
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

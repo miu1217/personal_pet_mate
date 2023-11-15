@@ -202,6 +202,31 @@ body {
 		<!-- 비교하기 버튼 이동 -->
 		<button id="compareButton" onclick="compareProducts()">비교하기</button>
 	</div>
+	
+	  	<div align="center" class="paging-area">
+		<c:choose>
+			<c:when test="${pi.currentPage eq 1}">
+				<button class="btn btn-secondary" disabled>이전</button>
+			</c:when>
+			<c:otherwise>
+				<button class="btn btn-secondary"
+					onclick="location.href='pet.products?productCategory=all&currentPage=${pi.currentPage-1}'">이전</button>
+			</c:otherwise>
+		</c:choose>
+			<c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage }">
+				<button  class="btn btn-secondary"
+				onclick="location.href='pet.products?productCategory=all&currentPage=${i}'">${i}</button>
+			</c:forEach>
+			<c:choose>
+				<c:when test="${pi.currentPage eq pi.maxPage}">
+					<button class="btn btn-secondary" disabled>다음</button>
+				</c:when>
+				<c:otherwise>
+					<button class="btn btn-secondary"
+					onclick="location.href='pet.products?productCategory=all&currentPage=${pi.currentPage+1}'">다음</button>
+				</c:otherwise>
+			</c:choose>
+       </div>
 	<script>
 		function productDetail(e){
 		    location.href="${contextPath}/pet.productDetail?pno="+e.dataset.productNo;

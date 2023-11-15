@@ -58,7 +58,7 @@
                 </div>
             </div>
             <form action="${contextPath }/pet.insert.r" method="post" id="enroll-area" enctype="multipart/form-data">
-            	<input type="hidden" name="pno" value="1">
+            	<input type="hidden" name="pno" value="${p.productNo }">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <input type="text" name="name" placeholder="Product Name" value="${p.productName }">

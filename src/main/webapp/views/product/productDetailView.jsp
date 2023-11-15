@@ -213,7 +213,7 @@ body {
 						</ul>
 						<div align="right">
 						
-						<button type="button" class="btn btn-light" style="background-color: #89725B; border: 1px solid #89725B;"
+						<button type="button" class="btn btn-light" style="background-color: #89725B; border: 1px solid #89725B; color: #fff;"
 							onclick="location.href='${contextPath}/pet.insert.r?pno=${p.productNo }'">리뷰 작성</button></div>
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabs-1" role="tabpanel">
@@ -250,7 +250,66 @@ body {
 										</c:choose>
 									</c:forEach>
 								</div>
+								<button type="button" 
+								class="btn btn-light" style="background-color: #89725B; border: 1px solid #89725B; color: #fff; margin-top: 20px; margin-left: 500px;"
+								id="loadMoreBtn"> 더보기 </button>
+
 							</div>
+							<script>
+							
+							var page = 1; // Initial page number
+						    var reviewsPerPage = 2;
+							// $(document).ready에서 한 번 실행
+							$(document).ready(function () {
+							    // 초기 로드
+							    loadMoreReviews();
+
+							    // 클릭 이벤트 핸들러 등록
+							    $("#loadMoreBtn").click(loadMoreReviews);
+							    
+							});
+							
+							
+							 // 명시적 함수 정의
+							function loadMoreReviews() {
+								    
+
+								    $.ajax({
+								        url: "pet.review",
+								        type: "GET",
+								        data: { pno: ${p.productNo}, page: page },
+								        success: function (data) {
+								            // Iterate through the received reviews and append them to the review tab
+								            $.each(data, function (index, pr) {
+								                var reviewHtml = '<div class="tab-pane" data-review-no="' + pr.reviewNo + '">';
+								                reviewHtml += '<input type="hidden" value="' + pr.reviewNo + '" id="reviewNo">';
+								                reviewHtml += pr.reviewContent;
+
+								                if (pr.imgSrc != null) {
+								                    reviewHtml += '<div id="reviewImg"><img id="Img" width="150" height="150" src="${contextPath}' + pr.imgSrc + '"></div>';
+								                }
+
+								                reviewHtml += '</div>';
+
+								                $(".product__review__tab").append(reviewHtml);
+								            });
+								        },
+								        error: function () {
+								            console.error("Error loading more reviews.");
+								        },
+								        complete: function () {
+								            // Increment the page number for the next load, regardless of success or error
+								            page++;
+								        }
+								    });
+								} 
+							
+							
+							
+
+
+							
+							</script>
 						</div>
 					</div>
 				</div>

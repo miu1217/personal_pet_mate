@@ -45,7 +45,7 @@ public class ReviewInsertController extends HttpServlet {
 		
 		
 		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
-		
+		System.out.println("맥북 언젠가 훔쳐갑니다 조심하세요 ");
 		Review r  = new ReviewService().reviewValidate(productNo, userNo);
 		
 		if(r != null) {

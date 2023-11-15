@@ -177,7 +177,7 @@ nav {
 				<img src="${contextPath }/resources/assets/logo/logo.png"> <span>personal-pet-mate</span>
 			</div>
 			<ul class="nav-menu">
-				<li><a href="${contextPath}/pet.products?productCategory=all">Product</a></li>
+				<li><a href="${contextPath}/pet.products?productCategory=all&currentPage=1">Product</a></li>
 				<li class="dropdown"><a href="${contextPath}/pet.boardMain?currentPage=1">Community</a>
 					<ul class="sub-menu">
 						<li><a href="${contextPath}/pet.boardMain?currentPage=1">전체 게시글</a></li>

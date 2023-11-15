@@ -124,10 +124,10 @@ public class ReviewService {
 		return result*result2;
 	}
 
-	public ArrayList<Review> selectReviewList(int pno) {
+	public ArrayList<Review> selectReviewList(int pno, int startIndex, int reviewsPage) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Review> prList = new ReviewDao().selectReviewList(conn, pno);
+		ArrayList<Review> prList = new ReviewDao().selectReviewList(conn, pno, startIndex, reviewsPage);
 		
 		JDBCTemplate.close(conn);
 		return prList;
