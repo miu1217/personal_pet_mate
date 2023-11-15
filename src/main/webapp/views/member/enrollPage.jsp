@@ -402,22 +402,23 @@
                     <td rowspan="2"><p>* 목욕 관심분야 (택1)</p></td>
                     <td>
                       <label for="long">
-                        <input type="radio" name="cleanInterest" id="long" value="장모용 샴푸"> 장모용샴푸
+                        <input type="radio" name="cleanInterest" id="long" value="장모용 샴푸"> 장모용 샴푸
                       </label>
                     </td>
                     <td>
                       <label for="short">
-                        <input type="radio" name="cleanInterest" id="short" value="단모용 샴푸"> 단모용샴푸
+                        <input type="radio" name="cleanInterest" id="short" value="단모용 샴푸"> 단모용 샴푸
+
                       </label>
                     </td>
                     <td>
                       <label for="impulse">
-                        <input type="radio" name="cleanInterest" id="impulse" value="저자극 샴푸"> 저자극샴푸
+                        <input type="radio" name="cleanInterest" id="impulse" value="저자극 샴푸"> 저자극 샴푸
                       </label>
                     </td>
                     <td>
                       <label for="unscented">
-                        <input type="radio" name="cleanInterest" id="unscented" value="무향 샴푸"> 무향샴푸
+                        <input type="radio" name="cleanInterest" id="unscented" value="무향 샴푸"> 무향 샴푸
                       </label>
                     </td>
                     <tr>

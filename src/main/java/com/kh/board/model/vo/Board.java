@@ -69,6 +69,19 @@ public class Board {
 	}
 
 	
+	public Board(int boardNo, int boardType, String boardTitle, String boardContent, String boardWriter, int count,
+			Date createDate, String status) {
+		super();
+		this.boardNo = boardNo;
+		this.boardType = boardType;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardWriter = boardWriter;
+		this.count = count;
+		this.createDate = createDate;
+	}
+
+	
 
 	public Board(int boardNo, int userNo, int boardType, String boardTitle, String boardContent, int count,
 			Date createDate, String status) {

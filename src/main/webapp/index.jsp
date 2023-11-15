@@ -151,6 +151,7 @@ a {
 	  color: black;
 	  text-decoration: none;
 	  transition: color 0.3s ease;
+	  border:none;
 }
 
 .tab_menu .list .btn:after {
@@ -163,7 +164,7 @@ a {
 	  background-color: transparent; 
 	  transform: scaleX(0);
 	  transform-origin: right;
- 	 transition: transform 0.3s ease, background-color 0.3s ease;
+ 	  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .tab_menu .list li.is_on .btn {
@@ -204,6 +205,16 @@ a {
 	height:400px;
 	margin-top: 40px;
     margin-bottom: 40px;
+}
+
+.tab_menu .list li.no-hover .btn:hover::after {
+  transform: scaleX(0);
+  background-color: transparent;
+}
+
+.tab_menu .list li.no-hover .btn::after {
+  transform: scaleX(0);
+  background-color: transparent;
 }
 
 </style>
@@ -261,6 +272,7 @@ a {
 									// 나머지 컨텐츠 display:none 처리
 									contents[j].style.display = 'none';
 								}
+									this.style.border = 'none';
 
 								// 버튼 관련 이벤트
 								this.parentNode.classList.add('is_on');
@@ -268,10 +280,10 @@ a {
 								// 버튼 클릭시 컨텐츠 전환
 								activeCont = this.getAttribute('href');
 								document.querySelector(activeCont).style.display = 'flex';
-
 							});
 			}
-		
+	</script>
+	<script>
 		//상품넣기
 		$(document)
 				.ready(function() {
@@ -283,7 +295,10 @@ a {
 											var pcList = result.pcList;
 											var mList = result.mList;
 											var loginUser = "${loginUser}"; //로그인정보 
-
+											console.log(ipList);
+											console.log(pcList);
+											console.log(mList);	
+											
 											// productList1에 추가할 HTML 문자열
 											var productListAll = ""; //전체
 											var productListEat = ""; //사료
@@ -340,7 +355,8 @@ a {
 										},
 									});
 						});
-		
+		</script>
+		<script>
 		//메인사진슬라이드
 		let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-item');
@@ -368,8 +384,7 @@ a {
         showSlide(currentSlide);
 
         setInterval(nextSlide, 3000);
-        
-	</script>
+        </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

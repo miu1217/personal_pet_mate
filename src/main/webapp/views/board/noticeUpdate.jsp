@@ -36,15 +36,15 @@
 	/* 네비바 */
 .navbar[data-bs-theme=light] {
 	--bs-navbar-color: #000000; 
-	--bs-navbar-hover-color: #af6c64; 
-	--bs-navbar-active-color: #F07160;
+	--bs-navbar-hover-color: #49583b; 
+	--bs-navbar-active-color: #49583b;
 }
 
 .navbar-expand-lg { 
 	--bs-navbar-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
 	--bs-navbar-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8); 
 	--bs-navbar-active-color: rgba(var(--bs-emphasis-color-rgb), 1);
-	background-color: #DFEDD4;
+	background-color: #87a56c;
 	width: 1400px;
 }
 

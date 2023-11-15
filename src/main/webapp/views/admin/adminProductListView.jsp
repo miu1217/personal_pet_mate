@@ -4,47 +4,6 @@
 <html lang="en">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <head>
-<<<<<<< HEAD
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="personal/resources/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="personal/resources/assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    PERSONAL-PET-MATE
-  </title>
-  
-  <!-- jquery 구문 -->
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="/personal/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/personal/resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/personal/resources/assets/demo/demo.css" rel="stylesheet" />
-
-
-  <meta charset="UTF-8">
-    <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="/personal/resources/assets/product/css/style.css" type="text/css">
-=======
 <meta charset="utf-8" />
 <link rel="apple-touch-icon" sizes="76x76" href="/personal/resources/assets/img/apple-icon.png">
 <link rel="icon" type="image/png" href="/personal/resources/assets/img/favicon.png">
@@ -82,7 +41,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
->>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
 </head>
 <style>
 .main-panel {

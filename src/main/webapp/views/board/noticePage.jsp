@@ -14,7 +14,7 @@
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">	
 
-<title>전체게시글</title>
+<title>공지게시판</title>
 <style>
 /* 영역설정 */
 header {
@@ -40,9 +40,9 @@ footer {
 
 /* 네비바 */
 .navbar[data-bs-theme=light] {
-	--bs-navbar-color: #000000; 
-	--bs-navbar-hover-color: #af6c64; 
-	--bs-navbar-active-color: #af6c64;
+	--bs-navbar-color: #ffff; 
+	--bs-navbar-hover-color: #000000; 
+	--bs-navbar-active-color: #000000;
 }
 
 .navbar-expand-lg { 
@@ -83,7 +83,6 @@ margin-bottom: 1%;
 	height: 40px;
     border: 1px solid #87a56c;
     box-sizing: border-box;
-    border-radius: 8px;
 	text-align: center;
     font-weight: 400;
     line-height: 16px;
@@ -93,9 +92,6 @@ margin-bottom: 1%;
 #selectSearch:focus{
     border: 1px solid #87a56c;
     box-sizing: border-box;
-    border-radius: 8px;
-    outline: 2px solid #87a56c;
-    border-radius: 8px;
 }
 
 #searchInput{
@@ -111,9 +107,7 @@ margin-bottom: 1%;
 #searchInput:focus{
     border: 1px solid #87a56c;
     box-sizing: border-box;
-    border-radius: 8px;
-    outline: 2px solid #87a56c;
-    border-radius: 8px;
+    outline: 1px solid #87a56c;
 }
 
 #searchBtn{
@@ -122,12 +116,14 @@ margin-bottom: 1%;
 	border: none;
 	outline: none;
 	margin-left:-5%;
+	margin-top: 5px;
+	padding-top: 3px;
 	background-color: #87a56c;
-
+	color: #ffff;
 }
 
 table { text-align: center; margin-top: 4%; }
-thead{ background-color: #87a56c }
+thead{ background-color: #87a56c; color: #ffff;}
 tbody { font-size: small }
 table tr td {border-bottom: 1px solid #cce4b9 }
 #bNo { width: 100px }
@@ -139,6 +135,7 @@ tbody #title { text-align: left }
 .pagingbar{
        display: flex;
     justify-content: center;
+    margin-top: -5%;
 }
 
 .page-item.active .page-link {
@@ -154,12 +151,13 @@ tbody #title { text-align: left }
 .btn-two {
 	width: 80px;
 	height: 40px;
-	margin-top: -4%;
+	margin-top: -6%;
 	float: right;
 	background-color: #87a56c;
 	color: rgb(36, 28, 28); 
 	text-align: center;
 	padding-top: 8px;
+	color: #ffff;
 	border-bottom-color: rgba(0,0,0,0.34);
 	text-shadow:0 1px 0 rgba(0,0,0,0.15);
 	box-shadow: 0 1px 0 rgba(255,255,255,0.34) inset, 
@@ -173,15 +171,17 @@ tbody #title { text-align: left }
   text-decoration: none;
   color: rgb(36, 28, 28); 
   outline: none;
+  color: #ffff;
 
 }
+
 
 .btn-two:active {
   top: 1px;
   border-color: rgba(0,0,0,0.34) rgba(0,0,0,0.21) rgba(0,0,0,0.21);
   box-shadow: 0 1px 0 rgba(255,255,255,0.89),0 1px rgba(0,0,0,0.05) inset;
   outline: none;
-}
+  color: #ffff;
 }
 </style>
 </head>

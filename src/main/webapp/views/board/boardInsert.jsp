@@ -7,7 +7,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
   <title>게시글 작성</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -39,16 +38,16 @@
     }
 /* 네비바 */
 .navbar[data-bs-theme=light] {
-	--bs-navbar-color: #000000; 
-	--bs-navbar-hover-color: #af6c64; 
-	--bs-navbar-active-color: #af6c64;
+	--bs-navbar-color: #ffff; 
+	--bs-navbar-hover-color: #000000; 
+	--bs-navbar-active-color: #000000;
 }
 
 .navbar-expand-lg { 
 	--bs-navbar-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
 	--bs-navbar-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8); 
 	--bs-navbar-active-color: rgba(var(--bs-emphasis-color-rgb), 1);
-	background-color: #DFEDD4;
+	background-color: #87a56c;
 	width: 1400px;
 }
 

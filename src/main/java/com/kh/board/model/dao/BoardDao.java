@@ -13,7 +13,6 @@ import java.util.Properties;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.PagingBar;
-
 import com.kh.board.model.vo.Reply;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.PageInfo;
@@ -627,9 +626,6 @@ public class BoardDao {
 		
 		return at;
 	}
-
-
-
 
 	
 	

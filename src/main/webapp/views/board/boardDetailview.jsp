@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
 <style>
-    body {
+     body {
       width: 1400px;
       height: auto;
       margin: auto;
@@ -26,8 +26,8 @@
     /* 네비바 */
     .navbar[data-bs-theme=light] {
       --bs-navbar-color: #ffff;
-      --bs-navbar-hover-color: #49583b;
-      --bs-navbar-active-color: #49583b;
+      --bs-navbar-hover-color: #000000;
+      --bs-navbar-active-color: #000000;
     }
 
     .navbar-expand-lg {
@@ -103,9 +103,12 @@
       height: 40px;
       border: none;
       outline: none;
+      margin-top: 5px;
       margin-left: -5%;
+      padding-top: 3px;
       background-color: #87a56c;
 	  color: white;
+	  
 
     }
 	.detail{
@@ -198,8 +201,10 @@
 	margin-top: 2%;
 	margin-bottom: 2%;
 }
+    
 
     /* 댓글창 css */
+
     .insertReply {
 		width: 1006px;
 		height: auto;
@@ -217,8 +222,8 @@
       border: 2px solid grey;
       width: 900px;
 	  margin-left: 1%;
+	  
     }
-    
 	#replyCountValue{
 		font-size: 20PX;
 	}
@@ -241,6 +246,7 @@
 	font-size: 12px;
 	}
 
+	
     #reBtn {
 		width: 70px;
 		margin-top: 13%;
@@ -248,9 +254,13 @@
     }
 
 /* 댓글리스트 */
+
+
 	.ReW{
 		background-color: #87a56c;
 		padding-left: 1%;
+		width: 1002px;
+		height:40px
 	} 
 	.replyBtn{
 		float: right;
@@ -264,16 +274,18 @@
 		margin-right: 1px;
 	}
 
-    .reC {
+
+    .reListC {
+    width: 1000px;
       height: 120px;
       resize: none;
       overflow: auto;
-	  padding-left: 1%;
+}
+    .reListC:focus  {
+      outline: none;
     }
+    
 
-    .reC:focus {
-     outline: none;
-       }
 </style>
 </head>
 <body>
@@ -365,7 +377,8 @@
               <th id="replyCount"><label for="replyCount"><span id="replyCountValue">0</span> 개의 댓글이 있습니다.</label></th>
               <tr>
                 <td>
-					<textarea class="replyContent" rows="3" cols="110" placeholder="로그인 후 이용 가능합니다."></textarea>
+					<textarea class="replyContent" id="reContent" rows="3" cols="110" placeholder="로그인 후 이용 가능합니다."></textarea>
+
 					<span class="num_byte">
 						<span id="reply_limit" class="current_num">(0/ 400글자)</span>
 					</span>
@@ -441,15 +454,32 @@
 
     /* 댓글 */
 	//댓글입력
+	      //글자 수 카운트
+    	$("#reContent").keyup(function(e) {
+    		let content = $(this).val();
+  		$("#reply_limit").html("(" + content.length + "/ 400글자)"); //실시간 글자수 카운팅
+  		if (content.length > 400) {
+  			alert("최대 400글자까지 입력 가능합니다.");
+  			$(this).val(content.substring(0, 400));
+  			$('#subject_limit').html("(400 / 최대 400글자)");
+  		}
+  	});
+	
+    
 	function insertReply(){
-		if($("#replyContent").val().length() >400){
+		if($("#reContent").val() == ""){
+			alert("내용을 작성해주세요.");
+			return false;
+		}
+		if($("#reContent").val().length>400){
+
 			alert("400자 이하로 작성해주세요.");
 			return false;
 		}else{
 			$.ajax({
 				url : "pet.insertReply",
 				data : {
-					content:$("#replyContent").val(),
+					content:$("#reContent").val(), 
 					bno : ${b.boardNo}
 				},
 				type : "post",
@@ -459,7 +489,7 @@
 						alert("댓글 작성 성공");
 						//추가된 댓글목록 재조회	
 						selectReplyList();
-						$("#replyContent").val("");
+						$("#reContent").val("");
 					}else{//실패
 						alert("댓글 작성 실패");
 					}
@@ -491,25 +521,36 @@
 				for(var i in result){
 						//댓글 작성자와 로그인유저 아이디 같을시 수정,삭제 버튼 함께 보임 
 					 if (result[i].replyWriter == '${loginUser.userId}') {
-						str+="<tr id='myReTop'>"
-							+"<td id='myReW'>"+result[i].replyWriter+"   "+result[i].creatDate+"<input type='hidden' id='replyNo' name='replyNo' value='" + result[i].replyNo + "'></td>"
-						    +"<td id='myReB'><button type='button' onclick='editReply();'>수정</button><button type='button' onclick='return checkDelete();'>삭제</button></td>"
-						   	+"</tr>"
-							+"<tr><td id='reC' colspan='3'><textarea class='reListC' style='border: none' id='reListC+"+result[i].replyNo+"' readonly>"+result[i].replyContent+"</textarea></td></tr>";
+			              str += "<tr>"
+			                  + "<td class='ReW' colspan='3'>" + result[i].replyWriter + "   " + result[i].creatDate + "<input type='hidden' id='replyNo' name='replyNo' value='" + result[i].replyNo + "'>"
+			  				+ "<span class='replyBtn'>"
+			  				+ "<button type='button' class='btn btn-light' onclick='editReply();'>수정</button>"
+			  				+ "<button type='button' class='btn btn-light' onclick='return checkDelete();'>삭제</button>"
+			  				+ "</span></td>"
+			                  + "</tr>"
+			                  + "<tr>"
+			  				+ "<td class='reC' colspan='3'><textarea class='reListC' id='replyme' style='border: none' id='result[i].replyNo' readonly>"+ result[i].replyContent +"</textarea></td>"
+			  				+ "</tr>";
 					 }else if('${loginUser.userId}'=='admin'){ //관리자일 경우 회원댓글 삭제 가능
-						 str+="<tr id='myReTop'>"
-								+"<td id='myReW'>"+result[i].replyWriter+"   "+result[i].creatDate+"<input type='hidden' id='replyNo' name='replyNo' value='" + result[i].replyNo + "'></td>"
-							    +"<td id='myReB'><button type='button' onclick='return checkDelete();'>삭제</button></td>"
-							   	+"</tr>"
-								+"<tr><td id='reC' colspan='3'><textarea class='reListC' style='border: none' id='reListC+"+result[i].replyNo+"' readonly>"+result[i].replyContent+"</textarea></td></tr>";
+							str += "<tr>"
+				                + "<td class='ReW' colspan='3'>" + result[i].replyWriter + "   " + result[i].creatDate + "<input type='hidden' id='replyNo' name='replyNo' value='" + result[i].replyNo + "'>"
+								+ "<span class='replyBtn'>"
+								+ "<button type='button' class='btn btn-light' onclick='return checkDelete();'>삭제</button>"
+								+ "</span></td>"
+				                + "</tr>"
+				                + "<tr>"
+								+ "<td class='reC' colspan='3'><textarea class='reListC' style='border: none' id='result[i].replyNo' readonly>"+ result[i].replyContent +"</textarea></td>"
+								+ "</tr>";
 					 }else{ //나머지(비회원, 작성자 본인아닐경우)
-						str+="<tr id='reTop'>"
-							+"<td id='reW'>"+result[i].replyWriter+"   "+result[i].creatDate+"</td>"
-						   	+"</tr>"
-							+"<tr><td id='reC' colspan='3'><textarea id='reListC' readonly>"+result[i].replyContent+"</textarea></td></tr>";
+							str += "<tr>"
+				                + "<td class='ReW' colspan='3'>" + result[i].replyWriter + "   " + result[i].creatDate + "<input type='hidden' id='replyNo' name='replyNo' value='" + result[i].replyNo + "'>"
+								+ "</td></tr>"
+				                + "<tr>"
+								+ "<td class='reC' colspan='3'><textarea class='reListC' style='border: none' id='result[i].replyNo' readonly >"+ result[i].replyContent +"</textarea></td>"
+								+ "</tr>";
 					 }
 				}
-				$("#reList>tbody").html(str);
+				$(".reList").html(str);
 			},
 			error : function(){
 				console.log("통신오류");
@@ -532,13 +573,13 @@
 	    });
 
     // 기존 수정 버튼 대신에 수정 완료 버튼으로 교체
-  	  $("#myReB").html(updateButton);
+  	  $(".replyBtn").html(updateButton);
 	}
 	
 	//댓글 수정 후
 	function updateReply() {
 		let replyNo = $("#replyNo").val();
-		let updatedContent = $(".reListC").val();
+		let updatedContent = $("#replyme").val();
 
 	    $.ajax({
 	    	url : "pet.updateReply",
@@ -550,7 +591,7 @@
 	    	success : function(result){
 	    		if(result == "update"){
 	    			
-			    $("#reListC").attr("readonly", true);
+			    $(".reListC").attr("readonly", true);
 			    let editButton = $("<button>", {
 			        type: "button",
 			        text: "수정",
@@ -558,7 +599,7 @@
 			            editReply();
 			        }
 			    });
-			    $("#myReB").html(editButton);
+			    $(".replyBtn").html(editButton);
 			    alert("수정 성공");
 			    selectReplyList();
 			    

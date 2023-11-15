@@ -16,6 +16,7 @@ public class Product {
 	private String status;
 	private String productTag;
 	
+	
 	//사진게시판 목록에서 필요한 썸네일용 경로와 변경된파일이름(서버에업로드된 이름)을 합쳐 담을 필드변수
 	private String imgsrc;
 	
@@ -36,6 +37,19 @@ public class Product {
 	}
 
 
+
+	
+
+	public Product(int productNo, int categoryNo,String categoryName, String productName, int productPrice, String imgsrc
+			) {
+		super();
+		this.productNo = productNo;
+		this.categoryNo = categoryNo;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.imgsrc = imgsrc;
+		this.categoryName = categoryName;
+	}
 
 	public Product(int productNo, String productName, String imgsrc, String categoryName) {
 		super();
@@ -122,6 +136,14 @@ public class Product {
 
 	public String getProductName() {
 		return productName;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public void setProductName(String productName) {

@@ -409,7 +409,6 @@ public class ReviewDao {
 		return prList;
 	}
 	
-	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ내가 쓴 리뷰 총 갯수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 		public int reviewCount(Connection conn, int userNo) {
@@ -465,14 +464,15 @@ public class ReviewDao {
 						rset = pstmt.executeQuery();
 						
 						while(rset.next()) {
-							list.add(new Review(rset.getString("TITLEIMG")
+							list.add(new Review(rset.getInt("REVIEW_NO")
+									,rset.getString("TITLEIMG")
 									,rset.getString("PRODUCT_NAME")
 									,rset.getString("USER_ID")
 									,rset.getDate("CREATE_DATE")));
 						}
 
 						//System.out.println("Dao");
-						System.out.println(list);  //아무것도 담기지않았음
+						System.out.println("DAO에서의 list : "+list);  //아무것도 담기지않았음
 						
 						
 					} catch (SQLException e) {

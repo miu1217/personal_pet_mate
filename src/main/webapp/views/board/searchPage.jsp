@@ -35,16 +35,16 @@ main {
 
 /* 네비바 */
 .navbar[data-bs-theme=light] {
-	--bs-navbar-color: #000000; 
-	--bs-navbar-hover-color: #af6c64; 
-	--bs-navbar-active-color: #af6c64;
+	--bs-navbar-color: #ffff; 
+	--bs-navbar-hover-color: #000000; 
+	--bs-navbar-active-color: #000000;
 }
 
 .navbar-expand-lg { 
 	--bs-navbar-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
 	--bs-navbar-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8); 
 	--bs-navbar-active-color: rgba(var(--bs-emphasis-color-rgb), 1);
-	background-color: #DFEDD4;
+	background-color: #87a56c;
 	width: 1400px;
 }
 
@@ -76,9 +76,8 @@ margin-bottom: 1%;
 #selectSearch{
     width: 120px;
 	height: 40px;
-    border: 1px solid #DFEDD4;
+    border: 1px solid #87a56c;
     box-sizing: border-box;
-    border-radius: 8px;
 	text-align: center;
     font-weight: 400;
     line-height: 16px;
@@ -86,29 +85,25 @@ margin-bottom: 1%;
 }
 
 #selectSearch:focus{
-    border: 1px solid #c3e2ac;
+    border: 1px solid #87a56c;
     box-sizing: border-box;
     border-radius: 8px;
-    outline: 2px solid #cce4b9;
-    border-radius: 8px;
+    outline: 2px solid #87a56c;
 }
 
 #searchInput{
 	width: 200px;
 	height: 40px;
 	border: none;
-	border: 1px solid #c3e2ac;
+	border: 1px solid #87a56c;
 	border-right: none;
 	margin-right: 2%;
 	padding-left: 5px;
 }
 
 #searchInput:focus{
-    border: 1px solid #c3e2ac;
+    border: 1px solid #87a56c;
     box-sizing: border-box;
-    border-radius: 8px;
-    outline: 2px solid #cce4b9;
-    border-radius: 8px;
 }
 
 #searchBtn{
@@ -116,13 +111,14 @@ margin-bottom: 1%;
 	height: 40px;
 	border: none;
 	outline: none;
+    margin-top: 5px;
 	margin-left:-5%;
-	background-color: #c3e2ac;
-
+	background-color: #87a56c;
+	 color: #ffff;
 }
 
 table { text-align: center; margin-top: 4%; }
-thead{ background-color: #DFEDD4}
+thead{ background-color: #87a56c; color: #ffff;}
 tbody { font-size: small }
 table tr td {border-bottom: 1px solid #cce4b9 }
 #bNo { width: 100px }
@@ -135,6 +131,7 @@ tbody #title { text-align: left }
 	float: left;
 	margin-top: 1%;
 	margin-left: 7.2%;
+	 color: #ffff;
 }
 
 .btn-two {
@@ -145,7 +142,7 @@ tbody #title { text-align: left }
 	margin-bottom: 0.5%;
 	margin-left: 2%;
 	float: right;
-	background-color: #cce4b9;
+	background-color: #87a56c;
 	color: rgb(36, 28, 28); 
 	text-align: center;
 	padding-top: 7px;
@@ -171,7 +168,19 @@ tbody #title { text-align: left }
   box-shadow: 0 1px 0 rgba(255,255,255,0.89),0 1px rgba(0,0,0,0.05) inset;
   outline: none;
 }
+    .moveTopBtn {
+      position: fixed;
+      float: right;
+      height: 32px;
+      right: 10px;
+      bottom: 10px;
+      opacity: 0.7;
+    }
 
+    .moveTopBtn:hover {
+      background-color: grey;
+	  text-align: center;
+    }
 
 </style>
 </head>
@@ -214,7 +223,7 @@ tbody #title { text-align: left }
 	<main>
 		<table class="table table-hover">
 			<thead>
-				<tr style="background-color: #DFEDD4;">
+				<tr style="background-color: #87a56c;">
 					<th scope="col" style="width: 70px">번호</th>
 					<th scope="col" style="width: 700px">제목</th>
 					<th scope="col">글쓴이</th>
@@ -244,6 +253,9 @@ tbody #title { text-align: left }
 				</c:choose>
 		</table>
 	</main>
+	      <div class="upBtn">
+        <div class="moveTopBtn">위로</div>
+      </div>
 
 
 	  <script>
@@ -280,6 +292,16 @@ tbody #title { text-align: left }
 	  		
 	  	}
   	}
+  
+    $(function(){
+        let $topBtn = document.querySelector(".moveTopBtn");
+
+        // 버튼 클릭 시 맨 위로 이동
+        $topBtn.onclick = () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });  
+        }
+
+      });
   </script>
 </body>
 </html>
