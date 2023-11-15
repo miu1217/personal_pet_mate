@@ -29,13 +29,12 @@ body {
 }
 
 .container {
-	width: 100%;
+	width:1200px;
 	min-width: 1200px;
 }
 
-
 .main-image {
-	width: 100%;
+	width: 1920px;
 	height: 100%;
 	text-align: center;
 	font-size: 2em;
@@ -45,7 +44,7 @@ body {
 }
 
 .main-image img {
-	width: 100%;
+	width: 1920px;
     height: 100%;
     object-fit: cover;
     
@@ -151,6 +150,7 @@ a {
 	  color: black;
 	  text-decoration: none;
 	  transition: color 0.3s ease;
+	  border:none;
 }
 
 .tab_menu .list .btn:after {
@@ -163,7 +163,7 @@ a {
 	  background-color: transparent; 
 	  transform: scaleX(0);
 	  transform-origin: right;
- 	 transition: transform 0.3s ease, background-color 0.3s ease;
+ 	  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .tab_menu .list li.is_on .btn {
@@ -205,6 +205,17 @@ a {
 	margin-top: 40px;
     margin-bottom: 40px;
 }
+
+.tab_menu .list li.no-hover .btn:hover::after {
+  transform: scaleX(0);
+  background-color: transparent;
+}
+
+.tab_menu .list li.no-hover .btn::after {
+  transform: scaleX(0);
+  background-color: transparent;
+}
+
 </style>
 </head>
 <body>
@@ -213,13 +224,13 @@ a {
 		<div class="main-content">
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      <img src="resources/assets/mainImg/shutterstock_108537197.jpg" class="d-block w-100" alt="메인이미지1">
+			      <img src="resources/assets/mainImg/main4.jpg" class="d-block w-100" alt="메인이미지1">
 			    </div>
 			    <div class="carousel-item">
-			      <img src="resources/assets/mainImg/shutterstock_275583851.jpg" class="d-block w-100" alt="메인이미지2">
+			      <img src="resources/assets/mainImg/main2.jpeg" class="d-block w-100" alt="메인이미지2">
 			    </div>
 			    <div class="carousel-item">
-			      <img src="resources/assets/mainImg/shutterstock_490148839.jpg" class="d-block w-100" alt="메인이미지3">
+			      <img src="resources/assets/mainImg/main5.jpeg" class="d-block w-100" alt="메인이미지3">
 			    </div>
 			  </div>
 			</div>
@@ -260,6 +271,7 @@ a {
 									// 나머지 컨텐츠 display:none 처리
 									contents[j].style.display = 'none';
 								}
+									this.style.border = 'none';
 
 								// 버튼 관련 이벤트
 								this.parentNode.classList.add('is_on');
@@ -267,10 +279,10 @@ a {
 								// 버튼 클릭시 컨텐츠 전환
 								activeCont = this.getAttribute('href');
 								document.querySelector(activeCont).style.display = 'flex';
-
 							});
 			}
-		
+	</script>
+	<script>
 		//상품넣기
 		$(document)
 				.ready(function() {
@@ -339,7 +351,8 @@ a {
 										},
 									});
 						});
-		
+		</script>
+		<script>
 		//메인사진슬라이드
 		let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-item');
@@ -367,8 +380,7 @@ a {
         showSlide(currentSlide);
 
         setInterval(nextSlide, 3000);
-        
-	</script>
+        </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

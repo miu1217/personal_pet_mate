@@ -49,77 +49,79 @@ nav {
 }
 
 .nav-menu {
-	list-style-type: none; /* Remove default list bullets */
+	list-style-type: none;
 	margin: 0;
-	padding: 0; /* Remove default padding */
-	overflow: hidden; /* Clear floats */
+	padding: 0;
+	overflow: hidden;
 	background-color: #ffffff;
-	font-family: 'Montserrat', sans-serif; /* Font family */
-	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+	font-family: 'Montserrat', sans-serif;
 	margin: 0 auto;
-	/* Subtle shadow to lift the nav off the page */
+	position: relative;
 }
 
-/* Style the links inside the list items */
 .nav-menu li {
-	display: inline-block; /* Use inline-block for proper spacing */
+	display: inline-block;
+	transition: color 0.3s ease;
+	border:none;
 }
 
-/* Style the anchor tags inside the list items */
 .nav-menu li a {
-	display: block; /* Make the links fill the container */
+	display: block;
 	color: #333;
-	text-align: center; /* Center text inside the links */
-	padding: 14px 36px; /* Add some padding */
-	text-decoration: none; /* Remove underline from links */
-	transition: background-color 0.3s;
+	text-align: center;
+	padding: 14px 36px;
+	text-decoration: none;
+	overflow: hidden;
 }
 
-/* Change the background color of links on hover and for active class */
-.nav-menu li a:hover, .nav-menu li a.active {
-	background-color: #b0cc99;
-	/* Background color on hover and for active link */
-	color: white; /* Change text color on hover for better readability */
+.nav-menu li a:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #7fad39;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s ease;
 }
 
-.nav-menu:after {
-	content: "";
-	display: table;
-	clear: both;
+.nav-menu li a:hover,.nav-menu li a.active{
+	color: #7fad39;
 }
 
 .sub-menu {
-	display: none; /* 기본적으로 서브메뉴는 숨겨져 있어야 함 */
-	position: fixed; /* nav 메뉴 아래에 위치 */
-	background-color: #ffffff; /* 서브메뉴 배경색 */
-	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); /* 서브메뉴에 그림자 효과 */
-	z-index: 1; /* 다른 요소들 위에 노출 */
+	display: none;
+	position: fixed;
+	background-color: #ffffff;
+	z-index: 1;
 	padding-left: 0;
 	min-width: 149px;
 }
 
 .nav-menu li:hover .sub-menu {
-	display: block; /* 메뉴 항목에 마우스를 올리면 서브메뉴 표시 */
+	display: block;
 }
 
 .sub-menu li {
-	display: block; /* 서브 메뉴 항목은 세로로 표시 */
+	display: block;
 }
 
 .sub-menu li a {
-	padding: 12px 16px; /* 서브 메뉴 링크에 패딩 추가 */
-	text-decoration: none; /* 밑줄 없애기 */
-	white-space: nowrap; /* 서브 메뉴 텍스트가 줄바꿈 되지 않도록 처리 */
+	padding: 12px 16px;
+	text-decoration: none;
+	white-space: nowrap;
 }
 
-.sub-menu li a:hover {
-	background-color: #b0cc99; /* 마우스 오버시 서브 메뉴 배경색 변경 */
-	color: white; /* 마우스 오버시 서븉 메뉴 글자색 변경 */
+/* 클릭강조 */
+.nav-menu li.clicked a {
+  color: #7fad39;
 }
+
 
 /* 메인 메뉴 항목 중 하위 메뉴가 있는 항목 스타일링 */
 .nav-menu li:hover {
-	background-color: #b0cc99;
 	color: white;
 }
 
@@ -147,7 +149,6 @@ nav {
 	display: inline-block;
 	font-size: 16px;
 	cursor: pointer;
-	border-radius: 8px;
 	transition: background-color 0.3s;
 	color: white;
 }
@@ -155,9 +156,26 @@ nav {
 .main-button:hover {
 	background-color: #677e52;
 }
+
+.sub-menu li.clicked a{
+	border-bottom: 2px solid #7fad39;
+}
+
 </style>
 </head>
 <body>
+
+	<script>
+		var message = "<%=message%>";
+		if(message != 'null') {
+			alert(message);
+			<%session.removeAttribute("message");%>
+		}
+	</script>
+	
+
+
+
 	<div class="nav-bar">
 		<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 		<nav>
@@ -165,7 +183,7 @@ nav {
 				<img src="${contextPath }/resources/assets/logo/logo.png"> <span>personal-pet-mate</span>
 			</div>
 			<ul class="nav-menu">
-				<li><a href="${contextPath}/pet.products?productCategory=all">Product</a></li>
+				<li><a href="${contextPath}/pet.products?productCategory=all&currentPage=1">Product</a></li>
 				<li class="dropdown"><a href="${contextPath}/pet.boardMain?currentPage=1">Community</a>
 					<ul class="sub-menu">
 						<li><a href="${contextPath}/pet.boardMain?currentPage=1">전체 게시글</a></li>
@@ -173,7 +191,6 @@ nav {
 						<li><a href="${contextPath}/pet.freeBoard?currentPage=1">자유게시판</a></li>
 					</ul></li>
 				<li><a href="${contextPath}/mate.qna?currentPage=1&category=all">QnA</a></li>
-				<li><a>menu4</a></li>
 			</ul>
 
 			<div class="nav-login">
@@ -184,7 +201,11 @@ nav {
 					<b><%=loginUser.getUserName()%>님 환영합니다</b>
 				</div>
 				<div class="button-div">
-					<button class="main-button" onclick="location.href='<%=contextPath%>/pet.myPage'">마이페이지</button>
+					<%if (loginUser.getUserNo() == 1) {%>
+					 	<button class="main-button" onclick="location.href='<%=contextPath%>/pet.admin.list.m'">어드민페이지</button>
+					<%}else { %>
+						<button class="main-button" onclick="location.href='<%=contextPath%>/pet.myPage'">마이페이지</button>
+					 <%} %>
 					<button class="main-button" onclick="location.href='<%=contextPath%>/pet.logout'">로그아웃</button>
 				</div>
 
