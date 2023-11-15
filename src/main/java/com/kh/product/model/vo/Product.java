@@ -18,11 +18,53 @@ public class Product {
 	
 	//사진게시판 목록에서 필요한 썸네일용 경로와 변경된파일이름(서버에업로드된 이름)을 합쳐 담을 필드변수
 	private String imgsrc;
-
+	
+	//타입비교용카테고리이름,타입부모번호
+	private String categoryName;
+	private int parentCategoryNo;
+	
 	public Product() {
 		
 	}
-	
+	public Product(int productNo, String productName, String imgsrc, String categoryName, int parentCategoryNo) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.imgsrc = imgsrc;
+		this.categoryName = categoryName;
+		this.parentCategoryNo = parentCategoryNo;
+	}
+
+
+
+	public Product(int productNo, String productName, String imgsrc, String categoryName) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.imgsrc = imgsrc;
+		this.categoryName = categoryName;
+	}
+
+
+
+	public Product(int productNo, String productName, int productPrice, String productInfo, String productIngredient,
+			String productBrand) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.productInfo = productInfo;
+		this.productIngredient = productIngredient;
+		this.productBrand = productBrand;
+	}
+
+	public Product(int productNo, String productName, String imgsrc) {
+		super();
+		this.productNo = productNo;
+		this.productName = productName;
+		this.imgsrc = imgsrc;
+	}
+
 	public Product(int productNo, int categoryNo, String productName, int productPrice, String productInfo,
 			String productIngredient, String productBrand,int count, Date createDate, String status, String productTag) {
 		super();

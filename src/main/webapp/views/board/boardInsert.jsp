@@ -7,6 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
   <title>게시글 작성</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -334,6 +335,7 @@
         	let contentHeight = mainContent.scrollHeight;
             mainContent.mainstyle.height = contentHeight + "px";
             buttonsContainer.buttonsContainerstyle.height = contentHeight + "px";
+
         }
         
 

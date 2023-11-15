@@ -46,8 +46,6 @@ public class FindIdController extends HttpServlet {
 		String usePhone = request.getParameter("findUsePhone");
 		
 		Member m = new MemberService().findId(useName, usePhone);
-
-		request.setCharacterEncoding("UTF-8");
 		
 		
 		if(m!=null) {

@@ -73,6 +73,7 @@ public class BoardFreeBController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("flist", flist);
 		session.setAttribute("pf", pf);
+
 		
 		
 		request.getRequestDispatcher("views/board/freeBoardPage.jsp").forward(request, response);

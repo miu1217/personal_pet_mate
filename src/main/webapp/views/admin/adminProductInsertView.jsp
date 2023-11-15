@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	//ContextRoot(ContextPath)를 꺼내놓기 (메소드를 이용하여)
-	String contextPath = request.getContextPath();
-	//로그인 정보 꺼내놓기 
-	//session객체에 loginUser 객체와 alertMsg 메세지를 담아놓음 
-	String message = (String)session.getAttribute("message");
 
-	
-%> 
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -27,24 +19,77 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <!-- CSS Files -->
+<<<<<<< HEAD
   <link href="/personal/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="/personal/resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+=======
+  <link href="${contextPath }resources/assets/AdminCss/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="${contextPath }resources/assets/AdminCss/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
   <!-- CSS Just for demo purpose, don't include it in your project -->
+<<<<<<< HEAD
   <link href="/personal/resources/assets/demo/demo.css" rel="stylesheet" />
+=======
+  <link href="${contextPath }/resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
 </head>
+<style>
+
+.main-panel {
+  position: relative;
+  height: 130%;
+  float: right;
+  width: calc(100% - 260px);
+  background-color: #f4f3ef;
+  transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1); }
+  .main-panel > .content {
+    padding: 0 30px 30px;
+    min-height: calc(100vh - px);
+    margin-top: 93px; }
+  .main-panel > .navbar {
+    margin-bottom: 0; }
+  .main-panel .header {
+    margin-bottom: 50px; }
+    
+   .content{
+   margin-left:200px;
+   }
+   .card {
+  border-radius: 12px;
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
+  background-color: #FFFFFF;
+  color: #252422;
+  margin-bottom: 20px;
+  position: relative;
+  border: 0 none;
+  transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease; 
+  width: 120%}
+  
+
+  
+.btn.btn-primary.btn-round {
+  background-color: #677E52 !important; /* Change this to the desired hover color */
+  
+}
+.btn.btn-primary.btn-sm:hover {
+  background-color: #4a5a3b !important; /* Change this to the desired hover color */
+  transition: background-color 0.3s ease !important; /* Add a transition effect */
+}
+</style>
 <body class="">
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="message" value="${sessionScope.message}" />
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="${contextPath }" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="../assets/img/logo-small.png">
+            <img src="/personal/resources/assets/logo/logo.png">
           </div>
           <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="${contextPath }" class="simple-text logo-normal">
           ADMIN
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
@@ -54,27 +99,15 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="${contextPath}">
+            <a href="${contextPath}/pet.admin.list.m">
               <i class="nc-icon nc-pin-3"></i>
-              <p>회원 Table</p>
+              <p>User List</p>
             </a>
           </li>
           <li>
-            <a href="${contextPath}">
-              <i class="nc-icon nc-single-02"></i>
-              <p>회원 수정</p>
-            </a>
-          </li>
-          <li>
-            <a href="${contextPath}/admin_list.pd">
+            <a href="${contextPath}/pet.admin.list.pd?currentPage=1">
               <i class="nc-icon nc-tile-56"></i>
-              <p>ProdcutList</p>
-            </a>
-          </li>
-          <li>
-            <a href="${contextPath}/admin_insert.pd">
-              <i class="nc-icon nc-tile-56"></i>
-              <p>ProdcutInsert</p>
+              <p>Prodcut List</p>
             </a>
           </li>
         </ul>
@@ -92,7 +125,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">상품 입력</a>
+            <a class="navbar-brand" href="javascript:;" style="font-weight: bold;">Product Insert</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
           </div>
@@ -105,12 +138,12 @@
         <div class="col-md-8">
           <div class="card card-user">
             <div class="card-header">
-              <h5 class="card-title">Product Insert</h5>
+              <h5 class="card-title" style="font-weight: bold;">Product Insert</h5>
             </div>
             
             
             
-            <form action="${contextPath }/admin_insert.pd" method="post" id="enroll-area" enctype="multipart/form-data">
+            <form action="${contextPath }/pet.admin.insert.pd" method="post" id="enroll-area" enctype="multipart/form-data">
             	<div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
@@ -178,7 +211,7 @@
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round">Update Product</button>
+                      <button type="submit" class="btn btn-primary btn-round"  style="background-color: #677E52;"> Submit </button>
                     </div>
                   </div>
                   </div>
@@ -188,8 +221,8 @@
                     선언석함수를 내부에 작성할때 해당 이벤트가 발생한시점에 요소객체를 전달하는 방법
                     함수(this) 
 		                -->
-						<input type="file" id="file1" name="file1" onchange="loadImg(this,1)" required> <!-- 대표이미지 필수  -->
-						<input type="file" id="file2" name="file2" onchange="loadImg(this,2)" required>
+						<input type="file"  class="form-control" id="file1" name="file1" onchange="loadImg(this,1)" required> <!-- 대표이미지 필수  -->
+						<input type="file"  class="form-control" id="file2" name="file2" onchange="loadImg(this,2)" required>
 					
 					</div>
                 </form>
@@ -255,42 +288,41 @@
 
 
         </script>
-			
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
-                <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
-                <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
-              </ul>
-            </nav>
-            <div class="credits ml-auto">
-              <span class="copyright">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
-              </span>
-            </div>
-          </div>
-        </div>
-        </footer>
-
+	
   <!--   Core JS Files   -->
+<<<<<<< HEAD
   <script src="/personal/resources/assets/js/core/jquery.min.js"></script>
   <script src="/personal/resources/assets/js/core/popper.min.js"></script>
   <script src="/personal/resources/assets/js/core/bootstrap.min.js"></script>
   <script src="/personal/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+=======
+ <script src="${contextPath }resources/assets/AdminCss/js/core/jquery.min.js"></script>
+  <script src="${contextPath }resources/assets/AdminCss/js/core/popper.min.js"></script>
+  <script src="${contextPath }resources/assets/AdminCss/js/core/bootstrap.min.js"></script>
+  <script src="${contextPath }resources/assets/AdminCss/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
+<<<<<<< HEAD
   <script src="/personal/resources/assets/js/plugins/chartjs.min.js"></script>
+=======
+  <script src="${contextPath }resources/assets/AdminCss/js/plugins/chartjs.min.js"></script>
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
   <!--  Notifications Plugin    -->
+<<<<<<< HEAD
   <script src="/personal/resources/assets/js/plugins/bootstrap-notify.js"></script>
+=======
+  <script src="${contextPath }resources/assets/AdminCss/js/plugins/bootstrap-notify.js"></script>
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+<<<<<<< HEAD
   <script src="/personal/resources/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="/personal/resources/assets/demo/demo.js"></script>
+=======
+  <script src="${contextPath }resources/assets/AdminCss/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="${contextPath }resources/assets/AdminCss/demo/demo.js"></script>
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
 </body>
 
 </html>

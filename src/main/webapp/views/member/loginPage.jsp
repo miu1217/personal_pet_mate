@@ -5,7 +5,6 @@
 
 
 	String findMyId = (String)request.getAttribute("findMyId");
-
 	//쿠키정보
 	 Cookie[] cookies = request.getCookies();
 

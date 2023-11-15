@@ -217,7 +217,7 @@ public class MemberDao {
 	
 	
 	
-	
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ회원정보 수정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 public int updateInfo(Connection conn, Member m) {
 		
 		int result =0;
@@ -227,17 +227,18 @@ public int updateInfo(Connection conn, Member m) {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m.getUserName());
-			pstmt.setString(2, m.getPhone());
-			pstmt.setString(3, m.getEmail());
-			pstmt.setString(4, m.getAddress());
-			pstmt.setString(5, m.getFoodInter());
-			pstmt.setString(6, m.getCleanInter()); 
-			pstmt.setString(7, m.getUserId());
+			pstmt.setString(2, m.getGender());	
+			pstmt.setString(3, m.getPhone());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getAddress());
+			pstmt.setString(6, m.getFoodInter());
+			pstmt.setString(7, m.getCleanInter()); 
+			pstmt.setString(8, m.getUserId());
 			
 			result= pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(pstmt);
@@ -246,20 +247,21 @@ public int updateInfo(Connection conn, Member m) {
 		return result;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public Member selectMember(Connection conn, String userId) {
-		//업데이트된 회원정보를 가져와야하니깐 조회문 SELECT이용
+		
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectMember");
 		Member m = null;
 		
 		try {
-			pstmt = conn.prepareStatement(sql);  //conn으로 pstmt와 sql문 연결해주기
-			pstmt.setString(1, userId);	  //미완성된 sql문을 채워주기
-			rset= pstmt.executeQuery();   //sql결과문을 rset에 저장
+			pstmt = conn.prepareStatement(sql); 
+			pstmt.setString(1, userId);	  
+			rset= pstmt.executeQuery();   
 			
-			//UPDATE된 회원의 모든 정보를 m에다가 넣어주기 UpdateMember를 나중에 loginUser로 갱신해야하니깐 모든 정보가 필요함
-			if(rset.next()) {   //rset의 다음행이 있으면 실행하기
+			
+			if(rset.next()) {   
 			m = new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"),rset.getString("USER_PWD")
 							,rset.getString("USER_NAME"),rset.getString("GENDER"),rset.getString("PHONE")
 							,rset.getString("EMAIL"),rset.getString("ADDRESS"),rset.getString("FOOD_INTEREST")
@@ -277,7 +279,7 @@ public int updateInfo(Connection conn, Member m) {
 		
 		return m;
 	}
-
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ회원탈퇴하기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int deleteMember(Connection conn, int userNo, String userPwd) {
 		
 		//update니깐 dml구문 
@@ -304,7 +306,7 @@ public int updateInfo(Connection conn, Member m) {
 		
 		return result;
 	}
-
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ비밀번호 변경ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int changePwd(Connection conn, String userId, String nowPwd, String newPwd) {
 		int result= 0;
 		PreparedStatement pstmt = null;
@@ -329,8 +331,9 @@ public int updateInfo(Connection conn, Member m) {
 		
 	}
 
+	//비밀번호 변경했으면 변경한 회원의 정보들을 다 담아서 다시 세션 loginUser 수정해주기
 	public Member updateSelectMember(Connection conn, String userId) {
-		//업데이트된 회원정보를 가져와야하니깐 select문 이용
+	
 		ResultSet rset = null;
 		PreparedStatement pstmt= null;
 		String sql = prop.getProperty("updateSelectMember");
@@ -347,6 +350,9 @@ public int updateInfo(Connection conn, Member m) {
 									,rset.getString("EMAIL"),rset.getString("ADDRESS"),rset.getString("FOOD_INTEREST")
 									,rset.getString("CLEAN_INTEREST"),rset.getDate("CREATE_DATE"),rset.getString("STATUS"));
 			
+			
+			
+			
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -359,7 +365,35 @@ public int updateInfo(Connection conn, Member m) {
 		return updateMember;
 		
 	}
+
+	
+	
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ테스트 정보 변경해주기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	public int updateTestInfo(Connection conn, Member m) {
+		int result =0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("updateTestInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getFoodInter());
+			pstmt.setString(2, m.getCleanInter()); 
+			pstmt.setString(3, m.getUserId());
+			
+			result= pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	}
 	
 
 
-}

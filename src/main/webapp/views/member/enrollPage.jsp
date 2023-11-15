@@ -277,7 +277,7 @@
   <%@include file="../common/menubar.jsp"%>
   
   <div class="outer">
-    <div class="jointext"><p id="joinText"></p>JOIN PERSONAL PET MATE</div>
+    <div class="jointext"><p id="joinText"></p>WELCOME PERSONAL PET MATE</div>
     <div class="enroll_box" >
       <div class="left" > <!--왼쪽 회원가입창-->
         <div class="contact">

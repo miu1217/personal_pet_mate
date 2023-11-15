@@ -256,4 +256,65 @@
 								ORDER BY BOARD_NO DESC) A
 		)
  </entry>
+
+	
+	
+	
+	
+	
+	
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡ 내가 쓴 게시글 총 개수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="boardCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD
+		WHERE USER_NO = ?
+		AND STATUS ='Y'
+	</entry>
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징처리한 내가 쓴 게시글리스트 조회ㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="selectMyBoardList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+          	  FROM
+                	(SELECT 
+	                        BOARD_NO
+	                        ,BOARD_TYPE
+	                        ,BOARD_TITLE
+	                        ,USER_ID
+	                        ,B.CREATE_DATE
+	                        ,B.COUNT
+               		 FROM BOARD B
+                	 JOIN MEMBER M USING (USER_NO)
+               		 WHERE USER_NO = ?
+                	 ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?		
+	</entry>
+	
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡ최근 30일동안 작성한 게시글 5개 정보 조회ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="recentMyBoardList">
+		
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+          			FROM
+               			 (SELECT 
+                      			  BOARD_NO
+                        		 ,BOARD_TYPE
+                        		 ,BOARD_TITLE
+                     		     ,USER_ID
+                     		     ,B.CREATE_DATE
+                      		     ,B.COUNT
+               			  FROM BOARD B
+              			  JOIN MEMBER M USING (USER_NO)
+              			  WHERE USER_NO = ?
+             			  AND B.CREATE_DATE >= SYSDATE - INTERVAL '30' DAY
+             			  ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN 1 AND 5
+		
+	</entry>
+	
+	
 </properties>

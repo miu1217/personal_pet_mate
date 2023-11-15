@@ -67,8 +67,6 @@ public class BoardMainController extends HttpServlet {
 		
 		PagingBar pb= new PagingBar(listCount, currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
-		
-		
 		ArrayList<Board> list = new BoardService().selectList(pb);
 
 		
@@ -76,7 +74,7 @@ public class BoardMainController extends HttpServlet {
 		
 		session.setAttribute("list", list);
 		session.setAttribute("pb", pb);
-		
+
 		
 		
 		request.getRequestDispatcher("views/board/boardMain.jsp").forward(request, response);
