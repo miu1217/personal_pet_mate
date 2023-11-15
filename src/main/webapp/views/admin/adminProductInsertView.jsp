@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	//ContextRoot(ContextPath)를 꺼내놓기 (메소드를 이용하여)
-	String contextPath = request.getContextPath();
-	//로그인 정보 꺼내놓기 
-	//session객체에 loginUser 객체와 alertMsg 메세지를 담아놓음 
-	String message = (String)session.getAttribute("message");
 
-	
-%> 
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -32,6 +24,38 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="${contextPath }/resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
+<style>
+
+.main-panel {
+  position: relative;
+  height: 130%;
+  float: right;
+  width: calc(100% - 260px);
+  background-color: #f4f3ef;
+  transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1); }
+  .main-panel > .content {
+    padding: 0 30px 30px;
+    min-height: calc(100vh - px);
+    margin-top: 93px; }
+  .main-panel > .navbar {
+    margin-bottom: 0; }
+  .main-panel .header {
+    margin-bottom: 50px; }
+    
+   .content{
+   margin-left:200px;
+   }
+   .card {
+  border-radius: 12px;
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
+  background-color: #FFFFFF;
+  color: #252422;
+  margin-bottom: 20px;
+  position: relative;
+  border: 0 none;
+  transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease; 
+  width: 120%}
+</style>
 <body class="">
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
@@ -61,15 +85,9 @@
             </a>
           </li>
           <li>
-            <a href="${contextPath}/pet.admin.list.pd">
+            <a href="${contextPath}/pet.admin.list.pd?currentPage=1">
               <i class="nc-icon nc-tile-56"></i>
               <p>Prodcut List</p>
-            </a>
-          </li>
-          <li>
-            <a href="${contextPath}/pet.admin.insert.pd">
-              <i class="nc-icon nc-tile-56"></i>
-              <p>Prodcut Insert</p>
             </a>
           </li>
         </ul>

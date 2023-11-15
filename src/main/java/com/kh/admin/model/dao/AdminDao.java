@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
+import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.vo.Member;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
@@ -98,7 +99,7 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			System.out.print(pList);
+			
 			
 			for(ProductAttachment at : pList) {
 				pstmt.setString(1, at.getOriginName());
@@ -122,14 +123,22 @@ public class AdminDao {
 	}
 
 	//상품 리스트 가져오는 메소드
-	public ArrayList<Product> selectListProduct(Connection conn) {
+	public ArrayList<Product> selectListProduct(Connection conn, PageInfo pi) {
 		ArrayList<Product> pList = new ArrayList<>();
 		String sql = prop.getProperty("selectListProduct");
 		
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+		int endRow = pi.getCurrentPage() * pi.getBoardLimit();
+		
+		
+	
 		try {
-			stmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			
-			rset = stmt.executeQuery(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				pList.add(new Product(rset.getInt("PRODUCT_NO")
@@ -145,7 +154,7 @@ public class AdminDao {
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
+			JDBCTemplate.close(pstmt);
 		}
 		
 		return pList;
@@ -465,6 +474,32 @@ public class AdminDao {
 			}
 			return result;
 		}
+
+		//전체 게시글 조회
+		public int listCount(Connection conn) {
+			int count = 0;
+			
+			String sql = prop.getProperty("listCount");
+			
+			try {
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(sql);
+				
+				if(rset.next()) {
+					count = rset.getInt("COUNT");
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(stmt);
+			}
+			
+			return count;
+		}
+		
 
 		
 

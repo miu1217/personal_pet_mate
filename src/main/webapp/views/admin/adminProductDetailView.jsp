@@ -54,7 +54,7 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
+       <ul class="nav">
           <li>
             <a href="${contextPath}/pet.admin.list.m">
               <i class="nc-icon nc-pin-3"></i>
@@ -62,15 +62,9 @@
             </a>
           </li>
           <li>
-            <a href="${contextPath}/pet.admin.list.pd">
+            <a href="${contextPath}/pet.admin.list.pd?currentPage=1">
               <i class="nc-icon nc-tile-56"></i>
               <p>Prodcut List</p>
-            </a>
-          </li>
-          <li>
-            <a href="${contextPath}/pet.admin.insert.pd">
-              <i class="nc-icon nc-tile-56"></i>
-              <p>Prodcut Insert</p>
             </a>
           </li>
         </ul>

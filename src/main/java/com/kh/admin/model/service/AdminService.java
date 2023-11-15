@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.admin.model.dao.AdminDao;
+import com.kh.board.model.dao.BoardDao;
 import com.kh.common.JDBCTemplate;
+import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
 import com.kh.product.model.dao.ProductDao;
@@ -42,10 +44,10 @@ public class AdminService {
 	}
 
 	//상품 리스트 가져오는 메소드
-	public ArrayList<Product> selectListProduct() {
+	public ArrayList<Product> selectListProduct(PageInfo pi) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Product> pList = new AdminDao().selectListProduct(conn);
+		ArrayList<Product> pList = new AdminDao().selectListProduct(conn, pi);
 		
 		JDBCTemplate.close(conn);
 		
@@ -201,5 +203,17 @@ public class AdminService {
 		
 		return result;
 	}
+
+	
+	// 페이징바 처리
+		public int listCount() {
+			Connection conn = JDBCTemplate.getConnection();
+
+			int count = new AdminDao().listCount(conn);
+
+			JDBCTemplate.close(conn);
+
+			return count;
+		}
 
 }

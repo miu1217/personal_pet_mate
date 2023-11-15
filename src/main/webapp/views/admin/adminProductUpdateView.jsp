@@ -19,6 +19,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="${contextPath }resources/assets/AdminCss/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="${contextPath }resources/assets/AdminCss/bootstrap.min.css" rel="stylesheet" />
   <link href="${contextPath }resources/assets/AdminCss/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="${contextPath }resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
@@ -52,15 +53,9 @@
             </a>
           </li>
           <li>
-            <a href="${contextPath}/pet.admin.list.pd">
+            <a href="${contextPath}/pet.admin.list.pd?currentPage=1">
               <i class="nc-icon nc-tile-56"></i>
               <p>Prodcut List</p>
-            </a>
-          </li>
-          <li>
-            <a href="${contextPath}/pet.admin.insert.pd">
-              <i class="nc-icon nc-tile-56"></i>
-              <p>Prodcut Insert</p>
             </a>
           </li>
         </ul>

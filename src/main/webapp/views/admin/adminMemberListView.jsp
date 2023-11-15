@@ -23,6 +23,40 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="${contextPath }resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
+
+<style>
+.wrapper {
+background-color: #B0CC99;
+}
+.main-panel {
+  position: relative;
+  height: 100%;
+  float: right;
+  width: calc(100% - 260px);
+  background-color: #f4f3ef;
+  transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1); }
+  .main-panel > .content {
+    padding: 0 30px 30px;
+    min-height: calc(100vh - px);
+    margin-top: 93px; }
+  .main-panel > .navbar {
+    margin-bottom: 0; }
+  .main-panel .header {
+    margin-bottom: 50px; }
+  
+  .nav:after{
+  	font-weight: bold;
+  }
+ /* ... (existing styles) ... */
+
+.btn.btn-primary.btn-sm:hover {
+  background-color: #677E52 !important; /* Change this to the desired hover color */
+  transition: background-color 0.3s ease !important; /* Add a transition effect */
+}
+
+/* ... (remaining styles) ... */
+
+</style>
 <body class="">
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
@@ -52,15 +86,9 @@
             </a>
           </li>
           <li>
-            <a href="${contextPath}/pet.admin.list.pd">
+            <a href="${contextPath}/pet.admin.list.pd?currentPage=1">
               <i class="nc-icon nc-tile-56"></i>
               <p>Prodcut List</p>
-            </a>
-          </li>
-          <li>
-            <a href="${contextPath}/pet.admin.insert.pd">
-              <i class="nc-icon nc-tile-56"></i>
-              <p>Prodcut Insert</p>
             </a>
           </li>
         </ul>
@@ -78,7 +106,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;"> User List </a>
+            <a class="navbar-brand" href="javascript:;" style="font-weight: bold;"> User List </a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
           </div>
@@ -90,25 +118,25 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> User List </h4>
+                <h4 class="card-title" style="font-weight: bold;"> User List </h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                      <th>
+                      <th  style="color: #677E52;">
                         회원명
                       </th>
-                      <th>
+                      <th style="color: #677E52;">
                         회원 아이디
                       </th>
-                      <th>
+                      <th style="color: #677E52;">
                       	사료 타입
                       </th>
-                      <th>
+                      <th style="color: #677E52;">
                       	샤워 타입
                       </th>
-                      <th>
+                      <th style="color: #677E52;">
                         가입일
                       </th>
                       <th class="text-right">
@@ -123,10 +151,10 @@
                         <td> ${ m.foodInter}</td>
                         <td> ${ m.cleanInter}</td>
                         <td> ${ m.enrollDate}</td>
-                        <td class="text-right">
-                          <button type="button" class="btn btn-primary btn-sm"
+                        <td class="text-right" >
+                          <button type="button" class="btn btn-primary btn-sm" style="background-color: #677E52;"
                           onclick="location.href='${contextPath}/pet.admin.update.m?uno=${m.userNo}'"> Update </button>
-                          <button type="button" class="btn btn-primary btn-sm"
+                          <button type="button" class="btn btn-primary btn-sm" style="background-color: #677E52;"
                           onclick="location.href='${contextPath}/pet.admin.delete.m?uno=${m.userNo}'"> Delete </button>
                         </td>
                       </tr>
