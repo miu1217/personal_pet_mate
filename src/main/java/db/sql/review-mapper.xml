@@ -117,16 +117,20 @@
 	</entry>
 	
 	<entry key="selectReviewList">
-	SELECT REVIEW_NO
-           ,PRODUCT_NO
-           ,USER_NO
-           ,REVIEW_CONTENT
-           ,COUNT
-           ,FILE_PATH || CHANGE_NAME TITLEIMG
-	FROM REVIEW R
-	LEFT JOIN REVIEW_ATTACHMENT USING (REVIEW_NO)
-	WHERE PRODUCT_NO = ?
-	AND R.STATUS = 'Y'
+		SELECT *
+			FROM(SELECT ROWNUM RNUM , A.*
+			FROM (SELECT REVIEW_NO
+			           ,PRODUCT_NO
+			           ,USER_NO
+			           ,REVIEW_CONTENT
+			           ,COUNT
+			           ,FILE_PATH || CHANGE_NAME TITLEIMG
+				FROM REVIEW R
+				LEFT JOIN REVIEW_ATTACHMENT USING (REVIEW_NO)
+				WHERE PRODUCT_NO = ?
+				AND R.STATUS = 'Y'
+			    ORDER BY R.CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	
