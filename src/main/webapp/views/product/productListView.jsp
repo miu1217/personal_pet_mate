@@ -345,11 +345,11 @@ body {
 		    var productElement = document.querySelector('.product[data-product-no="'+productNo+'"]');
 		    var productName = productElement.querySelector('#product-name p').innerText; // Get the product name
 		    var productImg = productElement.querySelector('#product-img').src;
-		    var productPrice = productElement.querySelector('#product-price').innerText;
 		    var productDiv = document.createElement('div');
 		    productDiv.setAttribute('data-product-no', productNo); // Store the product number here for removal
 		    productDiv.style.cssText = 'width: 200px; height: 100px; display: flex; border: 1px solid #ccc; border-radius: 3px; align-items: center; justify-content: space-between; padding: 5px 10px 5px 10px;';
 		    productDiv.innerHTML = '<div style="display:flex; align-items:center; flex-direction: column;"><div style="display:flex; align-items:center;"><img src="'+productImg+'" style="width: 50px; height: 50px;"><span style="display:inline-block; width:120px; overflow-wrap:break-word; margin-left:10px;">'+productName+'</span></div><div style="margin-top:10px;"><span>'+productPrice+'</span></div></div>';
+
 		    var xDiv = document.createElement('div');
 		    xDiv.style.cssText = 'height: inherit;';
 		    var removeButton = document.createElement('button');
@@ -373,7 +373,7 @@ body {
 		
 		updateProductStyles();
 		updateComparisonArea();
-		
+    
 		function compareProducts(){
 		    let queryParams = '';
 		    selectedProducts.forEach(function(product, index) {

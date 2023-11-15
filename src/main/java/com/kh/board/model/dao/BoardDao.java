@@ -18,21 +18,18 @@ import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.PageInfo;
 
 public class BoardDao {
-	
 	private Properties prop = new Properties();
-	
+
+	// 매퍼파일 읽어오는 작업
 	public BoardDao() {
+		String filePath = BoardDao.class.getResource("/db/sql/board-mapper.xml").getPath();
 		try {
-			String filePath = BoardDao.class.getResource("/db/sql/board-mapper.xml").getPath();
 			prop.loadFromXML(new FileInputStream(filePath));
-			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
-
-	
 	//전체 게시글 조회
 	public int listCount(Connection conn) {
 		int count = 0;
@@ -630,14 +627,6 @@ public class BoardDao {
 		return at;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

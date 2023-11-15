@@ -94,7 +94,6 @@ margin-bottom: 1%;
 #selectSearch:focus{
     border: 1px solid #87a56c;
     box-sizing: border-box;
-    
 }
 
 #searchInput{
@@ -185,6 +184,7 @@ tbody #title { text-align: left }
   box-shadow: 0 1px 0 rgba(255,255,255,0.89),0 1px rgba(0,0,0,0.05) inset;
   outline: none;
    color: #ffff;
+
 }
 </style>
 </head>

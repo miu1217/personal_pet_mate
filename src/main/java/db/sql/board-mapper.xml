@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
-	
-	
 	<!-- 전체 게시글 조회 -->
 	<entry key="listCount">
 		SELECT COUNT(*) COUNT
@@ -260,14 +257,81 @@
 		)
  </entry>
 
+
 	
+	<entry key="selectReplyList">
+		SELECT REPLY_NO
+				,BOARD_NO
+				,USER_ID
+		  		,REPLY_CONTENT
+				,R.CREATE_DATE
+		FROM BOARD_REPLY R
+		JOIN MEMBER M USING(USER_NO)
+		WHERE BOARD_NO = ?
+		AND R.STATUS ='Y'
+		ORDER BY CREATE_DATE DESC
+ </entry>
+ <entry key="deleteReply">
+ 	   DELETE FROM  BOARD_REPLY
+       WHERE REPLY_NO = ?
+ </entry>
+ 
+ <entry key="updateReply">
+ 	UPDATE BOARD_REPLY
+    SET REPLY_CONTENT= ?
+    WHERE REPLY_NO = ?
+ </entry>
+ 
 	
-	
-	
-	
-	
-	
-	
+ <entry key="searchBoard">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+					FROM (SELECT BOARD_NO
+								,BOARD_TITLE
+								,USER_ID
+								,COUNT
+								,B.CREATE_DATE
+								FROM BOARD B
+								JOIN MEMBER M USING (USER_NO)
+								WHERE (BOARD_CONTENT LIKE '%' || ? || '%'
+								OR BOARD_TITLE LIKE '%' || ? || '%')
+								AND B.STATUS = 'Y'
+								ORDER BY BOARD_NO DESC) A
+		)
+ </entry>
+ 
+  <entry key="searchByTitle">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+					FROM (SELECT BOARD_NO
+								,BOARD_TITLE
+								,USER_ID
+								,COUNT
+								,B.CREATE_DATE
+								FROM BOARD B
+								JOIN MEMBER M USING (USER_NO)
+								WHERE BOARD_TITLE LIKE '%' || ? || '%'
+								AND B.STATUS = 'Y'
+								ORDER BY BOARD_NO DESC) A
+		)
+ </entry>
+ 
+   <entry key="searchByContent">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+					FROM (SELECT BOARD_NO
+								,BOARD_TITLE
+								,USER_ID
+								,COUNT
+								,B.CREATE_DATE
+								FROM BOARD B
+								JOIN MEMBER M USING (USER_NO)
+								WHERE BOARD_CONTENT LIKE '%' || ? || '%'
+								AND B.STATUS = 'Y'
+								ORDER BY BOARD_NO DESC) A
+		)
+ </entry>
+
 	
 	
 	

@@ -28,7 +28,6 @@ public class Member {
 
 	
 	
-
 	public Member(int userNo, String userId, String userPwd, String userName, String gender, String phone, String email,
 			String address) {
 		super();
@@ -104,7 +103,6 @@ public class Member {
 	}
 
 
-	
 
 	
 

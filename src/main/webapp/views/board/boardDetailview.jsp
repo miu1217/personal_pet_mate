@@ -285,6 +285,7 @@
       outline: none;
     }
     
+
 </style>
 </head>
 <body>
@@ -377,6 +378,7 @@
               <tr>
                 <td>
 					<textarea class="replyContent" id="reContent" rows="3" cols="110" placeholder="로그인 후 이용 가능합니다."></textarea>
+
 					<span class="num_byte">
 						<span id="reply_limit" class="current_num">(0/ 400글자)</span>
 					</span>
@@ -470,6 +472,7 @@
 			return false;
 		}
 		if($("#reContent").val().length>400){
+
 			alert("400자 이하로 작성해주세요.");
 			return false;
 		}else{

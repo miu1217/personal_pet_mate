@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
+import com.kh.board.model.vo.PagingBar;
 
 /**
  * Servlet implementation class BoardSearchController

@@ -37,6 +37,7 @@
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
+
         <a href="${contextPath }" class="simple-text logo-mini">
          <div class="logo-image-small">
             <img src="/personal/resources/assets/logo/logo.png">
@@ -46,8 +47,8 @@
         <a href="${contextPath }" class="simple-text logo-normal">
           ADMIN
           <!-- <div class="logo-image-big">
-            <img src="/personal/resources/assets/img/logo.png">
-          </div>  -->
+            <img src="../assets/img/logo-big.png">
+          </div> -->
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -166,6 +167,7 @@
                   </c:forEach>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
+
                       <button type="submit" class="btn btn-primary btn-round"   style="background-color: #677E52;"
                       		onclick="location.href='${contextPath}/pet.admin.update.pd?pno=${p.productNo}'"> Update </button>
                       <button type="submit" class="btn btn-primary btn-round"   style="background-color: #677E52;"
@@ -182,6 +184,7 @@
   
 
   <!--   Core JS Files   -->
+
  <script src="${contextPath }resources/assets/AdminCss/js/core/jquery.min.js"></script>
   <script src="${contextPath }resources/assets/AdminCss/js/core/popper.min.js"></script>
   <script src="${contextPath }resources/assets/AdminCss/js/core/bootstrap.min.js"></script>

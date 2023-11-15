@@ -19,10 +19,19 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <!-- CSS Files -->
+<<<<<<< HEAD
+  <link href="/personal/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/personal/resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+=======
   <link href="${contextPath }resources/assets/AdminCss/css/bootstrap.min.css" rel="stylesheet" />
   <link href="${contextPath }resources/assets/AdminCss/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
   <!-- CSS Just for demo purpose, don't include it in your project -->
+<<<<<<< HEAD
+  <link href="/personal/resources/assets/demo/demo.css" rel="stylesheet" />
+=======
   <link href="${contextPath }/resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
 </head>
 <style>
 
@@ -224,7 +233,7 @@
       </div>
       
   
-		<script>
+			  <script>
             $(function(){
                 $("#file-area").hide(); //file input 숨기기
                 //대표이미지를 클릭하면 input file 요소 1번이 클릭되게 하는 함수
@@ -281,19 +290,39 @@
         </script>
 	
   <!--   Core JS Files   -->
+<<<<<<< HEAD
+  <script src="/personal/resources/assets/js/core/jquery.min.js"></script>
+  <script src="/personal/resources/assets/js/core/popper.min.js"></script>
+  <script src="/personal/resources/assets/js/core/bootstrap.min.js"></script>
+  <script src="/personal/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+=======
  <script src="${contextPath }resources/assets/AdminCss/js/core/jquery.min.js"></script>
   <script src="${contextPath }resources/assets/AdminCss/js/core/popper.min.js"></script>
   <script src="${contextPath }resources/assets/AdminCss/js/core/bootstrap.min.js"></script>
   <script src="${contextPath }resources/assets/AdminCss/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
+<<<<<<< HEAD
+  <script src="/personal/resources/assets/js/plugins/chartjs.min.js"></script>
+=======
   <script src="${contextPath }resources/assets/AdminCss/js/plugins/chartjs.min.js"></script>
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
   <!--  Notifications Plugin    -->
+<<<<<<< HEAD
+  <script src="/personal/resources/assets/js/plugins/bootstrap-notify.js"></script>
+=======
   <script src="${contextPath }resources/assets/AdminCss/js/plugins/bootstrap-notify.js"></script>
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+<<<<<<< HEAD
+  <script src="/personal/resources/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/personal/resources/assets/demo/demo.js"></script>
+=======
   <script src="${contextPath }resources/assets/AdminCss/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="${contextPath }resources/assets/AdminCss/demo/demo.js"></script>
+>>>>>>> branch 'develop' of https://github.com/miu1217/personal_pet_mate.git
 </body>
 
 </html>

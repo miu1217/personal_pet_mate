@@ -408,6 +408,7 @@
                     <td>
                       <label for="short">
                         <input type="radio" name="cleanInterest" id="short" value="단모용 샴푸"> 단모용 샴푸
+
                       </label>
                     </td>
                     <td>
