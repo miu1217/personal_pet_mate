@@ -49,12 +49,21 @@ background-color: #B0CC99;
   }
  /* ... (existing styles) ... */
 
-.btn.btn-primary.btn-sm:hover {
+.btn.btn-primary.btn-sm {
   background-color: #677E52 !important; /* Change this to the desired hover color */
+ d a transition effect */
+}
+.btn.btn-primary.btn-sm:hover {
+  background-color: #4a5a3b !important; /* Change this to the desired hover color */
   transition: background-color 0.3s ease !important; /* Add a transition effect */
 }
 
 /* ... (remaining styles) ... */
+
+.table-responsive {
+    overflow:auto;
+    padding-bottom: 10px;
+}
 
 </style>
 <body class="">

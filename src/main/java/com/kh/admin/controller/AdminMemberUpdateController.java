@@ -79,14 +79,14 @@ public class AdminMemberUpdateController extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(updateMem == null) {
 			session.setAttribute("message","회원정보 수정에 실패했습니다."); 
-			request.getRequestDispatcher("views/admin/adminMemberDetailView.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/pet.admin.list.m");
 		}else {
 			
 			request.setAttribute("m", updateMem);
 			
 
 			session.setAttribute("message","회원정보 수정에 성공했습니다.");
-			request.getRequestDispatcher("views/admin/adminMemberDetailView.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/pet.admin.list.m");
 		}
 		
 		

@@ -29,13 +29,13 @@ body {
 }
 
 .container {
-	width: 100%;
+	width:1200px;
 	min-width: 1200px;
 }
 
 
 .main-image {
-	width: 100%;
+	width: 1920px;
 	height: 100%;
 	text-align: center;
 	font-size: 2em;
@@ -45,7 +45,7 @@ body {
 }
 
 .main-image img {
-	width: 100%;
+	width: 1920px;
     height: 100%;
     object-fit: cover;
     
@@ -205,6 +205,7 @@ a {
 	margin-top: 40px;
     margin-bottom: 40px;
 }
+
 </style>
 </head>
 <body>
@@ -213,13 +214,13 @@ a {
 		<div class="main-content">
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      <img src="resources/assets/mainImg/shutterstock_108537197.jpg" class="d-block w-100" alt="메인이미지1">
+			      <img src="resources/assets/mainImg/main4.jpg" class="d-block w-100" alt="메인이미지1">
 			    </div>
 			    <div class="carousel-item">
-			      <img src="resources/assets/mainImg/shutterstock_275583851.jpg" class="d-block w-100" alt="메인이미지2">
+			      <img src="resources/assets/mainImg/main2.jpeg" class="d-block w-100" alt="메인이미지2">
 			    </div>
 			    <div class="carousel-item">
-			      <img src="resources/assets/mainImg/shutterstock_490148839.jpg" class="d-block w-100" alt="메인이미지3">
+			      <img src="resources/assets/mainImg/main5.jpeg" class="d-block w-100" alt="메인이미지3">
 			    </div>
 			  </div>
 			</div>
