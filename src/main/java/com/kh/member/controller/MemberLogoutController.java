@@ -32,10 +32,12 @@ public class MemberLogoutController extends HttpServlet {
 		session.removeAttribute("loginUser"); //loginUser키값 데이터 지우기
 		
 		//세션 정보 전부 지우기 (세션만료) -> 초기화
-		//session.invaildate();
+
 		
-		//사용자에게는 메인화면 보여주기(재요청)
-		response.sendRedirect(request.getContextPath()); // /jsp와 동일
+		//전에 보던 화면으로 요청
+		
+		String before = request.getHeader("referer");
+		response.sendRedirect(before);
 	}
 
 	/**

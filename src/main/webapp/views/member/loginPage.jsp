@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 
+
+	String findMyId = (String)request.getAttribute("findMyId");
+
 	//쿠키정보
 	 Cookie[] cookies = request.getCookies();
 
@@ -169,7 +172,7 @@
 
         /* 오른쪽 */
         .right {
-        background: linear-gradient(212.38deg, rgba(0, 0, 0, 0.7) 0%, rgba(115, 187, 139, 0.71) 100%);
+        background:  linear-gradient(212.38deg, rgba(0, 0, 0, 0.7) 0%, rgba(115, 187, 139, 0.71) 100%), url('/personal/resources/loginPagePhoto/HPet.jpg');
         background-size: cover;             
         color: #fff;
         position: relative;
@@ -350,7 +353,7 @@
 	                <div class="right">
 	                  <div class="right-text">
 	                    <h2>PERSONAL PET MATE</h2>
-	                    <h5>당신의 어쩌구</h5>
+	                    <h5>당신의 0순위를 찾아드립니다.</h5>
 	                  </div>
 	                </div>
               </div>
@@ -399,7 +402,7 @@
             </tr>
           </table>
           <label id="myPwd"></label>
-          <input type="button" id="findPwdBtn" onclick="findPwd();" value="찾기">
+          <button id="findPwdBtn" onclick="findPwd();">확인</button>
       </div>
   </div>
       
@@ -460,9 +463,11 @@ function enroll(){
           success : function(result){
             if(result != null){
               $("#myAccount").text("찾으시는 아이디는 : "+ result + " 입니다.");
+              
             }else{
               $("#myAccount").text("해당 유저정보가 존재하지 않습니다.");
             }
+
           },
           error : function(){
         	  $("#myAccount").text("창을 재실행 해주세요.");
@@ -484,7 +489,8 @@ function enroll(){
           type : "post",
           success : function(result){
             if(result == 'YY'){
-              $("#myPwd").text("비밀번호 초기화 : 123456789@ 완료. 로그인 후 꼭 변경해주세요.");
+              $("#myPwd").html("비밀번호 초기화 : 123456789@ 완료.<br>로그인 후 꼭 변경해주세요.");
+
             }else{
               $("#myPwd").text("해당 정보가 존재하지 않습니다.");
             }
@@ -493,12 +499,20 @@ function enroll(){
         	  $("#myPwd").text("창을 재실행 해주세요.");
           }
         });
+        
        }
-
-
+       
+       //모달 확인 버튼 클릭시
+       $("#findPwdBtn").click(function(){
+           $("#findUseName").val('');
+           $("#findUsePhone").val('');
+       });
+    
+       $("#findPwdBtn").click(function(){
+    	   $("#findUseId").val(''); 
+           $("#findPwdPhone").val(''); 
+       });
     </script>
-
-   
    
 
 </body>
