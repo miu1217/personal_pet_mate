@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberBeforeUpdateChkController
  */
+
+/*
+ *  회원정보수정 누르면 나오는 비밀번호 입력창으로 전달
+ *  view : beforeUpdateChk.jsp로 전달
+ */
+
+
 @WebServlet("/pet.beforeUpdateChk")  
 public class MemberBeforeUpdateChkController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

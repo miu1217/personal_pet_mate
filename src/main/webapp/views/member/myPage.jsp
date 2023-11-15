@@ -29,9 +29,11 @@
       .header{  
       box-sizing: border-box;
       background-color: white;
-      height: 270px;
+      height: 220px;
       border-radius: 15px;
+      display: flex;
     }
+    
     
     .header div>a{
       text-decoration: none;
@@ -48,31 +50,29 @@
    
    
   /*ㅡㅡㅡㅡㅡㅡㅡㅡ상단영역 아이콘 밑에 글씨ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
-    .icon_group>div{
-        float: left;
-        font-size: 15px;
-    }
    
-    
-    .welcomebox>div{
-      float: left;
-     
-    }
-    .welcomebox{
-      text-align: center;
-      margin: 0px;
-      padding: 0px;
-      display: flex;
-    align-items: center;
-    justify-content: space-between;
-    }
-    
-    
-    
-    .post_icon,.review_icon, .qna_icon{
-      margin-left: 300px;
    
-    }
+   .welcomebox {
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+}
+
+.icon_group {
+  display: flex;
+  align-items: center;
+  width: 70%;
+}
+
+
+
+		.post_icon,
+		.review_icon,
+		.qna_icon {
+		  margin-left: 350px; /* Adjust this value as needed */
+		}
 
     .bar{
       
@@ -107,12 +107,116 @@
     /* 최근게시글내역/qna내역 옆으로 띄우기*/
     .recentAll{
     	display: flex;
-    }
-    .recent1, .recent2{
-    	width: 800px;
-    }
-  </style>
+    	heig
 
+    }
+    
+     .recent1, .recent2{
+     	width: 900px;
+     }
+    
+    /*답변대기중/완료 버튼 스타일*/
+    .qnaButton{
+    	background-color: #B0CC99;
+    	border-radius: 20px; 
+    	margin: auto;
+    	height: 26px;
+    	display: flex;
+    	justify-content: center;
+    }
+    .qnaButton>span{
+	    color: white;
+	    font-weight: bold;
+	    margin-top: 3px;
+    }
+    
+    /*사이드바 스타일영역*/
+    .nav{
+    	list-style-type: none;
+    }
+    .nav>li>ul{
+    	list-style-type: none;
+    	display: none;
+    }
+    .nav>li:hover ul{
+    	 display:block;
+    }
+   
+   
+   /*ㅡㅡㅡㅡㅡㅡㅡ사이드바 호버ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+   	
+
+        #sidebar {
+        height: 100%;
+        width: 200px;
+        background-color: white;
+        padding-top: 20px;
+    }
+
+        #sidebar a {
+            padding: 8px 8px 8px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            color: black;
+            display: block;
+        }
+
+        #sidebar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .submenu {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .submenu a {
+            padding: 8px 8px 8px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            color: black;
+            display: block;
+        }
+
+        #content {
+            margin-left: 200px;
+            padding: 16px;
+        }
+   
+   		.table-responsive {
+   			overflow: auto;
+		}
+   
+   		.card-body,.card-header{
+   			 width: 90%;
+   			 margin: auto;
+   		}
+   
+  </style>
+		 <script>
+		        function toggleSubMenu(subMenuId) {
+		            var subMenu = document.getElementById(subMenuId);
+		            subMenu.style.display = (subMenu.style.display === 'none' || subMenu.style.display === '') ? 'block' : 'none';
+		        }
+		        
+		      	    window.addEventListener("scroll", function() {
+		            var sidebar = document.getElementById("sidebar");
+		            var content = document.getElementById("content");
+
+		            // 사이드바의 기본 위치
+		            var sidebarOriginalPosition = 20;
+
+		            // 스크롤 위치에 따라 사이드바 위치 조정
+		            if (window.scrollY > sidebarOriginalPosition) {
+		                sidebar.style.position = "fixed";
+		                sidebar.style.top = "20px"; // 원하는 위치로 조정
+		            } else {
+		                sidebar.style.position = "absolute";
+		                sidebar.style.top = sidebarOriginalPosition + "px";
+		            }
+		        });
+		    </script>
 
 </head>
 
@@ -125,13 +229,12 @@
       <div class="logo">
         <a href="https://www.creative-tim.com" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="../assets/img/logo-small.png">
+				
           </div>
         
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          PersonalMate
-        </a>
+      	 <div style="font-size: 20px;">MyPage</div> 
+        
       </div>
 
      
@@ -139,98 +242,110 @@
       <!--사이드바 부분-->
       <div class="sidebar-wrapper">
         
-        <ul class="nav">
-          <li>
-              <p><h4>나의 활동</h4></p>
-          </li>
-          
-          <!-- 내 게시글만 보이는 페이지로 이동 -->
-          <li>
-            <a href="${contextPath }/pet.myBoardList?currentPage=1">
-              <p>게시글 관리</p>
-            </a>
-          </li>
-          
-          <!-- 내 리뷰만 보이는 페이지로 이동 -->
-          <li>
-            <a href="${contextPath }/pet.myReview?currentPage=1">
-              <p>리뷰 관리</p>
-            </a>
-          </li>
-          
-          <li>
-          		<a href="${contextPath }/pet.myQnA?currentPage=1">
+        <div id="sidebar">
+    <a href="#" onclick="toggleSubMenu('activitySubMenu')" style="font-weight: bold;">나의 활동</a>
+    <div id="activitySubMenu" class="submenu">
+        <a href="${contextPath}/pet.myBoardList?currentPage=1" style="color: #888;">게시글 관리</a>
+        <a href="${contextPath}/pet.myReview?currentPage=1" style="color: #888;">리뷰 관리</a>
+        <a href="${contextPath}/pet.myQnA?currentPage=1" style="color: #888;">QnA 관리</a>
+    </div>
+    <a href="#" onclick="toggleSubMenu('infoSubMenu')" style="font-weight: bold;">나의 정보</a>
+    <div id="infoSubMenu" class="submenu">
+        <a href="${contextPath}/pet.beforeUpdateChk" style="color: #888;">회원정보 수정</a>
+        <a href="${contextPath}/pet.changePwdForm" style="color: #888;">비밀번호 변경</a>
+        <a href="${contextPath}/pet.moveTestUpdate" style="color: #888;">진단테스트 수정</a>
+    </div>
+</div>
+        
+        
+        <%-- <ul class="nav">
+           <li>
+              <p><div class="category" style="margin-left: 30px">나의 활동</div></p>
+              <ul>
+              	  <li>
+          			  <a href="${contextPath }/pet.myBoardList?currentPage=1">
+             		  <p>게시글 관리</p>
+          			  </a>
+         		 </li>
+         		 
+         		 
+         		 <li>
+           			 <a href="${contextPath }/pet.myReview?currentPage=1">
+           			 <p>리뷰 관리</p>
+      			     </a>
+      		     </li>
+      		     
+      		     <li>
+          			<a href="${contextPath }/pet.myQnA?currentPage=1">
           			<p>QnA 관리</p>
-          		</a>
-          </li>
+          		    </a>
+          		 </li>
+              </ul>
+          </li> 
+          
+         
          
           
           <li>
-              <p><h4>나의 정보</h4></p>
-          </li>
-          
-          <!-- 회원정보 변경 페이지로이동 -->
-          <li>
-            <a href="${contextPath }/pet.beforeUpdateChk">   <!--회원정보하기전에 비밀번호입력해서 확인해주는 창으로 넘어가기  -->
-              <p>회원정보 수정</p>
-            </a>
-          </li>
-          
-          <!-- 비밀번호 변경페이지 -->
-          <li>
-          	<a href="${contextPath }/pet.changePwdForm">  
-          		<p>비밀번호 변경</p>
-          	</a>
-          </li>
-          
-          <!-- 진단테스트로 이동 -->
-          <li>
-            <a href="${contextPath }/pet.testUpdate">
-              <p>진단테스트 수정</p>
-            </a>
-          </li>
-        </ul>
+              <p><div class="category" style="margin-left: 30px">나의 정보</div></p>
+              <ul>
+              		<!-- 회원정보 변경 페이지로이동 -->
+              	  <li>
+	          		  <a href="${contextPath }/pet.beforeUpdateChk">   <!--회원정보하기전에 비밀번호입력해서 확인해주는 창으로 넘어가기  MemberBeforeUpdateChkController로 이동 -->
+	             	  <p>회원정보 수정</p>
+	           		  </a>
+        		  </li>
+        		  
+        		   <!-- 비밀번호 변경페이지 -->
+          		  <li>
+          		      <a href="${contextPath }/pet.changePwdForm">  <!-- MemberChangePwdFormController로 이동 -->
+          			  <p>비밀번호 변경</p> 
+          			  </a>
+          		  </li>
+        		  
+        		  
+        		   <!-- 진단테스트로 이동 -->
+        		  <li>
+          			  <a href="${contextPath }/pet.moveTestUpdate">
+         		      <p>진단테스트 수정</p>
+          			  </a>
+         		  </li>
+              </ul>
+          </li>  
+
+               
+        </ul> --%>
       </div>
     </div>
     <div class="main-panel">
-      
-     
-   
-
-
-
 
      <!--최근 게시글/리뷰내역부분-->
-        <div class="content">
+      <div class="content">
         
    <!--마이페이지 헤더부분-->
       <div class="header" >
-        <div>
-            <h1><a href="" style="text-decoration: none;" class="mypage">My Page</a></h1>
-        </div>
-
         <div class="welcomebox">
-        	
            <div id="header_name">
+              <div>
            		<img src="./resources/icons/프로필사진.png" width="80px" height="80px">
-           		 <strong><span>${loginUser.userName }</span></strong>
-           		 님 반갑습니다.
-           		  <div class="enroll-date">
-        				가입일 :  ${loginUser.enrollDate }
-       				</div>
+           		<strong><span>${loginUser.userName }</span></strong>님 반갑습니다.
+           		<div class="enroll-date">
+        			가입일 :  ${loginUser.enrollDate }
+       		    </div>
+       		    </div>
            </div>
-       
-        
+     
             <div class="icon_group">
-                <div>
-                
+                <div>               
                     <a href="${contextPath }/pet.myBoardList?currentPage=1" class="post_icon">
                         <div class="icon"><img src="./resources/icons/게시글아이콘.png" alt="게시글아이콘" width="50px" height="50"></div>
                         <div class="txt" >게시글 </div>                         
                         <div class="count">${boardCount }</div>
                     </a>
                 </div>  
+                
                  <div class="bar" style="font-size: 100px;"><div class="miniBar"></div></div>
+               
                 <div>
                     <a href="${contextPath }/pet.myReview?currentPage=1" class="review_icon">
                         <div class="icon"><img src="./resources/icons/리뷰아이콘.png" alt="리뷰아이콘" width="50px" height="50"></div>
@@ -238,32 +353,31 @@
                         <div class="count">${reviewCount }</div>
                     </a>        
                 </div>
+                
                  <div class="bar" style="font-size: 100px;"><div class="miniBar"></div></div>
+                 
                  <div>
                  	<a href="${contextPath }/pet.myQnA?currentPage=1" class="qna_icon">
                         <div class="icon"><img src="./resources/icons/문의아이콘.png" alt="문의아이콘" width="50px" height="50"></div>
                         <div class="txt">QnA</div>
                         <div class="count">${qnaCount }</div>
                     </a>  
-                 </div>
+                 </div>               
             </div>
-        </div>
-        <br clear="both">
+            
+        </div> <!-- welcomebox 종료 -->
   	  </div>
+        <br clear="both">
         
         
-        
-        
+        <div class="content">
           <div class="row">
-          
-          
-          
-           <div class="col-md-12">
+           <div class="col-md-12" style="margin-bottom: 60px;">
               <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">최근 리뷰 내역</h4>
-                  <p class="card-category"> <a href="${contextPath }/pet.myReview?currentPage=1">더보기</a></p>
-                </div>
+	                <div class="card-header">
+	                  <h4 class="card-title">최근 리뷰 내역</h4>
+	                  <p class="card-category"> <a href="${contextPath }/pet.myReview?currentPage=1">더보기</a></p>
+	                </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
@@ -308,6 +422,7 @@
               </div>
             </div>
           
+         
           
           
           
@@ -316,11 +431,11 @@
           
           
           
-          
-        <div class="recentAll">  
+        <div class="recentAll" style="width: 100%">  
          <div class="recent1">
+         
             <div class="col-md-12">
-              <div class="card">
+         	  <div class="card">
                 <div class="card-header">
                   <h4 class="card-title">최근 게시글 내역</h4>
                   <p class="card-category"> <a href="${contextPath }/pet.myBoardList?currentPage=1">더보기</a></p>
@@ -400,7 +515,7 @@
               <div class="card">
                 <div class="card-header">
                   <h4 class="card-title">최근 QnA 내역</h4>
-                  <p class="card-category"> <a href="${contextPath }/pet.myReview?currentPage=1">더보기</a></p>
+                  <p class="card-category"> <a href="${contextPath }/pet.myQnA?currentPage=1">더보기</a></p>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -417,22 +532,40 @@
                       </thead>
                       <tbody>
                        <c:choose>
-		                	<c:when test="${empty qList }">
-		                		<tr>
-		                			<td colspan="3">최근 30일동안 작성하신 게시글이 없습니다.</td> 
-		                		</tr>
-		                	</c:when>
-		                	
-		                	<c:otherwise>
-		                		<c:forEach items="${qList }" var="ql">
-				                   <tr>		
-				                   		<td>답변대기중</td>								
-										<td>${ql.qnaTitle } </td>
-										<td>${ql.createDate }</td>
-								   </tr>
-			                    </c:forEach>
-		                    </c:otherwise>
-              			</c:choose>
+						    <c:when test="${empty qList}">
+						        <tr>
+						            <td colspan="3">최근 30일동안 작성하신 게시글이 없습니다.</td> 
+						        </tr>
+						    </c:when>
+						    
+						    <c:otherwise>
+						        <c:forEach items="${qList}" var="ql">
+						            <tr>
+						                <td width="100px">
+						                    <c:forEach items="${replyList}" var="rp">
+						                        <c:choose>
+						                            <c:when test="${ql.qnaNo eq rp.qnaNo}">
+						                                <div class="qnaButton"><span>답변완료</span></div>
+						                            </c:when>
+						                            <c:otherwise></c:otherwise>
+						                        </c:choose>
+						                    </c:forEach>
+						                    <c:forEach items="${isNotReplyList}" var="nr">
+						                        <c:choose>
+						                            <c:when test="${ql.qnaNo eq nr}">
+						                                <div class="qnaButton"><span>답변대기중</span></div>
+						                            </c:when>
+						                            <c:otherwise></c:otherwise>
+						                        </c:choose>
+						                    </c:forEach>
+						                </td>
+						                <td>${ql.qnaTitle}</td>
+						                <td>${ql.createDate}</td>
+						            </tr>
+						        </c:forEach>
+						    </c:otherwise>
+						</c:choose>
+
                       
                       </tbody>
                     </table>
@@ -442,12 +575,11 @@
             </div>
            </div>  
           
-       </div>  
-            
-          
+       
+        	</div>
+          </div>
           </div>
         </div>
-     
     </div>
   </div>
  	<!--   Core JS Files   -->

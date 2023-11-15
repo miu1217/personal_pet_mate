@@ -46,6 +46,10 @@ public class MemberMyPageController extends HttpServlet {
 		ArrayList<Board> bList= new BoardService().recentMyBoardList(userNo);
 		ArrayList<Review> rList= new ReviewService().recentMyReviewList(userNo);
 		ArrayList<QnA> qList = new QnAService().recentMyQnAList(userNo);
+		ArrayList<QnA> replyList = new QnAService().getReplyQnAList(userNo);
+		
+		//답변 받지 못한 리스트
+		ArrayList<Integer> isNotReplyList = new ArrayList<>();
 		
 		//list에 최신게시글 잘담김
 //		for(Board b : list) {
@@ -57,14 +61,41 @@ public class MemberMyPageController extends HttpServlet {
 //			System.out.println(r);
 //		}
 		
-		for(QnA q : qList) {
-			System.out.println(q);
-		}
+//		for(QnA q : qList) {
+//			System.out.println(q);
+//		}
+//		
+		//로그인 유저가 작성한 qnaNo를 전달받아야함
+		//아직 qnaNo넘겨주는 작업안했기때문에 어딘가에서 데이터보내줘야함 세션에다가 담아야하나?  //그러면 qna 정보를 조회해서 세션에 받아와야할듯(로그인유저참고)
+	//	int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+	//	int replyChk = new QnAService().replyChk(userNo,qnaNo); 
+	//	request.setAttribute("replyChk", replyChk);
+//		
 		
+		//원래는 게시글을 클릭하면 해당 게시글 bno를 전달하는 함수를 script안에서 작성해서 controller로 보내줬잔항요
+		//근데 그냥 로그인을 하면 거기에 qnaNo가 담겨져있어야함
+		
+		//답변 받은 qna인가 아닌가 체크. 답변 받은 qna면 true, 아니면 false
+		boolean isIncludeReply = false;
+		for(int i=0;i<qList.size();i++) {
+			for(int j=0;j<replyList.size();j++) {
+				if(replyList.get(j).getQnaNo() == qList.get(i).getQnaNo()) {
+					isIncludeReply = true;
+				}
+				
+			}
+			if(!isIncludeReply) {
+				isNotReplyList.add(qList.get(i).getQnaNo());
+			}else {
+				isIncludeReply = false;
+			}
+		}
+
 		request.setAttribute("bList", bList);
 		request.setAttribute("rList", rList);
 		request.setAttribute("qList", qList);
-		
+		request.setAttribute("replyList", replyList);
+		request.setAttribute("isNotReplyList", isNotReplyList);
 		request.getRequestDispatcher("views/member/myPage.jsp").forward(request, response);
 	}
 
