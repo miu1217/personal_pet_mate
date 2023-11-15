@@ -7,7 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>공지사항 작성</title>
+  <title>공지사항 수정</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -23,7 +23,6 @@
       margin: auto;
       font-family: 'Noto Sans KR', sans-serif;
       font-weight: 500;
-	      
     }
 
     main {
@@ -39,7 +38,7 @@
 .navbar[data-bs-theme=light] {
 	--bs-navbar-color: #000000; 
 	--bs-navbar-hover-color: #af6c64; 
-	--bs-navbar-active-color: #af6c64;
+	--bs-navbar-active-color: #F07160;
 }
 
 .navbar-expand-lg { 
@@ -68,19 +67,56 @@
 	color: var(--bs-navbar-active-color);
 }
 
+
     .insertTop{
         font-size: 35px;
         margin: auto;
-        margin-top: 2%;
-        margin-bottom: 2%;
         text-align: center;
+        
     }
+
+    .filebox{
+        width: 60%;
+        margin-bottom: 5px;
+    }
+
+    .filebox .upload-name {
+        display: inline-block;
+        height: 40px;
+        padding: 0 10px;
+        vertical-align: middle;
+        border: 1px solid grey;
+        width: 50%;
+        color: #999999;
+    }
+
+    .filebox label {
+        display: inline-block;
+        padding:10px;
+        color: #fff;
+        background-color: #999999;
+        cursor: pointer;
+        text-align: center;
+        margin-left: 10px;
+    }
+
+    /* 기존 파일박스 지워주기 */
+    input[type="file"] { 
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    }
+
 
     .insert{
       border: none;
       width: 1000px;
       height: auto;
       margin: auto;
+      
     }
 
     .content {
@@ -90,6 +126,12 @@
       text-align: center;
     }
 
+    .content img{
+        margin: auto;
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
 
     .subject{
       margin: auto;
@@ -105,7 +147,9 @@
     .num_byte{
       font-size: 14px;
     }
-        #content_limit{ float: right;}
+
+    #content_limit{ float: right;}
+    
 
     .content textarea{
       width: 1000px;
@@ -119,16 +163,16 @@
         outline: none;
     }
 
+  
     /* 버튼 스타일 */
     #cancle, #submit{
       width: 80px;
       height: 40px;
       margin: auto;
       text-align: center;
-       border-radius: 10px;
+	 border-radius: 10px;
     }
-    
-.btn.brown{background-color: rgb(211, 195, 176)}
+    .btn.brown{background-color: rgb(211, 195, 176)}
 
   .btn { 
   position: relative;
@@ -138,7 +182,6 @@
   text-align: center; 
   color: rgb(0, 0, 0);
   font-weight: bolder;
-  
 }
 .btn:active {
   top: 4px; 
@@ -146,7 +189,6 @@
 
 .btn.brown {box-shadow: 0px 4px 0px rgb(163, 151, 137);}
 .btn.brown:active {box-shadow: 0 0 rgb(128, 112, 94); background-color: rgb(211, 195, 176);}
- 
   </style>
 </head>
 
@@ -166,29 +208,28 @@
 		</nav>
 	</header>
     
-    <div class="insertTop">공지사항 작성</div>
-    <form action="${contextPath }/pet.insertNo"  method="post" onsubmit="return insertChk();" id="goInsert">
-    	<input type=hidden name="userNo" value="${loginUser.userNo }">
+    <div class="insertTop">공지사항 수정</div>
+    <form action="${contextPath }/pet.noticeUpdate" method="post" id="goUpdate">
+    	<input type=hidden name="bno" value="${b.boardNo }">
       <main>
         <div class="insert">
           <div class="subject">
-            <input name="title" id="title" class="insertT" type="text" value="" placeholder="제목을 입력하세요.">
+            <input name="title" id="title" class="insertT" type="text" value="${b.boardTitle }">
             <span class="num_byte">
-              <span id="subject_limit" class="current_num">(0/ 30글자)</span>
+              <span id="subject_limit" class="current_num">(${b.boardTitle.length()}/ 30글자)</span>
             </span>
           </div>
-          
           <div class="content" id="mainContent">
-            <textarea type="text" id="content" name="content"  rows="1" placeholder="내용을 입력하세요."></textarea> <br>
-            <span class="num_byte">
-             	 <span id="content_limit" class="current_num">(0/ 2000글자)</span>
+            <textarea type="text" id="content" name="content"  rows="1" placeholder="내용을 입력하세요.">${b.boardContent }</textarea> <br>
+                        <span class="num_byte">
+             	 <span id="content_limit" class="current_num">(${b.boardContent.length()}/ 2000글자)</span>
             </span>
         </div>
         </main>
         <footer>
           <div class="choose">
             <button type="button" onclick="isertCancle();" id="cancle" class="btn brown small">취소</button>
-            <button type="submit" id="submit" class="btn brown small">작성</button>
+            <button type="submit" id="submit" onclick="return insertChk();" class="btn brown small">작성</button>
           </div>
         </footer>
 </form>
@@ -198,7 +239,7 @@
   </div>
   
   <script>
-//글자 수 카운트
+//제목 글자 수 카운트
 	$("#title").keyup(function(e) {
 		let content = $(this).val();
 		$("#subject_limit").html("(" + content.length + "/ 30글자)"); //실시간 글자수 카운팅
@@ -209,7 +250,7 @@
 		}
 	});
 
-
+// 내용 글자수 카운트
 	$("#content").keyup(function(e) {
 		let content = $(this).val();
 		$("#content_limit").html("(" + content.length + "/ 2000글자)"); //실시간 글자수 카운팅
@@ -219,7 +260,7 @@
 			$('#content_limit').html("(2000 / 최대 2000글자)");
 		}
 	});
-  
+	
   //글 작성 중 취소 버튼 누를 시
   	function isertCancle(){
   		let result = window.confirm('게시글 작성을 취소하시겠습니까? \n확인을 누르시면 이전페이지로 돌아갑니다.');
@@ -230,7 +271,7 @@
   		}
   	}
 
-    //글작성 버튼 클릭시
+  //글작성 버튼 클릭시
     function insertChk(){
 	  let title = $("#title").val();
 	  let content = $("#content").val();
@@ -244,8 +285,8 @@
     		return false;
     	}
     	
-    	$("#goInsert").submit();
     }
+        
 
 </script>
 
