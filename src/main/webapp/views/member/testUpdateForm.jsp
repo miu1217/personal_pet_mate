@@ -19,25 +19,22 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
+    body{
+        background-color: #F3F6ED;
+    }
 
-  /*기본정보 css영역*/
-  .basicInfo{
+    .title{
+        font-size: 40px;
+     
+    }
 
-    border: 2px black;  /* 네모칸이 안생김 */
-    
-    width: 1300px;
-  }
-  .basicInfo tr{
-    height: 70px;
-  }
-  .basicInfo td, .addInfo td {
-    width: 1300px;
-    padding-left: 20px;
-  }
-  
+
   /*추가정보 css영역*/
   .addInfo{
      width: 1300px;
+     margin: auto;
+     background-color: white;
+     border-radius: 30px;
   }
   .addInfo tr{
   	height: 70px;
@@ -55,123 +52,177 @@
  	margin left: 600px;
  }
 
+ .maleForm {
+    transform: ;
+ }
+
+ /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡradio 모양변경ㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+ .select {
+    padding: 15px 10px;
+}
+.select input[type=radio]{
+    display: none;
+}
+.select input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: 35px;
+    width: 140px;
+    border: 1px solid #C0C0C0;
+    line-height: 24px;
+    text-align: center;
+    font-weight:bold;
+    font-size:13px;
+    border-radius: 20px;
+}
+.select input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+    font-size: 15px;
+}
+
+.select input[type=radio]:checked+label{
+    background-color: #B0CC99;
+    color: #fff;
+}
+.select>input[type=radio]{
+  border-radius: 5px;
+}
+.select label{
+    padding: 4px;
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡradio 모양변경 끝ㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ질문번호 스타일ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+.qNumber{
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    background: #B7CA79;
+    width: 580px;
+    display: flex;
+    justify-content: center;
+}
+
+    
+ /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ진단테스트 radio이미지 옆으로 띄우기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+         .addInfo {
+            text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+            padding: 20px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+		
+	
+    .questionText{
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .btn{
+        background-color: #B0CC99
+       
+       
+    }
+   
 </style>
 
 
 </head>
 <body>
       <%@include file="../common/menubar.jsp"%>
-	<!-- 내정보 나타낸후에 form태그를 이용해서 수정서블렛으로 보내주기 -->
+    
   <div class="wrap" > 
-  <form action="<%=contextPath%>/pet.updateInfo" method="post">  
+  <form action="<%=contextPath%>/pet.updateTest" method="post">  
     <fieldset id="update-form">
-      <h2>PERSONAL PET-MATE <br> 진단테스트 수정</h2>
-      <br>
+    <br><br><br><br>
+      <div class="title" align="center">Product Type Management</div> <br>
+       <div align="center">질문에 응해주셔서 감사합니다.</div> <br> <br> <br>
+
+    <div class="addInfo" >
+        <br><br>
+        <div class="qNumber">1/5 </div> <br>
+        <div class="questionText"> Q. 이름 </div><br><br>
+        <input type="text" value="${loginUser.userName}">
+        <br><br><br><br>
+       
+
+        <!--radio 모양변경-->
+
+            <div class="qNumber">2/5</div> <br>
+           <div class="questionText"> Q. 성별</div> <br>
+            <div class="select">
+                <input type="radio" id="male" name="gender"><label for="male">남자</label>
+                <input type="radio" id="female" name="gender"><label for="female">여자</label>
+            </div>
+            <br><br><br><br>
+
+        <div class="qNumber">3/5</div> <br>
+      <div class="questionText"> Q. 평소 어떤 제품을 자주 구매하시나요?</div> <br><br>
+        <div class="select">         
+            <input type="radio" id="dry" name="foodInterest" value="건식"><label for="dry">건식</label>
+            <input type="radio" id="wet" name="foodInterest" value="습식"><label for="wet">습식</label>
+            <input type="radio" id="cooked" name="foodInterest" value="화식"><label for="cooked">화식</label> 
+            <input type="radio" id="semiwet" name="foodInterest" value="반습식"><label for="semiwet">반습식</label>  <br>
+            <input type="radio" id="allergy" name="foodInterest" value="알러지"><label for="allergy">알러지</label>
+            <input type="radio" id="medicine" name="foodInterest" value="약품"><label for="medicine">약품</label>
+            <input type="radio" id="nutrient" name="foodInterest" value="영양제"><label for="nutrient">영양제</label>
+            <input type="radio" id="nothing1" name="foodInterest" value="선택안함"><label for="nothing1">선택안함</label>
+        </div>
+     <br><br><br><br>
+
+     <div class="qNumber">4/5</div> <br>
+     <div class="questionText">Q. 평소 어떤 헤어제품을 사용하시나요?</div>  <br><br>
+
+        <div class="select">        
+            <input type="radio" name="cleanInterest" id="long" value="장모용샴푸"><label for="long">장모용샴푸</label>
+            <input type="radio" name="cleanInterest" id="short" value="단모용샴푸"><label for="short">단모용샴푸</label>
+            <input type="radio" name="cleanInterest" id="impulse" value="저자극샴푸"><label for="impulse">저자극샴푸</label> 
+            <input type="radio" name="cleanInterest" id="unscented" value="무향샴푸"><label for="unscented">무향샴푸</label>  <br>
+            <input type="radio" name="cleanInterest" id="rinse" value="린스"><label for="rinse">린스</label>
+            <input type="radio" name="cleanInterest" id="treatment" value="트리트먼트"><label for="treatment">트리트먼트</label>
+            <input type="radio" name="cleanInterest" id="nothing2" value="선택안함"><label for="nothing2">선택안함</label>
+        </div>
+     <br><br><br><br>
+ 
 
 
-    <h3>추가정보</h3>
-    <div class="addInfo">
-	
-	<table border="1">
-	
-		<tr>
-		      <th id="coreName">성별</th>
-		  	<td>
-		   		<input type="radio" name="gender" id="gen" value="남"><label for="gen">남</label> 
-		   		<input type="radio" name="gender" id="gen" value="여"><label for="gen">여</label> 
-		  	</td>
-	   </tr>
-	
-	
-	
-		<tr>   
-    	<th id="coreName">반려견 음식 관심분야</th>
-    	<td>
-        <input type="radio" name="foodInterest" id="dry" value="건식">
-        <label for="dry">건식</label>
-        
-        <input type="radio" name="foodInterest" id="wet" value="습식">
-        <label for="wet">습식</label>
-        
-        <input type="radio" name="foodInterest" id="cooked" value="화식">
-        <label for="cooked">화식</label>
-        
-        <input type="radio" name="foodInterest" id="semiwet" value="반습식">
-        <label for="semiwet">반습식</label>
-        
-        <br>
-        
-        <input type="radio" name="foodInterest" id="allergy" value="알러지">
-        <label for="allergy">알러지</label>
-        
-        <input type="radio" name="foodInterest" id="medicine" value="약품">
-        <label for="medicine">약품</label>
-        
-        <input type="radio" name="foodInterest" id="nutrient" value="영양제">
-        <label for="nutrient">영양제</label>
-        
-        <input type="radio" name="foodInterest" id="nothing1" value="선택안함">
-        <label for="nothing1">선택안함</label>
-     	</td>
-	</tr> 
-     
-     <tr>
-    <th id="coreName">반려견 목욕 관심분야</th>
-   		<td>
-      <input type="radio" name="cleanInterest" id="long" value="장모용샴푸">
-      <label for="long">장모용샴푸</label>
+     <div class="qNumber">5/5</div> <br>
+     <div class="questionText"> Q. 이용하시는데 불편한 점을 작성해주세요.</div> <br><br>
+         <textarea name="agree" id="agree" cols="75" rows="14" style="resize: none;" ></textarea>
+        <br><br>
 
-      <input type="radio" name="cleanInterest" id="short" value="단모용샴푸">
-      <label for="short">단모용샴푸</label>
-
-      <input type="radio" name="cleanInterest" id="impulse" value="저자극샴푸">
-      <label for="impulse">저자극샴푸</label>
-
-      <br>
-
-      <input type="radio" name="cleanInterest" id="unscented" value="무향샴푸">
-      <label for="unscented">무향샴푸</label>
-
-      <input type="radio" name="cleanInterest" id="rinse" value="린스">
-      <label for="rinse">린스</label>
-
-      <input type="radio" name="cleanInterest" id="treatment" value="트리트먼트">
-      <label for="treatment">트리트먼트</label>
-
-      <input type="radio" name="cleanInterest" id="nothing2" value="선택안함">
-      <label for="nothing2">선택안함</label>
-    	</td>
-  
-  	</tr>
-  	
-  </table>
+        <div>
+            <button type="submit" class="btn" style="color: white;">수정하기</button>   
+            <button type="button" onclick="cancelUpdate();" class="btn" style="color: white;">취소</button>
+        </div>
+      </div>
+      <br><br><br><br>
   </div>
       
       
       
-      <script>  //회원정보수정폼 안에서 script작성 폼안에서 제이쿼리를 이용해서 정보를 띄워줘야하니깐
+      
+      <script> 
       	
       		$(function(){
-      		  //성별 체크박스 체크해주기
-      		  
-      		    //로그인유저의 성별value값을 문자열로 새로운 변수에 저장한후  성별(남여)박스의 value값을 새로운 변수에 저장해서
-      			//만약 로그인유저의 성별값을 저장한 변수에 성별박스value값이 포함되어이있으면 성별박스의 현재 이 요소에 checked하라는 기능 수행하기
-      	
+      		
       			var chooseGender = "${loginUser.gender}"
-      			//console.log(chooseGender);
-      			//확인결과 user01의 성별이 여로 잘확인됨
-      			
-      			$("input[name=gender]").each(function(){   
-      				var value1 = $(this).val();     
-      				if(chooseGender.includes(value1)) {  
-      					$(this).attr("checked",true);
-      				}
-      			});
-    	
-      			
+          			
+          			$("input[name=gender]").each(function(){   
+          				var value1 = $(this).val();     
+          				if(chooseGender.includes(value1)) {  
+          					$(this).attr("checked",true);
+          				}
+          			});
       			
       			//반려견 음식 관심분야
       			var chooseFoodInterest = "${loginUser.foodInter}"   //'건식,습식,영양제' 나 '빈 문자열'로 저장됨
+      			
+      			
       			
       			$("input[name=foodInterest]").each(function(){
       				var value2 = $(this).val();
@@ -206,83 +257,27 @@
       </script>
       
       
-       <script>
-      //==================이메일 선택
-      var domain = $("#emailSelect");
-       $(domain).change(function(){
-            if($(this).val()=="selec"){
-               $("#domain").attr("readonly", true).attr("placeholder", "선택해주세요.");
-          
-            }
-            if($(this).val() == "naver.com" || $(this).val() == "gmail.com" || 
-              $(this).val() == "daum.com" ||$(this).val() == "nate.com" || $(this).val() == "hanmail.com"){
-
-              $("#domain").val( $(domain).val()).attr("readonly", true);
-
-            }else if($(this).val() == "self"){
-               $("#domain").val("").attr("placeholder", "입력해주세요.").attr("readonly", false).focus();
-            }
-            
-            });
-       </script>
+      
       
     
       <br><br>
      
-      <div>
-        <button type="submit"  class="btn btn-success">수정하기</button>
-        
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteForm" id="deleteButton"> 회원탈퇴</button>
-       
-        
-      </div>
+      
     
     
     </fieldset>
   </form>
- <button onclick="location.href='<%=contextPath%>/pet.myPage'">취소</button>
+
 </div>
+   <script>
+    function cancelUpdate() {
+      // 여기에 취소 버튼을 눌렀을 때의 동작을 추가하면 됩니다.
+      location.href = '<%=contextPath%>/pet.myPage';
+    }
+  </script>
+
   
-  <!-- 회원탈퇴 모달 -->
-<div class="modal" id="deleteForm" align="center">
-  <div class="modal-dialog">
-    <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">회원탈퇴</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body"> 
-      	<img alt="탈퇴이미지" src="./resources/icons/회원탈퇴 아이콘.png" width="70px" height="70px"> <br> <br>
-        <b>정말 탈퇴하시겠어요?</b> <br> <br>
-        탈퇴 버튼 선택 시, 계정은 <br>
-        삭제되며 복구되지 않습니다. <br>
-        
-        <form action="${contextPath }/pet.delete" method="post">
-       <input type="hidden" name="userNo" value="${loginUser.getUserNo()}">    <!-- 로그인유저의 회원번호를 숨겨서보내줌 -> 서블렛에서회원번호와 비밀번호를 이용해서 회원삭제하기-->
-        	<table>  	
-        		<tr>
-        			<td> <input type="password" name="userPwd" placeholder="비밀번호를 입력해주세요." required> </td>
-        		</tr>
-        	</table>
-        	<br>
-        	<button type="submit" style="width: 150px; height: 40px; border-radius: 7px; background-color: #66CC00; color:white; border: 1px white;" >탈퇴</button> <br>
-        	<button style="width: 150px; height: 40px; border-radius: 7px; background-color: white; color:grey; border: 1px white;" >취소</button>
-        </form>
-      </div>
-
-    	
-    
-    
-
-    </div>
-  </div>
-</div>
-  
- </div>
 
 </body>
 </html>

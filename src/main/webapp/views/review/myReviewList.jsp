@@ -37,6 +37,32 @@
 	}
 
 
+.pagingbar{
+	    display: flex;
+    justify-content: center;
+}
+
+.page-item.active .page-link {
+
+    background-color: #B0CC99;
+    border-color: #B0CC99;
+}
+
+.page-link {
+    color: black;
+}
+
+.table-responsive {
+    overflow: auto;
+    width: 90%;
+    margin: auto;
+}
+.card-title{
+	width: 90%;
+    margin: auto;
+}
+
+
 
 </style>
 </head>
@@ -69,7 +95,7 @@
 												</c:when>
 												<c:otherwise>
 													<c:forEach items="${rList }" var="rl">
-														<tr>
+														<tr class="review-row">
 															<td><img src="${contextPath }${rl.titleImg}" width="100px" height="100px"></td>
 															<td>${rl.productName } </td>
 															<td>${rl.userId }</td>
@@ -84,47 +110,66 @@
 
 
 									<script>
-											//클릭했을때 글번호를 세부사항으로 전달
 											$(function(){
 												
-												$(".table>tbody>tr").click(function(){
+												$(".review-row").click(function(){
 													
-													location.href="pet.detail?qno="+ $(this).children().eq(0).text();
+													location.href="pet.detail.r?rno="+ $(this).children().eq(0).text();
 												});       		
 											});
 									</script>
 
 
-
-									    <!-- 페이징바 -->
-		
-										<div align="center" class="pagingbar">
-											<!-- 이전버튼 -->
-											<c:choose>
-												<c:when test="${pi.currentPage eq 1 }">
-													<button disabled>이전</button>
-												</c:when>
-												<c:otherwise>
-													<button onclick="location.href='pet.myReview?currentPage=${pi.currentPage-1}'">이전</button>
-												</c:otherwise>
-											</c:choose>
-											
-											<!-- 1~5페이지 -->
-										<c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">       
-												<button onclick="location.href='pet.myReview?currentPage=${i}'">${i }</button>   <!-- currentPage가 parameter영역에 담겼음 -->
-										</c:forEach>
-										
-										
-										<!-- 다음페이지 -->
-										<c:choose>
-												<c:when test="${pi.currentPage eq pi.maxPage }">
-													<button disabled>다음</button>
-												</c:when>
-												<c:otherwise>
-													<button onclick="location.href='pet.myReview?currentPage=${pi.currentPage+1}'">다음</button>
-												</c:otherwise>
-										</c:choose>
-									</div>    
+									
+									
+									<!-- 페이징바 -->
+										<nav aria-label="Page navigation example" class="pagingbar">
+									    <ul class="pagination">
+									        <!-- 이전버튼 -->
+									        <c:choose>
+									            <c:when test="${pi.currentPage eq 1}">
+									                <li class="page-item disabled">
+									                    <span class="page-link">&laquo;</span>
+									                </li>
+									            </c:when>
+									            <c:otherwise>
+									                <li class="page-item">
+									                    <a class="page-link" href="pet.myReview?currentPage=${pi.currentPage-1}" aria-label="Previous">
+									                        <span aria-hidden="true">&laquo;</span>
+									                    </a>
+									                </li>
+									            </c:otherwise>
+									        </c:choose>
+									
+									        <!-- 페이지 번호 -->
+									        <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
+									            <li class="page-item ${pi.currentPage eq i ? 'active' : ''}">
+									                <a class="page-link" href="pet.myReview?currentPage=${i}">${i}</a>
+									            </li>
+									        </c:forEach>
+									
+									        <!-- 다음버튼 -->
+									        <c:choose>
+									            <c:when test="${pi.currentPage eq pi.maxPage}">
+									                <li class="page-item disabled">
+									                    <span class="page-link">&raquo;</span>
+									                </li>
+									            </c:when>
+									            <c:otherwise>
+									                <li class="page-item">
+									                    <a class="page-link" href="pet.myReview?currentPage=${pi.currentPage+1}" aria-label="Next">
+									                        <span aria-hidden="true">&raquo;</span>
+									                    </a>
+									                </li>
+									            </c:otherwise>
+									        </c:choose>
+									    </ul>
+									</nav>
+									
+									
+									
+									
+									
 								</div>
 							</div>
 						</div>

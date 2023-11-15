@@ -83,10 +83,10 @@ public class ReviewMyListController extends HttpServlet {
 
 		//System.out.println("controller");
 
-//		System.out.println(list);
-//		for(Review r : list) {
-//			System.out.println(r);
-//		}
+		System.out.println(list);
+		for(Review r : list) {
+			System.out.println("rlist는 : "+r);
+		}
 		
 		request.setAttribute("rList", list);   
 		request.setAttribute("pi", pi);
