@@ -7,16 +7,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>게시글 작성</title>
+  <title>게시글 수정</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">	
   <style>
-
     /* 영역설정 */
       body {
       width: 1400px;
@@ -24,7 +23,6 @@
       margin: auto;
       font-family: 'Noto Sans KR', sans-serif;
       font-weight: 500;
-    
     }
 
     main {
@@ -33,7 +31,6 @@
     footer{
       height: auto;
       margin: auto;
-      margin-top: 2%;
       text-align: center;
     }
 /* 네비바 */
@@ -69,18 +66,16 @@
 	color: var(--bs-navbar-active-color);
 }
 
-
     .insertTop{
         font-size: 35px;
         margin: auto;
         text-align: center;
-        margin-top: 3%;
         
     }
 
     .filebox{
         width: 60%;
-        margin-bottom: 1%;
+        margin-bottom: 5px;
     }
 
     .filebox .upload-name {
@@ -101,7 +96,6 @@
         cursor: pointer;
         text-align: center;
         margin-left: 10px;
-        margin-top: 3%;
     }
 
     /* 기존 파일박스 지워주기 */
@@ -121,7 +115,6 @@
       height: auto;
       margin: auto;
       
-      
     }
 
     .content {
@@ -130,8 +123,6 @@
       margin: auto;
       text-align: center;
     }
-    
-    #content_limit{ float: right;}
 
     .content img{
         margin: auto;
@@ -139,6 +130,8 @@
         height: auto;
         display: block;
     }
+    
+    #content_limit{ float: right;}
 
     .subject{
       margin: auto;
@@ -148,7 +141,7 @@
     .subject .insertT{
       width: 700px;
       font-size: 21px;
-      margin-top: 2%;
+      margin-top: 6px;
     }
 
     .num_byte{
@@ -166,17 +159,16 @@
     .content textarea:focus{
         outline: none;
     }
-
   
     /* 버튼 스타일 */
-    #cancle, #insert{
+    #cancle, #submit{
       width: 80px;
       height: 40px;
       margin: auto;
       text-align: center;
-  	 border-radius: 10px;
+       border-radius: 10px;
     }
-
+    
 .btn.brown{background-color: rgb(211, 195, 176)}
 
   .btn { 
@@ -200,7 +192,6 @@
 <body>
 	<%@include file="../common/menubar.jsp"%>
 	
-	
   <div class="outer">
     <div id="insertBo">
 
@@ -213,39 +204,44 @@
 			</ul>
 		</nav>
 	</header>
-	
-    <div class="insertTop">게시글 작성</div>
-    <form action="${contextPath }/pet.insertBo" method="post" id="goInsert" onsubmit="return insertChk();" encType="multipart/form-data">
-    	<input type=hidden name="userNo" value="${loginUser.userNo }">
+    
+    <div class="insertTop">게시글 수정</div>
+    <form action="${contextPath }/pet.boardUpdate" method="post" id="goUpdate" encType="multipart/form-data">
+    	<input type=hidden name="bno" value="${b.boardNo }">
       <main>
         <div class="insert">
           <div class="subject">
-            <input name="title" id="title" class="insertT" type="text" value="" placeholder="제목을 입력하세요.">
+            <input name="title" id="title" class="insertT" type="text" value="${b.boardTitle }">
             <span class="num_byte">
-              <span id="subject_limit" class="current_num">(0/ 30글자)</span>
+              <span id="subject_limit" class="current_num">(${b.boardTitle.length() }/30글자)</span>
             </span>
           </div>
           <div class="filebox">
-              <input class="upload-name"  value="첨부파일" placeholder="첨부파일">
-              <label for="file">파일찾기</label> 
-              <input type="file" id="file" name="file" onchange="loadImg(this,1);">
+				<input type="hidden" name="originFileNo" value="${at.fileNo }">
+				<input type="hidden" name="originFileName" value="${at.changeName }">
+				
+	              <input class="upload-name"  value="${at.originName }" >
+	              <label for="refile">파일찾기</label> 
+	              <input type="file" id="refile" name="refile" onchange="loadImg(this,1);">
+   
           </div>
           <div class="content" id="mainContent">
-            <textarea  id="content" name="content"  rows="1" placeholder="내용을 입력하세요."></textarea> <br>
+            <textarea id="content" name="content"  rows="1">${b.boardContent }</textarea> <br>
              <span class="num_byte">
-             	 <span id="content_limit" class="current_num">(0/ 2000글자)</span>
+             	 <span id="content_limit" class="current_num">(${b.boardContent.length() }/2000글자)</span>
             </span> <br>
             <img id="inputImg" src="${contextPath}${at.filePath}${at.changeName}">
+            
+            
         </div>
         </main>
         <footer>
           <div class="choose">
             <button type="button" onclick="isertCancle();" id="cancle" class="btn brown small">취소</button>
-            <button type="submit" id="insert" class="btn brown small">작성</button>
-            <br><br>
+            <button type="submit" id="submit" onclick="return insertChk();" class="btn brown small">작성</button>
           </div>
         </footer>
-	</form>
+</form>
           
         </div>
     </div>
@@ -253,8 +249,8 @@
   
   <script>
   //글자 수 카운트
-  	$("#title").keyup(function(e) {
-  		let content = $(this).val();
+	$("#title").keyup(function(e) {
+		let content = $(this).val();
 		$("#subject_limit").html("(" + content.length + "/ 30글자)"); //실시간 글자수 카운팅
 		if (content.length > 30) {
 			alert("최대 30글자까지 입력 가능합니다.");
@@ -262,10 +258,10 @@
 			$('#subject_limit').html("(30 / 최대 30글자)");
 		}
 	});
-  
-  
-  	$("#content").keyup(function(e) {
-  		let content = $(this).val();
+
+
+	$("#content").keyup(function(e) {
+		let content = $(this).val();
 		$("#content_limit").html("(" + content.length + "/ 2000글자)"); //실시간 글자수 카운팅
 		if (content.length > 2000) {
 			alert("최대 2000글자까지 입력 가능합니다.");
@@ -274,23 +270,7 @@
 		}
 	});
   
-    //글작성 버튼 클릭시
-    function insertChk(){
-	  let title = $("#title").val();
-	  let content = $("#content").val();
-	  
-    	if(title == ''){
-    		alert("제목을 입력해주세요.");
-    		return false;
-    	}
-    	
-    	if(content == ''){
-    		alert("내용을 입력해주세요.");
-    		return false;
-    	}
-    	
-    }
-  	
+  
   //글 작성 중 취소 버튼 누를 시
   	function isertCancle(){
   		let result = window.confirm('게시글 작성을 취소하시겠습니까? \n확인을 누르시면 이전페이지로 돌아갑니다.');
@@ -320,20 +300,39 @@
 				}
 			}
 
-        $("#file").on('change',function(){
-        	let fileName = $("#file").val();
+        $("#refile").on('change',function(){
+            let fileName = $("#refile").val();
         $(".upload-name").val(fileName);
         });
 
         // 이미지 등록시 main 높이 자동조절
         function adjustContentContainerHeight() {
-        	let mainContent = document.querySelector("#mainContent");
-        	let buttonsContainer = document.querySelector(".choose");
+            let mainContent = document.querySelector("#mainContent");
+            let buttonsContainer = document.querySelector(".choose");
   
  
-        	let contentHeight = mainContent.scrollHeight;
+            let contentHeight = mainContent.scrollHeight;
             mainContent.mainstyle.height = contentHeight + "px";
             buttonsContainer.buttonsContainerstyle.height = contentHeight + "px";
+        }
+
+        //글작성 버튼 클릭시
+        function insertChk(){
+    	  let title = $("#title").val();
+    	  let content = $("#content").val();
+    	  
+        	if(title == ''){
+        		alert("제목을 입력해주세요.");
+        		return false;
+        	}
+        	
+        	if(content == ''){
+        		alert("내용을 입력해주세요.");
+        		return false;
+        	}
+        	
+        	$("#goUpdate").submit();
+        	
         }
         
 

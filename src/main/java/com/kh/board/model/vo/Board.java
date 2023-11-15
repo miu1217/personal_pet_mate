@@ -1,8 +1,9 @@
 package com.kh.board.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Board {
+public class Board  implements Serializable{
 	private int boardNo; //게시글번호
 	private int boardType; //게시글 타입 (1 공지 / 2 자유)
 	private String boardTitle; 
@@ -19,6 +20,7 @@ public class Board {
 		super();
 	}
 
+
 	public Board(int boardNo, String boardTitle, String boardWriter, int count, Date createDate) {
 		super();
 		this.boardNo = boardNo;
@@ -30,8 +32,10 @@ public class Board {
 
 
 
-	public Board(String boardTitle, String boardContent, String boardWriter, int count, Date createDate) {
+	public Board(int boardNo, int boardType, String boardTitle, String boardContent, String boardWriter, int count, Date createDate) {
 		super();
+		this.boardNo = boardNo;
+		this.boardType = boardType;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardWriter = boardWriter;
@@ -41,8 +45,10 @@ public class Board {
 
 
 
+
+
 	public Board(int boardNo, int boardType, String boardTitle, String boardContent, String boardWriter, int count,
-			Date createDate, String status) {
+			Date createDate, String status, String imgsrc) {
 		super();
 		this.boardNo = boardNo;
 		this.boardType = boardType;
@@ -52,6 +58,7 @@ public class Board {
 		this.count = count;
 		this.createDate = createDate;
 		this.status = status;
+		this.imgsrc = imgsrc;
 	}
 
 

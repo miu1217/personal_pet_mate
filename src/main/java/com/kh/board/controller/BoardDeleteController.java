@@ -10,20 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Attachment;
-import com.kh.board.model.vo.Board;
 
 /**
- * Servlet implementation class BoardDetailController
+ * Servlet implementation class BoardDeleteController
  */
-@WebServlet("/pet.boardDetail")
-public class BoardDetailController extends HttpServlet {
+@WebServlet("/pet.boardDelete")
+public class BoardDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDetailController() {
+    public BoardDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,34 +30,18 @@ public class BoardDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int bno =Integer.parseInt(request.getParameter("bno"));
 		
-		
-		int result = new BoardService().increaseCount(bno);
+		int result = new BoardService().deleteBoard(bno);
 		
 		HttpSession session = request.getSession();
-		String before = request.getHeader("referer");
 		
+		String before = request.getHeader("referer");
 		if(result>0) {
-			Board b =  new BoardService().detailBoard(bno);
-			
-			Attachment at =  new BoardService().selectAttachment(bno);
-			/*
-			System.out.println(b);
-			
-				for(Attachment at : list) {
-				System.out.println(at);
-			}
-			*/
-			
-			request.setAttribute("b", b);
-			request.setAttribute("at", at);
-			
-			request.getRequestDispatcher("views/board/boardDetailview.jsp").forward(request, response);
+			session.setAttribute("message", "게시글이 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath()+"/pet.boardMain?currentPage=1");
 		}else {
-			session.setAttribute("message", "상세보기 실패");
-			
-			//이전페이지로
+			session.setAttribute("message", "게시글 삭제 실패");
 			response.sendRedirect(before);
 		}
 	}

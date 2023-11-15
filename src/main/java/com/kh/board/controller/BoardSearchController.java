@@ -1,6 +1,7 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,20 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
+import com.kh.board.model.vo.PagingBar;
 
 /**
- * Servlet implementation class BoardDetailController
+ * Servlet implementation class BoardSearchController
  */
-@WebServlet("/pet.boardDetail")
-public class BoardDetailController extends HttpServlet {
+@WebServlet("/pet.boardSearch")
+public class BoardSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDetailController() {
+    public BoardSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,44 +33,39 @@ public class BoardDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		
-		int result = new BoardService().increaseCount(bno);
-		
-		HttpSession session = request.getSession();
-		String before = request.getHeader("referer");
-		
-		if(result>0) {
-			Board b =  new BoardService().detailBoard(bno);
+			String searchType = request.getParameter("searchType");
+			 ArrayList<Board> slist = null;
 			
-			Attachment at =  new BoardService().selectAttachment(bno);
-			/*
-			System.out.println(b);
 			
-				for(Attachment at : list) {
-				System.out.println(at);
+			HttpSession session = request.getSession();
+			
+			//System.out.println(searchText);
+			if("title".equals(searchType)) {
+				String titleKeyword = request.getParameter("searchInput");
+				slist = new BoardService().searchByTitle(titleKeyword);
+			
+			}else if("content".equals(searchType)) {
+				String contentKeyword = request.getParameter("searchInput");
+				slist = new BoardService().searchByContent(contentKeyword);
+			}else{
+				String searchText = request.getParameter("searchInput");
+				slist = new BoardService().boardSearch(searchText);
 			}
-			*/
 			
-			request.setAttribute("b", b);
-			request.setAttribute("at", at);
 			
-			request.getRequestDispatcher("views/board/boardDetailview.jsp").forward(request, response);
-		}else {
-			session.setAttribute("message", "상세보기 실패");
+			session.setAttribute("slist", slist);
 			
-			//이전페이지로
-			response.sendRedirect(before);
-		}
+			request.getRequestDispatcher("views/board/searchPage.jsp").forward(request, response);
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+	
 	}
 
 }
