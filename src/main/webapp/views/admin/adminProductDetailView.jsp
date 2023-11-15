@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	//ContextRoot(ContextPath)를 꺼내놓기 (메소드를 이용하여)
-	String contextPath = request.getContextPath();
-	//로그인 정보 꺼내놓기 
-	//session객체에 loginUser 객체와 alertMsg 메세지를 담아놓음 
-	String message = (String)session.getAttribute("message");
-
-	
-%> 
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -33,6 +24,12 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="${contextPath }/resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
+<style>
+.btn.btn-primary.btn-round:hover {
+  background-color: #4a5a3b !important; /* Change this to the desired hover color */
+  transition: background-color 0.3s ease !important; /* Add a transition effect */
+}
+</style>
 <body class="">
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
@@ -82,7 +79,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">Product Detail</a>
+            <a class="navbar-brand" href="javascript:;" style="font-weight: bold;">Product Detail</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
           </div>
@@ -95,7 +92,7 @@
         <div class="col-md-8">
           <div class="card card-user">
             <div class="card-header">
-              <h5 class="card-title">Product Detail</h5>
+              <h5 class="card-title" style="font-weight: bold;">Product Detail</h5>
             </div>
             	<div class="card-body">
                   <div class="row">
@@ -169,9 +166,9 @@
                   </c:forEach>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round"  
+                      <button type="submit" class="btn btn-primary btn-round"   style="background-color: #677E52;"
                       		onclick="location.href='${contextPath}/pet.admin.update.pd?pno=${p.productNo}'"> Update </button>
-                      <button type="submit" class="btn btn-primary btn-round"  
+                      <button type="submit" class="btn btn-primary btn-round"   style="background-color: #677E52;"
                       		onclick="location.href='${contextPath}/pet.admin.delete.pd?pno=${p.productNo}'"> Delete </button>
                     </div>
 	                  </div>

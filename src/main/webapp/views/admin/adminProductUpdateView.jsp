@@ -24,6 +24,12 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="${contextPath }resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
+<style>
+  .btn.btn-primary.btn-round:hover {
+  background-color: #4a5a3b !important; /* Change this to the desired hover color */
+  transition: background-color 0.3s ease !important; /* Add a transition effect */
+}
+</style>
 <body class="">
 
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
@@ -73,7 +79,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">Product Update</a>
+            <a class="navbar-brand" href="javascript:;" style="font-weight: bold;">Product Update</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
           </div>
@@ -86,7 +92,7 @@
         <div class="col-md-8">
           <div class="card card-user">
             <div class="card-header">
-              <h5 class="card-title">Product Update</h5>
+              <h5 class="card-title" style="font-weight: bold;">Product Update</h5>
             </div>
              <form action="${contextPath }/pet.admin.update.pd" method="post" id="update-area" enctype="multipart/form-data">
             	<input type="hidden" name="productNo" value="${p.productNo }">
@@ -192,7 +198,7 @@
                   </c:forEach>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit"> Submit </button>
+                      <button type="submit" class="btn btn-primary btn-round"  style="background-color: #677E52;"> Submit </button>
                     </div>
 	                  </div>
 	                  
@@ -202,8 +208,8 @@
 		                    함수(this) 
 				         -->
 				        
-						<input type="file" id="file1" name="file1" onchange="loadImg(this,1)" required> <!-- 대표이미지 필수  -->
-						<input type="file" id="file2" name="file2" onchange="loadImg(this,2)" required>
+						<input type="file" class="form-control" id="file1" name="file1" onchange="loadImg(this,1)" required> <!-- 대표이미지 필수  -->
+						<input type="file" class="form-control" id="file2" name="file2" onchange="loadImg(this,2)" required>
 					
 					</div>
 					</div>

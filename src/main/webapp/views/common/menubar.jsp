@@ -55,7 +55,6 @@ nav {
 	overflow: hidden; /* Clear floats */
 	background-color: #ffffff;
 	font-family: 'Montserrat', sans-serif; /* Font family */
-	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 	margin: 0 auto;
 	/* Subtle shadow to lift the nav off the page */
 }
