@@ -34,12 +34,13 @@ public class ReviewDeleteController extends HttpServlet {
 		
 		int result = new ReviewService().deleteReview(reviewNo);
 
+		
 		HttpSession session = request.getSession();
 		if(result > 0) {
-			session.setAttribute("message", "상품 삭제 성공하셨습니다.");
+			session.setAttribute("message","리뷰 삭제 성공하셨습니다.");
 			response.sendRedirect(request.getContextPath());
 		}else {
-			session.setAttribute("message", "상품 삭제 실패하셨습니다.");
+			session.setAttribute("message", "리뷰 삭제 실패하셨습니다.");
 			response.sendRedirect(request.getContextPath());
 			
 		}

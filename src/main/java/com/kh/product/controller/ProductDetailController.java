@@ -36,7 +36,8 @@ public class ProductDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		AdminService aps = new AdminService();
+
+	AdminService aps = new AdminService();
 		
 		//상품번호가져오기
 		int pno = Integer.parseInt(request.getParameter("pno"));
@@ -48,16 +49,16 @@ public class ProductDetailController extends HttpServlet {
 		ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(pno);
 		
 		//상품리뷰가져오기
-		ArrayList<Review> prList = new ReviewService().selectReviewList(pno); 
+	
 
 		//상품정보담기
 		request.setAttribute("p", p);
 		//상품사진담기
 		request.setAttribute("phList", phList);
-		//상품리뷰리스트담기
-		request.setAttribute("prList", prList);
+	
 		
 		request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);
+		
 	}
 
 	/**

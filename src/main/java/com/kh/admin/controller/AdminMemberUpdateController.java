@@ -14,7 +14,7 @@ import com.kh.member.model.vo.Member;
 /**
  * Servlet implementation class AdminMemberUpdateController
  */
-@WebServlet("/admin_update.m")
+@WebServlet("/pet.admin.update.m")
 public class AdminMemberUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,12 +30,22 @@ public class AdminMemberUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("uno"));
+		HttpSession session = request.getSession();
 		
-		Member m = new AdminService().selectMember(userNo);
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
 		
-		request.setAttribute("m", m);
-		request.getRequestDispatcher("views/admin/adminMemberUpdateView.jsp").forward(request, response);
+		if(userId.equals("admin")) {
+			
+			int userNo = Integer.parseInt(request.getParameter("uno"));
+			
+			Member m = new AdminService().selectMember(userNo);
+			
+			request.setAttribute("m", m);
+			request.getRequestDispatcher("views/admin/adminMemberUpdateView.jsp").forward(request, response);
+		}else {
+			request.setAttribute("message", "관리자만 들어올 수 있는 공간임 나가");
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**
@@ -69,14 +79,14 @@ public class AdminMemberUpdateController extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(updateMem == null) {
 			session.setAttribute("message","회원정보 수정에 실패했습니다."); 
-			request.getRequestDispatcher("views/admin/adminMemberDetailView.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/pet.admin.list.m");
 		}else {
 			
 			request.setAttribute("m", updateMem);
 			
 
 			session.setAttribute("message","회원정보 수정에 성공했습니다.");
-			request.getRequestDispatcher("views/admin/adminMemberDetailView.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/pet.admin.list.m");
 		}
 		
 		

@@ -133,14 +133,15 @@ nav {
 .nav-login {
 	display: flex;
 	align-items: center;
-	width: 220px;
+	width: 240px;
+	margin-right: 24px;
 	justify-content: center;
 	flex-direction: column;
 }
 
 .main-button {
 	background-color: #b0cc99;
-	width: 100px;
+	width: 117px;
 	color: white;
 	border: none;
 	padding: 10px 10px;
@@ -187,10 +188,10 @@ nav {
 				<li class="dropdown"><a href="${contextPath}/pet.boardMain?currentPage=1">Community</a>
 					<ul class="sub-menu">
 						<li><a href="${contextPath}/pet.boardMain?currentPage=1">전체 게시글</a></li>
-						<li><a href="${contextPath}/pet.announcements?currentPage=1">공지사항</a></li>
+						<li><a href="${contextPath}/pet.notice?currentPage=1">공지사항</a></li>
 						<li><a href="${contextPath}/pet.freeBoard?currentPage=1">자유게시판</a></li>
 					</ul></li>
-				<li><a href="${contextPath}/mate.qna?currentPage=1&category=all">QnA</a></li>
+				<li><a href="${contextPath}/mate.qna?currentPage=1&category=0">QnA</a></li>
 			</ul>
 
 			<div class="nav-login">

@@ -3,26 +3,15 @@ package com.kh.review.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.common.JDBCTemplate;
+import com.kh.common.model.vo.PageInfo;
 import com.kh.review.model.dao.ReviewDao;
 import com.kh.review.model.vo.Review;
 import com.kh.review.model.vo.ReviewAttachment;
-import com.kh.admin.model.dao.AdminDao;
-import com.kh.common.JDBCTemplate;
 
 public class ReviewService {
 
-	public ArrayList<Review> selectMyReviewList(int userNo) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list =new ReviewDao().selectMyReviewList(conn,userNo);
-		
-		JDBCTemplate.close(conn);
-		
-		
-		
-		
-		return list;
-	}
+	
 
 	public int insertReview(Review r, ReviewAttachment at) {
 		
@@ -135,15 +124,56 @@ public class ReviewService {
 		return result*result2;
 	}
 
-	public ArrayList<Review> selectReviewList(int pno) {
+	public ArrayList<Review> selectReviewList(int pno, int startIndex, int reviewsPage) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Review> prList = new ReviewDao().selectReviewList(conn, pno);
+		ArrayList<Review> prList = new ReviewDao().selectReviewList(conn, pno, startIndex, reviewsPage);
 		
 		JDBCTemplate.close(conn);
 		return prList;
 	}
 
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ내가 쓴 리뷰 총 개수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+		public int reviewCount(int userNo) {
+			Connection conn = JDBCTemplate.getConnection();
+			int count= new ReviewDao().reviewCount(conn,userNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return count;
+		}
+
+		
+		
+		// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ내가 쓴 리뷰 목록 조회
+		public ArrayList<Review> selectMyReviewList(PageInfo pi, int userNo) {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			ArrayList<Review> list = new ReviewDao().selectMyReviewList(conn,pi,userNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return list;
+		}
+
+
+
+		
+		
+		
+		
+		
+		//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ최근 30일 리뷰 5개 정보담기
+		public ArrayList<Review> recentMyReviewList(int userNo) {
+			Connection conn = JDBCTemplate.getConnection();
+			ArrayList<Review> list = new ReviewDao().recentMyReviewList(conn,userNo); 
+				
+			JDBCTemplate.close(conn);
+			
+			
+			return list;
+		}
 
 }

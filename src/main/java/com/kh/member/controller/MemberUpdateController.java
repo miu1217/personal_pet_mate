@@ -15,6 +15,12 @@ import com.kh.member.model.vo.Member;
 /**
  * Servlet implementation class MemberUpdateController
  */
+
+  /*
+   * 변경했던 정보들을 가지고 여기서 UPDATE로 회원정보를 변경해주고 변경한 정보들을 updateMember에 담아서 마이페이지로 전달
+   * */
+
+
 @WebServlet("/pet.updateInfo")  //수정 서블렛이고 update처리를 다 한후에 수정된 회원정보를 다시 updateForm에다가 전달하기 
 public class MemberUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -52,10 +58,19 @@ public class MemberUpdateController extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
+		String emailId = request.getParameter("emailId");
+		String domain = request.getParameter("domain");
 		String address = request.getParameter("address");
 		String[] foodInters = request.getParameterValues("foodInterest");
 		String[] cleanInters = request.getParameterValues("cleanInterest");
+		
+		String email = null;
+		if((emailId != "") && (domain != "")) {
+			email = emailId + "@" + domain;
+			
+		}
+		
+		
 		
 		String foodInter= "";
 		String cleanInter="";
@@ -83,7 +98,7 @@ public class MemberUpdateController extends HttpServlet {
 		
 		//업데이트된 회원정보들을 가져옴
 		Member updateMember = new MemberService().updateInfo(m);
-		System.out.println(updateMember); //업데이트된 회원정보 잘전달됨
+		//System.out.println(updateMember); //업데이트된 회원정보 잘전달됨
 		
 		HttpSession session = request.getSession();
 		if(updateMember == null) {   //실패했으면

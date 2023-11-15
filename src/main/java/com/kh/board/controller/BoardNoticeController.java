@@ -65,16 +65,17 @@ public class BoardNoticeController extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		PagingBar pb = new PagingBar(listCount, currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+		PagingBar pn = new PagingBar(listCount, currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
-		ArrayList<Board> nlist = new BoardService().selecNtList(pb);
+		ArrayList<Board> nlist = new BoardService().selecNtList(pn);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("nlist", nlist);
-		session.setAttribute("pb", pb);
+		session.setAttribute("pn", pn);
+
 		
 		
-		response.sendRedirect("views/board/noticePage.jsp");
+		request.getRequestDispatcher("views/board/noticePage.jsp").forward(request, response);
 		
 	}
 

@@ -25,6 +25,49 @@
     <link rel="stylesheet" href="/personal/resources/assets/productDetailViewCSS/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/personal/resources/assets/productDetailViewCSS/css/style.css" type="text/css">
 </head>
+<style>
+.contact-form {
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+
+.contact-form input {
+	width: 100%;
+	height: 50px;
+	font-size: 16px;
+	color: #6f6f6f;
+	padding-left: 20px;
+	margin-bottom: 30px;
+	border: 1px solid #ebebeb;
+	border-radius: 4px;
+}
+
+.contact-form input::placeholder {
+	color: #6f6f6f;
+}
+
+.contact-form textarea {
+	width: 100%;
+	height: 150px;
+	font-size: 16px;
+	color: #6f6f6f;
+	padding-left: 20px;
+	margin-bottom: 24px;
+	border: 1px solid #ebebeb;
+	border-radius: 4px;
+	padding-top: 12px;
+	resize: none;
+}
+
+.contact-form textarea::placeholder {
+	color: #6f6f6f;
+}
+
+.contact-form button {
+	font-size: 18px;
+	letter-spacing: 2px;
+}
+</style>
 
 <body>
     <!-- Page Preloder -->
@@ -57,21 +100,20 @@
                     </div>
                 </div>
             </div>
+            	<div class="contact-form">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" name="name" placeholder="Product Name" value="${r.productName }">
+                        <input type="text" name="name" placeholder="Product Name" value="${r.productName }" readonly>
                     </div>
                     <div class="col-lg-12 text-center">
                     
-                    <textarea name="reviewContent">${r.reviewContent }</textarea>
+                    <textarea name="reviewContent"placeholder="Review Content" readonly>${r.reviewContent }</textarea>
                     </div>
-                   	<div class="form-group" >
+                     
+                   	<div class="col-lg-6 col-md-6" >
                    		<img id="Img" width="150" height="150" src="${contextPath }${ra.filePath}${ra.changeName}">
                    	</div>
-                     <div class="form-group"id="file-area">
-				      <label for="formFile" class="form-label mt-4">review Img</label>
-				    </div>
-				    <c:if test="${loginUser.userNo eq r.userNo}">
+                    <c:if test="${loginUser.userNo eq r.userNo}">
                     <div class="col-lg-12 text-center">
                        
                         <button type="submit" class="site-btn"
@@ -81,16 +123,17 @@
                     <c:if test="${loginUser.userNo eq r.userNo or loginUser.userId eq 'admin'}">
                     <div class="col-lg-12 text-center">
                        
-                        <button type="submit" class="site-btn"
+                        <button type="button" class="site-btn"
                         onclick="location.href='${contextPath}/pet.delete.r?rno=${r.reviewNo}'">Delete</button>
                     </div>
                     </c:if>
                 </div>
-                
-                </div>
+               </div>
         </div>
+    </div>
     <!-- Contact Form End -->
 <script>
+         
             
             //이미지를 읽어줄 함수 
             function loadImg(inputFile,num){
@@ -130,10 +173,12 @@
            
 
 
- </script>
+        </script>
+			
+
 
     <!-- Js Plugins -->
-   	<script src="/personal/resources/assets/productDetailViewCSS/js/jquery-3.3.1.min.js"></script>
+    <script src="/personal/resources/assets/productDetailViewCSS/js/jquery-3.3.1.min.js"></script>
     <script src="/personal/resources/assets/productDetailViewCSS/js/bootstrap.min.js"></script>
     <script src="/personal/resources/assets/productDetailViewCSS/js/jquery.nice-select.min.js"></script>
     <script src="/personal/resources/assets/productDetailViewCSS/js/jquery-ui.min.js"></script>
@@ -141,7 +186,6 @@
     <script src="/personal/resources/assets/productDetailViewCSS/js/mixitup.min.js"></script>
     <script src="/personal/resources/assets/productDetailViewCSS/js/owl.carousel.min.js"></script>
     <script src="/personal/resources/assets/productDetailViewCSS/js/main.js"></script>
-
 
 
 

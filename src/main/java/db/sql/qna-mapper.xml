@@ -3,9 +3,14 @@
 
 <properties>
 	<entry key="listCount">
-		select count(*) count from qna where category_no = 1
+		select count(*) count from qna where status = 'Y'
+	</entry>
+
+	<entry key="listCountCategory">
+		select count(*) count from qna where category_no = ?
 		and status = 'Y'
 	</entry>
+
 
 	<entry key="selectQnAList">
 		select *
@@ -46,12 +51,13 @@
 		SELECT qna_no, user_id, category_name, qna_title,
 		qna_content, q.count, q.create_date, q.status
 		FROM qna q
-		join member m using(user_no)
+		join member m
+		using(user_no)
 		join qna_category c using(category_no)
 		where qna_no = ?
 		and q.status = 'Y'
 	</entry>
-	
+
 	<entry key="selectQnaAttachment">
 		SELECT FILE_NO
 		,ORIGIN_NAME
@@ -61,6 +67,166 @@
 		QNA_ATTACHMENT
 		WHERE QNA_NO = ?
 		AND STATUS = 'Y'
+	</entry>
+
+	<entry key="selectQnACategory">
+		select * from qna_category
+	</entry>
+
+	<entry key="insertQna">
+		INSERT INTO QNA VALUES (SEQ_QNO.NEXTVAL, ?, ?, ?, ?,
+		DEFAULT, SYSDATE, DEFAULT)
+	</entry>
+
+	<entry key="insertQnAAttachment">
+		INSERT INTO QNA_ATTACHMENT(FILE_NO ,QNA_NO
+		,ORIGIN_NAME ,CHANGE_NAME ,FILE_PATH)
+		VALUES(SEQ_QANO.NEXTVAL
+		,SEQ_QNO.CURRVAL
+		,?
+		,?
+		,?)
+	</entry>
+
+	<entry key="updateQna">
+		UPDATE QNA
+		SET QNA_TITLE = ?
+		,QNA_CONTENT = ?
+		WHERE QNA_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+
+	<entry key="updateQnaAttachment">
+		UPDATE QNA_ATTACHMENT
+		SET ORIGIN_NAME = ?
+		,CHANGE_NAME = ?
+		,FILE_PATH = ?
+		,CREATE_DATE = SYSDATE
+		WHERE FILE_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+
+	<entry key="insertNewQnaAttachment">
+		INSERT INTO QNA_ATTACHMENT(FILE_NO
+		,QNA_NO
+		,ORIGIN_NAME
+		,CHANGE_NAME
+		,FILE_PATH)
+		VALUES(SEQ_QANO.NEXTVAL
+		,?
+		,?
+		,?
+		,?)
+	</entry>
+	
+	<entry key="deleteQna">
+	UPDATE QNA
+	SET STATUS = 'N'
+	WHERE QNA_NO = ?
+		
+	</entry>
+	
+	<entry key="insertQnaReply">
+		INSERT INTO QNA_REPLY(REPLY_NO
+		,QNA_NO
+		,USER_NO
+		,REPLY_CONTENT
+		,CREATE_DATE)
+		VALUES (SEQ_QRNO.NEXTVAL
+		,?
+		,?
+		,?
+		,SYSDATE)
+	</entry>
+
+	<entry key="selectQnAReplyList">
+		SELECT REPLY_NO
+		,QNA_NO
+		,USER_ID
+		,REPLY_CONTENT
+		,R.CREATE_DATE
+		FROM QNA_REPLY R
+		JOIN MEMBER M USING(USER_NO)
+		WHERE QNA_NO
+		= ?
+		AND
+		R.STATUS ='Y'
+		ORDER BY CREATE_DATE DESC
+	</entry>
+
+	<entry key="updateQnAReply">
+		UPDATE QNA_REPLY
+		SET REPLY_CONTENT= ?
+		WHERE REPLY_NO = ?
+	</entry>
+
+	<entry key="deleteQnAReply">
+		DELETE FROM QNA_REPLY
+		WHERE REPLY_NO = ?
+	</entry>
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	
+	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡ 내가 쓴 QnA 총 개수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="qnaCount">
+		SELECT COUNT(*) COUNT
+		FROM QNA
+		WHERE USER_NO = ?
+		AND STATUS ='Y'
+	</entry>
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징처리한 내가 쓴 QnA리스트 조회ㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="selectMyQnAList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+          	  FROM
+                	(SELECT 
+	                        QNA_NO
+	                        ,CATEGORY_NAME
+	                        ,QNA_TITLE
+	                        ,USER_ID
+	                        ,Q.CREATE_DATE
+               		 FROM QNA Q
+                	 JOIN MEMBER M USING (USER_NO)
+                     JOIN QNA_CATEGORY USING (CATEGORY_NO)
+               		 WHERE USER_NO = ?
+                	 ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡ최근 30일동안 작성한 게시글 5개 정보 조회ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	<entry key="recentMyQnAList">
+		
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+          	  FROM
+                	(SELECT QNA_NO,
+                			QNA_TITLE
+	                        ,CREATE_DATE
+               		 FROM QNA 
+               		 WHERE USER_NO = ?
+                     AND CREATE_DATE >= SYSDATE - INTERVAL '30' DAY
+                	 ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN 1 AND 5
+		
+	</entry>
+	
+	
+	<!--  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ답변 달렸는지 확인버튼ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="replyChk">
+		SELECT COUNT(*) COUNT
+		FROM QNA_REPLY QR
+		JOIN QNA Q USING (QNA_NO)
+		WHERE Q.USER_NO = ?
+		AND QNA_NO = ?
+	</entry>
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ관리자가 답변한 QNA_REPLY 테이블 리스트 가져오기 -->
+	<entry key="getReplyQnAList">
+		SELECT QNA_NO
+		FROM QNA_REPLY
+		WHERE USER_NO = ?
 	</entry>
 
 </properties>

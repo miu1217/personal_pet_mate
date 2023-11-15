@@ -1,6 +1,7 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberChangePwdFormController
  */
+/*
+ * 비밀번호변경하기 누르면 비밀번호 변경하기 페이지로 이동시키기
+ * view : changePwd.jsp로 이동
+ * */
+
+
 @WebServlet("/pet.changePwdForm")
 public class MemberChangePwdFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

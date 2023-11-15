@@ -88,5 +88,12 @@ public class ProductService {
 
 			return pList;
 		}
-		
+		public ArrayList<Product> selectListProduct() {
+
+			ArrayList<Product> pList = new ProductDao().selectListProduct(conn);
+
+			JDBCTemplate.close(conn);
+
+			return pList;
+		}
 }

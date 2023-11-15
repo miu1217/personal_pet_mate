@@ -5,7 +5,7 @@
 		select * from products where status ='Y'
 	</entry>
 	<entry key="selectProductCategoryList">
-		select * from category
+		select * from category where category_no between 1 and 40
 	</entry>
 	<entry key="selectProductDetail">
 		SELECT PRODUCT_NO
@@ -17,14 +17,14 @@
 		FROM PRODUCTS
 		WHERE PRODUCT_NO = ?
 	</entry>
-	<entry key="selectProductAttachmentList">
+	<entry key="selectProductAttachment">
 		SELECT FILE_NO
 		      ,ORIGIN_NAME
-		      ,CHANGE_NAME
 		      ,FILE_PATH
-		      ,FILE_LEVEL
+		      ,CHANGE_NAME
 		FROM PRODUCTS_ATTACHMENT
 		WHERE PRODUCT_NO = ?
+		AND FILE_LEVEL = 1
 		AND STATUS = 'Y'
 	</entry>
 	<entry key="selectProductReviewList">
@@ -62,6 +62,7 @@
 	<entry key="sortListProductReviewCount">
 		SELECT PRODUCT_NO
 		,CATEGORY_NO
+		,CATEGORY_NAME
 		,PRODUCT_NAME
 		,PRODUCT_PRICE
 		,FILE_PATH || CHANGE_NAME TITLEIMG

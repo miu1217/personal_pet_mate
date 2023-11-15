@@ -33,6 +33,7 @@ body {
 	min-width: 1200px;
 }
 
+
 .main-image {
 	width: 1920px;
 	height: 100%;

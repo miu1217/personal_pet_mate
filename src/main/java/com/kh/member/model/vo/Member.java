@@ -16,24 +16,18 @@ public class Member {
 	private Date enrollDate;  //	CREATE_DATE	DATE
 	private String status; //	STATUS	CHAR(1 BYTE)
 	
+
+	
+	
+
+
+
 	public Member() {
 		super();
 	}
 
 	
 	
-
-
-
-
-	public Member(String userName, String phone ) {
-		super();
-		this.userName = userName;
-		this.phone = phone;
-	}
-
-
-
 	public Member(int userNo, String userId, String userPwd, String userName, String gender, String phone, String email,
 			String address) {
 		super();
@@ -47,6 +41,30 @@ public class Member {
 		this.address = address;
 	}
 
+
+
+
+	public Member(String userName, String phone ) {
+		super();
+		this.userName = userName;
+		this.phone = phone;
+	}
+
+
+
+
+
+
+
+	public Member(int userNo, String userId, String userName, String foodInter, String cleanInter, Date enrollDate) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userName = userName;
+		this.foodInter = foodInter;
+		this.cleanInter = cleanInter;
+		this.enrollDate = enrollDate;
+	}
 
 
 
@@ -85,16 +103,6 @@ public class Member {
 	}
 
 
-
-	public Member(int userNo, String userId,String userName, String foodInter, String cleanInter, Date enrollDate) {
-		super();
-		this.userNo = userNo;
-		this.userId = userId;
-		this.userName = userName;
-		this.foodInter = foodInter;
-		this.cleanInter = cleanInter;
-		this.enrollDate = enrollDate;
-	}
 
 	
 

@@ -1,6 +1,7 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberBeforeUpdateChkController
  */
+
+/*
+ *  회원정보수정 누르면 나오는 비밀번호 입력창으로 전달
+ *  view : beforeUpdateChk.jsp로 전달
+ */
+
+
 @WebServlet("/pet.beforeUpdateChk")  
 public class MemberBeforeUpdateChkController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,16 +43,7 @@ public class MemberBeforeUpdateChkController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//페이지에서 비밀번호를 입력했으니깐 그 비밀번호가 현재로그인된 비밀번호가 일치하면 회원정보수정페이지로 이동시키기
-//		String userPwd = request.getParameter("userPwd");
-//		String loginUserPwd = request.getParameter("loginUser.userPwd");
-//		
-//		if(userPwd.equals(loginUserPwd)) {
-//			request.getRequestDispatcher("views/member/updateForm.jsp");
-//		}else {
-//			request.setAttribute("message", "오류 발생");
-//		}
-		
+
 		doGet(request, response);
 		
 	}

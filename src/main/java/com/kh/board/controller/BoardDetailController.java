@@ -34,13 +34,16 @@ public class BoardDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
+		
 		int result = new BoardService().increaseCount(bno);
 		
 		HttpSession session = request.getSession();
+		String before = request.getHeader("referer");
+		
 		if(result>0) {
 			Board b =  new BoardService().detailBoard(bno);
 			
-			Attachment at =  new BoardService().selectAttachmentList(bno);
+			Attachment at =  new BoardService().selectAttachment(bno);
 			/*
 			System.out.println(b);
 			
@@ -48,6 +51,7 @@ public class BoardDetailController extends HttpServlet {
 				System.out.println(at);
 			}
 			*/
+			
 			request.setAttribute("b", b);
 			request.setAttribute("at", at);
 			
@@ -56,7 +60,7 @@ public class BoardDetailController extends HttpServlet {
 			session.setAttribute("message", "상세보기 실패");
 			
 			//이전페이지로
-			response.sendRedirect(request.getHeader("referer"));
+			response.sendRedirect(before);
 		}
 	}
 

@@ -13,6 +13,11 @@ public class QnA {
 	private Date createDate;
 	private String status;
 
+	
+	private int userNo;
+	private String categoryName;
+
+	
 	public int getQnaNo() {
 		return qnaNo;
 	}
@@ -77,6 +82,31 @@ public class QnA {
 		this.category = category;
 	}
 
+	
+	
+	
+	
+	
+	public QnA() {
+		super();
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
 	@Override
 	public String toString() {
 		return "QnA [qnaNo=" + qnaNo + ", userId=" + userId + ", category=" + category + ", qnaTitle=" + qnaTitle
@@ -84,6 +114,18 @@ public class QnA {
 				+ status + "]";
 	}
 
+	
+	
+
+	
+	public QnA(int qnaNo, String qnaTitle, Date createDate) {
+		super();
+		this.qnaNo = qnaNo;
+		this.qnaTitle = qnaTitle;
+		this.createDate = createDate;
+	}
+	
+	
 	public QnA(int qnaNo, String userId, String category, String qnaTitle, String qnaContent, int count,
 			Date createDate, String status) {
 		super();
@@ -106,5 +148,39 @@ public class QnA {
 		this.count = count;
 		this.createDate = createDate;
 	}
+	
+	
+	public QnA(int qnaNo, String categoryName, String qnaTitle, String userId, Date createDate) {
+		super();
+		this.qnaNo = qnaNo;
+		this.categoryName = categoryName;
+		this.qnaTitle = qnaTitle;
+		this.userId = userId;
+		this.createDate = createDate;
+	}
 
+	public QnA(String qnaTitle, Date createDate) {
+		super();
+		this.qnaTitle = qnaTitle;
+		this.createDate = createDate;
+	}
+
+
+
+	public QnA(int qnaNo, int userNo, String qnaTitle, String qnaContent, int count, Date createDate, String status,
+			String userId, String category) {
+		super();
+		this.qnaNo = qnaNo;
+		this.userNo = userNo;
+		this.qnaTitle = qnaTitle;
+		this.qnaContent = qnaContent;	
+		this.count = count;
+		this.createDate = createDate;
+		this.status = status;
+		this.userId = userId;
+		this.category = category;
+	}
+
+	
+	
 }

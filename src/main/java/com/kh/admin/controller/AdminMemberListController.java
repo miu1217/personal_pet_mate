@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.admin.model.service.AdminService;
 import com.kh.member.model.vo.Member;
@@ -15,7 +16,7 @@ import com.kh.member.model.vo.Member;
 /**
  * Servlet implementation class AdminMemberListController
  */
-@WebServlet("/admin_list.m")
+@WebServlet("/pet.admin.list.m")
 public class AdminMemberListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,12 +32,20 @@ public class AdminMemberListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		
-		ArrayList<Member> mList = new AdminService().selectMemberList();
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
 		
-		System.out.println(mList);
-		request.setAttribute("mList", mList);
-		request.getRequestDispatcher("views/admin/adminMemberListView.jsp").forward(request, response);
+		if(userId.equals("admin")) {
+			
+			ArrayList<Member> mList = new AdminService().selectMemberList();
+			
+			request.setAttribute("mList", mList);
+			request.getRequestDispatcher("views/admin/adminMemberListView.jsp").forward(request, response);
+		}else {
+			request.setAttribute("message", "관리자만 들어올 수 있는 공간임 나가");
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**

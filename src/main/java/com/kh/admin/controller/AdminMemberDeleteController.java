@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.admin.model.service.AdminService;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class AdminMemberDeleteController
  */
-@WebServlet("/admin_delete.m")
+@WebServlet("/pet.admin.delete.m")
 public class AdminMemberDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,21 +30,30 @@ public class AdminMemberDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		if(userId.equals("admin")) {
+		
 		int userNo = Integer.parseInt(request.getParameter("uno"));
 		
 		int result = new AdminService().deleteMember(userNo);
 		
-		HttpSession session = request.getSession();
 		if(result>0) {
 			session.setAttribute("message", "회원 삭제 성공하셨습니다.");
 			
-			response.sendRedirect(request.getContextPath()+"/admin_list.m");
+			response.sendRedirect(request.getContextPath()+"/pet.admin.list.m");
 			
 			
 		}else {
 			request.setAttribute("message", "회원 삭제 실패하셨습니다.");
 			request.getRequestDispatcher("views/admin/adminMemberListView.jsp").forward(request, response);
 			}
+		}else {
+			request.setAttribute("message", "관리자만 들어올 수 있는 공간임 나가");
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**

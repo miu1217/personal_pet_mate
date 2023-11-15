@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
 	<entry key="loginUser">
 	SELECT *
 	FROM MEMBER
@@ -59,6 +60,8 @@
 	
 	
 	
+	
+	
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 부분ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
 	
 	
@@ -66,6 +69,7 @@
 		<entry key="updateInfo">
 		UPDATE MEMBER
 		SET USER_NAME= ?
+			,GENDER= ?
 			,PHONE= ?
 			,EMAIL= ?
 			,ADDRESS= ?
@@ -105,7 +109,13 @@
 		AND STATUS = 'Y'
 	</entry>
 	
-	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ진단테스트 수정하기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="updateTestInfo">
+		UPDATE MEMBER
+		SET FOOD_INTEREST= ?
+			,CLEAN_INTEREST= ?
+		WHERE USER_ID= ?
+	</entry>
 	
 	
 </properties>

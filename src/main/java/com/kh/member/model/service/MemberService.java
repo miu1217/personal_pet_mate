@@ -24,11 +24,6 @@ public class MemberService {
 		
 		int result = new MemberDao().insertMem(conn, m);
 		
-		if(result>0) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
 		JDBCTemplate.close(conn);
 		
 		return result;
@@ -62,6 +57,10 @@ public class MemberService {
 		return result;
 	}
 
+	
+	
+	
+	
 	
 	
 	
@@ -128,6 +127,33 @@ public class MemberService {
 		}
 		return updateMember;
 	}
+
+	public Member updateTestInfo(Member m) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result=new MemberDao().updateTestInfo(conn,m);
+		
+		Member updateTest = null;
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+			updateTest = new MemberDao().selectMember(conn,m.getUserId());
+			System.out.println("upddateTest : "+updateTest);
+			
+		}else {
+			System.out.println("실패함");
+			JDBCTemplate.rollback(conn);
+			
+		}
+		JDBCTemplate.close(conn);
+		
+		return updateTest; 
+
+
+		
+	}
+		
+	}
 	
 	
 	
@@ -141,4 +167,3 @@ public class MemberService {
 	
 	
 	
-}

@@ -10,14 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import com.kh.admin.model.service.AdminService;
+import com.kh.member.model.vo.Member;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 
 /**
  * Servlet implementation class AdminProductDetailController
  */
-@WebServlet("/admin_detail.pd")
+@WebServlet("/pet.admin.detail.pd")
 public class AdminProductDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,29 +35,38 @@ public class AdminProductDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int productNo = Integer.parseInt(request.getParameter("pno"));
-		
-		AdminService aps = new AdminService();
-		
-		//조회수 증가 처리(update 구문일테니 int로 받기)
-		int result = aps.increaseCount(productNo);
-		
-		
+
 		HttpSession session = request.getSession();
-		if(result > 0) {
-			Product p = aps.selectProduct(productNo);
-			ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(productNo);
+		
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		if(userId.equals("admin")) {
+		
+			int productNo = Integer.parseInt(request.getParameter("pno"));
 			
+			AdminService aps = new AdminService();
 			
-			request.setAttribute("p", p);
-			request.setAttribute("phList", phList);
+			//조회수 증가 처리(update 구문일테니 int로 받기)
+			int result = aps.increaseCount(productNo);
 			
-			request.getRequestDispatcher("views/admin/adminProductDetailView.jsp").forward(request, response);
+			if(result > 0) {
+				Product p = aps.selectProduct(productNo);
+				ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(productNo);
+				
+				
+				request.setAttribute("p", p);
+				request.setAttribute("phList", phList);
+				
+				request.getRequestDispatcher("views/admin/adminProductDetailView.jsp").forward(request, response);
+			}else {
+				session.setAttribute("message", "상품 상세페이지 접근 실패하셨습니다.");
+				
+				//이전페이지로
+				response.sendRedirect(request.getHeader("referer"));
+			}
 		}else {
-			session.setAttribute("message", "상품 상세페이지 접근 실패하셨습니다.");
-			
-			//이전페이지로
-			response.sendRedirect(request.getHeader("referer"));
+			request.setAttribute("message", "관리자만 들어올 수 있는 공간임 나가");
+			response.sendRedirect(request.getContextPath());
 		}
 		
 	}
