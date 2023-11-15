@@ -46,7 +46,33 @@
 	  <!-- CSS Just for demo purpose, don't include it in your project -->
 	  <link href="${contextPath }/resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
+<style>
 
+.main-panel {
+  position: relative;
+  height: 100%;
+  float: right;
+  width: calc(100% - 260px);
+  background-color: #f4f3ef;
+  transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1); }
+  .main-panel > .content {
+    padding: 0 30px 30px;
+    min-height: calc(100vh - px);
+    margin-top: 93px; }
+  .main-panel > .navbar {
+    margin-bottom: 0; }
+  .main-panel .header {
+    margin-bottom: 50px; }
+  
+    
+   .text-right .btn .btn-secondary .my-2 .my-sm-0:hover {
+    background-color: #D1BBA5;
+    }
+  
+}
+
+    
+</style>
 <body class="">
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <c:set var="message" value="${sessionScope.message}" />
@@ -59,7 +85,7 @@
           </div>
           <!-- <p>CT</p> -->
         </a>
-        <a href="${contextPath }" class="simple-text logo-normal">
+        <a href="${contextPath }" class="simple-text logo-normal" >
           ADMIN
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
@@ -75,15 +101,9 @@
             </a>
           </li>
           <li>
-            <a href="${contextPath}/pet.admin.list.pd">
+            <a href="${contextPath}/pet.admin.list.pd?currentPage=1">
               <i class="nc-icon nc-tile-56"></i>
               <p>Prodcut List</p>
-            </a>
-          </li>
-          <li>
-            <a href="${contextPath}/pet.admin.insert.pd">
-              <i class="nc-icon nc-tile-56"></i>
-              <p>Prodcut Insert</p>
             </a>
           </li>
         </ul>
@@ -104,14 +124,18 @@
             <a class="navbar-brand" href="javascript:;">Product List</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
+         	
           </div>
         </div>
       </nav>
+      
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+         	 
+          </div>
       <!-- End Navbar -->
 	      <div class="row">
-	        <div class="col-lg-4 col-md-6 col-sm-6">
-	            <div class="product__item">
-	              <div>
+	        <div class="container-list">
+	            <div class="product" style="margin:0px 20px 0px 20px;">
 	                <!-- 게시글 없는경우 -->
 	                <c:choose>
 	                  <c:when test="${empty phList }">
@@ -119,7 +143,7 @@
 	                  </c:when>
 	                  <c:otherwise>
 	                    <c:forEach items="${phList }" var="ph">
-	                      <div class="thumbnail">
+	                      <div class="thumbnail" style="display: flex;">
 	                        <input type ="hidden" value="${ph.productNo }">
 	                        <!--/jsp/resources/uploadFiles/파일이름.jpg -->
 	                        <img class="product__item__pic set-bg" src="${contextPath }${ph.imgsrc}" style="width: 200px; height : 150px; margin: 80px 10px 0px 10px;">
@@ -131,8 +155,12 @@
 	                    </c:forEach>
 	                  </c:otherwise>
 	                </c:choose>
-	              </div>
 	            </div>
+	            
+	                         <div class="text-right">
+					         		<button class="btn btn-outline-success"  style="width: 200px; height: 40px; "
+					         		onclick="location.href='${contextPath}/pet.admin.insert.pd'">Product Insert</button>
+					         	</div>
 	        </div>
             <script>
         	//글 클릭했을때 글번호를 detail.bo 로 전달하며 페이지 요청하기
@@ -149,9 +177,39 @@
         	});
         </script>	
         </div>
-    
     </div>
   </div>
+  <div class="text-right">
+         		<button class="btn btn-outline-success"  style="width: 200px; height: 40px; "
+         		onclick="location.href='${contextPath}/pet.admin.insert.pd'">Product Insert</button>
+         	</div>
+   	<div align="center" class="paging-area">
+		<c:choose>
+			<c:when test="${pi.currentPage eq 1}">
+				<button class="btn btn-secondary" disabled>이전</button>
+			</c:when>
+			<c:otherwise>
+				<button class="btn btn-secondary"
+					onclick="location.href='pet.admin.list.pd?currentPage=${pi.currentPage-1}'">이전</button>
+			</c:otherwise>
+		</c:choose>
+			<c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage }">
+				<button  class="btn btn-secondary"
+				onclick="location.href=pet.admin.list.pd?currentPage=${i}'">${i}</button>
+			</c:forEach>
+			<c:choose>
+				<c:when test="${pi.currentPage eq pi.maxPage}">
+					<button class="btn btn-secondary" disabled>다음</button>
+				</c:when>
+				<c:otherwise>
+					<button class="btn btn-secondary"
+					onclick="location.href='pet.admin.list.pd?currentPage=${pi.currentPage+1}'">다음</button>
+				</c:otherwise>
+			</c:choose>
+       </div>
+  
+        
+        
   <!--   Core JS Files   -->
  <script src="${contextPath }resources/assets/AdminCss/js/core/jquery.min.js"></script>
   <script src="${contextPath }resources/assets/AdminCss/js/core/popper.min.js"></script>

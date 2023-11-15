@@ -131,12 +131,12 @@ public class AdminProductInsertController extends HttpServlet {
 				//성공메세지와함께 사진게시판 목록 보여주기
 				session.setAttribute("message", "상품 입력 성공하셨습니다.");
 				
-				response.sendRedirect(request.getContextPath()+"/pet.admin.list.pd");
+				response.sendRedirect(request.getContextPath()+"/pet.admin.list.pd?currentPage=1");
 				
 			}else {//실패
 				//실패메세지와함께 사진게시판 목록 보여주기 
 				session.setAttribute("message","상품 입력 실패하셨습니다.");
-				response.sendRedirect(request.getContextPath()+"/pet.admin.list.pd");
+				response.sendRedirect(request.getContextPath()+"/pet.admin.list.pd?currentPage=1");
 				
 			}
 			
