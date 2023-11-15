@@ -102,7 +102,8 @@
 		SELECT *
 		FROM (SELECT ROWNUM RNUM, A.*
           	  FROM
-                	(SELECT QNA_TITLE
+                	(SELECT QNA_NO,
+                			QNA_TITLE
 	                        ,CREATE_DATE
                		 FROM QNA 
                		 WHERE USER_NO = ?
@@ -113,6 +114,19 @@
 	</entry>
 	
 	
-	
+	<!--  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ답변 달렸는지 확인버튼ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="replyChk">
+		SELECT COUNT(*) COUNT
+		FROM QNA_REPLY QR
+		JOIN QNA Q USING (QNA_NO)
+		WHERE Q.USER_NO = ?
+		AND QNA_NO = ?
+	</entry>
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ관리자가 답변한 QNA_REPLY 테이블 리스트 가져오기 -->
+	<entry key="getReplyQnAList">
+		SELECT QNA_NO
+		FROM QNA_REPLY
+		WHERE USER_NO = ?
+	</entry>
 
 </properties>

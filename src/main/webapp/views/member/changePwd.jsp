@@ -7,15 +7,28 @@
 <title>비밀번호 변경 페이지</title>
 
 <style>
+	
+	.allHeader>p,.allHeader>div{
+		 display: flex;
+    	justify-content: center;	
+	}
+	
     .header{
         color: #4C4C4C;
-        font-size: 28px;
-        float: left;
+        font-size: 40px;
+        font-weight: bold;
+
+
     }
+
+	.changePwdForm{
+		margin: auto;
+	}
 
     .changePwd{
         width: 1500px;
         height: 200px;
+        margin: auto;
     }
 
     .coreName{
@@ -33,14 +46,29 @@
 
     .warningText{
         background-color: #F0F0F0;
-        width: 1500px;
+        width: 1460px;
+        padding: 20px;
+		margin: auto;
+		margin-top: 80px;
+		display: flex;
+   		flex-direction: column;
+   		align-items: flex-start;
     }
+    .warningTextContent{
+    	margin-left: 20px;
+    }
+    
     .tipText{
-        background-color: #D4F4FA;
-        width: 1500px;
+        background-color: #D9EECA;
+        width: 1450px;
     }
 
     /*버튼 css영역*/
+    .button{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    
     .button button{
         width: 250px;
         height: 50px;
@@ -48,27 +76,71 @@
     .okay{
         color: white;
         background-color: #323232;
+         box-shadow: 1px 1px 1px 1px rgb(0, 0, 0, 0.4);
+   		border: none;
+   		border-radius: 8px;
     }
     .cancel{
         background-color: white;
+        box-shadow: 1px 1px 1px 1px rgb(0, 0, 0, 0.4);
+   		border: none;
+   		border-radius: 8px;
     }
-
+	
+	.tipicon{
+		display: flex;
+    	align-items: flex-end;
+    	margin-left: 50px;
+	}
+	
+	.tipicon>h3{
+		margin-left: 20px;
+	}
+	.tipText{
+		padding: 30px;
+	}
+	.tipText>ul{
+		margin-left: 20px;
+	}
+	
+	 table {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+  th, td {
+    border-bottom: 1px solid #D5D5D5;
+    /*border-left: 1px solid #444444;*/
+    padding: 10px;
+  }
+  th:first-child, td:first-child {
+    border-left: none;
+  }
+	
+	
 </style>
 
 </head>
 <body>
+
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡ비밀번호 변경하는 view페이지ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<!--  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡMemberChangePwdController로 이동ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+
 	<%@include file="../common/menubar.jsp" %> <br>
 
-	<div class="header" style="margin-left: 200px;">비밀번호 변경</div> 
-   <p>추가적인 비밀번호 변경을 통해 개인정보를 안전하게 보호하세요. </p> 
-
+		<div class="allHeader">
+		<div class="header"> 비밀번호 변경</div> 
+	  	<p>추가적인 비밀번호 변경을 통해 개인정보를 안전하게 보호하세요. </p> 
+		</div>
+	
     <br clear="both">
 	<form action="<%=contextPath %>/pet.changePwd" method="post">
     <!--비밀번호 변경테이블 영역-->
-    <table border="1" align="center" class="changePwd">
+    <div class="changePwdForm">
+    <table class="changePwd"> 
         <tr>
             <td class="coreName">현재비밀번호 </td>
-            <td><input type="password" class="content" name="nowPwd" required></td>
+            <td><input type="password" class="content" name="nowPwd" placeholder="현재 비밀번호 입력" required></td>
         </tr>
         <tr>
             <td class="coreName">새 비밀번호</td>
@@ -79,22 +151,26 @@
             <td><input type="password" class="content" name="newPwdChk" id="newPwdChk" placeholder="새 비밀번호 확인" required></td>
         </tr>
 	</table>
+	</div>
 	
      <!--비밀번호 변경테이블 영역 끝-->
     
     <!--비밀번호 제한영역-->
-	<div style="margin-left: 200px;" class="warningText" align="center">
-        <h3>비밀번호 변경 시 유의사항</h3>
-        <li>
-            비밀번호는 대/소문자, 숫자, 특수문자(!@#$%^&*), 8~15자리 입니다.
-        </li>
-        <li>
-            생년월일,전화번호 등 개인정보와 관련된 숫자, 연속된 숫자, 연속된 키보드배열과 같이 쉬운 비밀번호는 타인이 쉽게 알아낼 수 있으니 사용을 자제해주세요. 
-        </li>
-        <li>
-            이전에 사용했던 비밀번호나 타 사이트와 다른 비밀번호를 사용하고 비밀번호는 주기적으로 변경해주세요. 
-        </li>
-        <br>
+	<div class="warningText" >
+		
+		<div class="warningTextContent">
+	        <h3>비밀번호 변경 시 유의사항</h3>
+	        <li>
+	            비밀번호는 대/소문자, 숫자, 특수문자(!@#$%^&*), 8~15자리 입니다.
+	        </li>
+	        <li>
+	            생년월일,전화번호 등 개인정보와 관련된 숫자, 연속된 숫자, 연속된 키보드배열과 같이 쉬운 비밀번호는 타인이 쉽게 알아낼 수 있으니 사용을 자제해주세요. 
+	        </li>
+	        <li>
+	            이전에 사용했던 비밀번호나 타 사이트와 다른 비밀번호를 사용하고 비밀번호는 주기적으로 변경해주세요. 
+	        </li>
+	        <br>
+       	</div>
     </div>
     <!--비밀번호 제한영역 끝-->
    
@@ -104,8 +180,12 @@
     </div>
  </form>	
     <!--비밀번호 주의사항 영역-->
-    <div style="margin-left: 200px;" class="tipText">
-    <img src="./resources/icons/팁아이콘.png" alt="팁아이콘" width="70" height="70"> <h3>꼭 읽어주세요</h3>
+    <div style="margin: auto;" class="tipText">
+    	<div class="tipicon">
+    		 <img src="./resources/icons/팁아이콘.png" alt="팁아이콘" width="70" height="70"> 
+    		 <h3>꼭 읽어주세요</h3>
+    	</div>
+   
     <ul>
         <li>
             비밀번호는 도난방지, 보안설정을 위하여 3개월~6개월 사이에 주기적으로 변경하는 것이 안전합니다.
@@ -119,8 +199,8 @@
         <li>
             현재 사용했던 비밀번호와 동일한 비밀번호로 변경할 수 없습니다.
         </li>
-
-        -------------- 사용불가 비밀번호 -------------- <br>
+		 <br>
+        ---------------------- 사용불가 비밀번호 ---------------------- <br> <br>
         <li>
             비밀번호 글자수가 8자 미만 또는 15자 초과인 경우
         </li>
@@ -142,7 +222,7 @@
         <li>
             공백이 포함된 경우
         </li>
-        <br>
+        
     </ul>
     </div>
     <!--비밀번호 주의사항 영역 끝-->

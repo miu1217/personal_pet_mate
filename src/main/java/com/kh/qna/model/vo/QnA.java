@@ -87,6 +87,10 @@ public class QnA {
 	
 	
 	
+	public QnA() {
+		super();
+	}
+
 	public int getUserNo() {
 		return userNo;
 	}
@@ -110,6 +114,18 @@ public class QnA {
 				+ status + "]";
 	}
 
+	
+	
+
+	
+	public QnA(int qnaNo, String qnaTitle, Date createDate) {
+		super();
+		this.qnaNo = qnaNo;
+		this.qnaTitle = qnaTitle;
+		this.createDate = createDate;
+	}
+	
+	
 	public QnA(int qnaNo, String userId, String category, String qnaTitle, String qnaContent, int count,
 			Date createDate, String status) {
 		super();

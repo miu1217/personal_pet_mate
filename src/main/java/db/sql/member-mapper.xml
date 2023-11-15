@@ -66,6 +66,7 @@
 		<entry key="updateInfo">
 		UPDATE MEMBER
 		SET USER_NAME= ?
+			,GENDER= ?
 			,PHONE= ?
 			,EMAIL= ?
 			,ADDRESS= ?
@@ -105,7 +106,13 @@
 		AND STATUS = 'Y'
 	</entry>
 	
-	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ진단테스트 수정하기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="updateTestInfo">
+		UPDATE MEMBER
+		SET FOOD_INTEREST= ?
+			,CLEAN_INTEREST= ?
+		WHERE USER_ID= ?
+	</entry>
 	
 	
 </properties>

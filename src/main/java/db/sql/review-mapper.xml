@@ -163,7 +163,6 @@
             			  JOIN PRODUCTS P USING (PRODUCT_NO)
             			  JOIN MEMBER M USING (USER_NO)
             			  WHERE USER_NO = ?
-            			  AND FILE_LEVEL = 1
             			  ORDER BY CREATE_DATE DESC) A)
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
@@ -184,7 +183,6 @@
             			  JOIN PRODUCTS P USING (PRODUCT_NO)
             			  JOIN MEMBER M USING (USER_NO)
             			  WHERE USER_NO = ?
-            			  AND FILE_LEVEL = 1
             			  AND R.CREATE_DATE >= SYSDATE - INTERVAL '30' DAY
             			  ORDER BY CREATE_DATE DESC) A)
 		WHERE RNUM BETWEEN 1 AND 5

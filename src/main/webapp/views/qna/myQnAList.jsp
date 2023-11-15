@@ -36,6 +36,31 @@
 		width: 1000px;
 	}
 
+.pagingbar{
+	    display: flex;
+    justify-content: center;
+}
+
+.page-item.active .page-link {
+
+    background-color: #B0CC99;
+    border-color: #B0CC99;
+}
+
+.page-link {
+    color: black;
+}
+
+.table-responsive {
+    overflow: auto;
+    width: 90%;
+    margin: auto;
+}
+.card-title{
+	width: 90%;
+    margin: auto;
+}
+
 
 
 </style>
@@ -50,12 +75,7 @@
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">QnA 관리</h4>
-								<select id="categoryFilter" class="float-right">
-									<option value="all">전체 글</option>
-									<option value="1">상품 추가</option>
-									<option value="2">기타 문의</option>
-								</select>
+								<h4 class="card-title">QnA 관리</h4>								
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -76,7 +96,7 @@
 												</c:when>
 												<c:otherwise>
 													<c:forEach items="${qList }" var="ql">
-														<tr>
+														<tr class="qna-row">
 															<td>${ql.qnaNo }</td>		                        																						
 															<td>${ql.categoryName }</td>																																				                      		                  
 															<td>${ql.qnaTitle } </td>
@@ -88,83 +108,66 @@
 											</c:choose>
 										</tbody>
 									</table>
-									<script>
-										document.addEventListener('DOMContentLoaded', function() {
-										        // 가정: 'selectedCategory' 변수가 서버로부터 전달받은 현재 카테고리 값을 저장하고 있음
-										        var selectedCategory = '<%=request.getParameter("category")%>' || 'all';
-	
-										        // Select box에서 해당 값을 선택하도록 설정
-										        var selectBox = document.getElementById('categoryFilter');
-										        selectBox.value = selectedCategory;
-										        
-											    document.getElementById('categoryFilter').addEventListener('change', function() {
-											        var selectedCategory = this.value;
-											        if(selectedCategory === 'all') {
-											            location.href = 'mate.qna?currentPage=1&category=all'; // Update this URL as per your routing structure
-											        } else {
-											            location.href = 'mate.qna?currentPage=1&category=' + selectedCategory; // Update as per your routing
-											        }
-											    });
-										});
-									</script>
-
-						<%-- 
-									<script>
-											//클릭했을때 글번호를 세부사항으로 전달
-											$(function(){
-												
-												$(".table>tbody>tr").click(function(){
-													
-													location.href="pet.detail?bno="+ $(this).children().eq(0).text();
-												});       		
-											});
-									</script>
-									
-									
-							--%>
 							
-							<!-- 지수님이 보낸거 -->
+
+				
 							<script>
-							     $(function(){ //detail.bo
-							            $(".table>tbody>tr").click(function(){
-							               var bno = $(this).children().eq(0).text();
+							     $(function(){ 
+							            $(".qna-row").click(function(){
+							               var qno = $(this).children().eq(0).text();
 							               
-							               location.href="<%=contextPath%>/pet.boardDetail?bno="+bno;
+							               location.href="<%=contextPath%>/mate.qnaDetail?qno="+qno;
 							            });
 							         });
   							</script>
 	
 	
+					<!-- 페이징바 -->
+										<nav aria-label="Page navigation example" class="pagingbar">
+									    <ul class="pagination">
+									        <!-- 이전버튼 -->
+									        <c:choose>
+									            <c:when test="${pi.currentPage eq 1}">
+									                <li class="page-item disabled">
+									                    <span class="page-link">&laquo;</span>
+									                </li>
+									            </c:when>
+									            <c:otherwise>
+									                <li class="page-item">
+									                    <a class="page-link" href="pet.myQnA?currentPage=${pi.currentPage-1}" aria-label="Previous">
+									                        <span aria-hidden="true">&laquo;</span>
+									                    </a>
+									                </li>
+									            </c:otherwise>
+									        </c:choose>
+									
+									        <!-- 페이지 번호 -->
+									        <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage}">
+									            <li class="page-item ${pi.currentPage eq i ? 'active' : ''}">
+									                <a class="page-link" href="pet.myQnA?currentPage=${i}">${i}</a>
+									            </li>
+									        </c:forEach>
+									
+									        <!-- 다음버튼 -->
+									        <c:choose>
+									            <c:when test="${pi.currentPage eq pi.maxPage}">
+									                <li class="page-item disabled">
+									                    <span class="page-link">&raquo;</span>
+									                </li>
+									            </c:when>
+									            <c:otherwise>
+									                <li class="page-item">
+									                    <a class="page-link" href="pet.myQnA?currentPage=${pi.currentPage+1}" aria-label="Next">
+									                        <span aria-hidden="true">&raquo;</span>
+									                    </a>
+									                </li>
+									            </c:otherwise>
+									        </c:choose>
+									    </ul>
+									</nav>
+						
 
-									    <!-- 페이징바 -->
-		
-										<div align="center" class="pagingbar">
-											<!-- 이전버튼 -->
-											<c:choose>
-												<c:when test="${pi.currentPage eq 1 }">
-													<button disabled>이전</button>
-												</c:when>
-												<c:otherwise>
-													<button onclick="location.href='pet.myQnA?currentPage=${pi.currentPage-1}'">이전</button>
-												</c:otherwise>
-											</c:choose>
-											
-											<!-- 1~5페이지 -->
-										<c:forEach var="i" begin="${pi.startPage }" end="${pi.endPage }">       
-												<button onclick="location.href='pet.myQnA?currentPage=${i}'">${i }</button>   <!-- currentPage가 parameter영역에 담겼음 -->
-										</c:forEach>
-										
-										
-										<!-- 다음페이지 -->
-										<c:choose>
-												<c:when test="${pi.currentPage eq pi.maxPage }">
-													<button disabled>다음</button>
-												</c:when>
-												<c:otherwise>
-													<button onclick="location.href='pet.myQnA?currentPage=${pi.currentPage+1}'">다음</button>
-												</c:otherwise>
-										</c:choose>
-									</div>    
+									    
 								</div>
 							</div>
 						</div>

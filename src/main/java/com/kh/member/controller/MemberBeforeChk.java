@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberTest
  */
+
+/*
+ * 비밀번호 입력을 성공했으니 회원정보수정페이지로 이동시키기
+ * view : updateForm.jsp로 이동
+ * */
+
+
 @WebServlet("/pet.beforeChk")
 public class MemberBeforeChk extends HttpServlet {
 	private static final long serialVersionUID = 1L;

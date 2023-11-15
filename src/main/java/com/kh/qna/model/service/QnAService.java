@@ -3,19 +3,22 @@ package com.kh.qna.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.board.model.vo.Attachment;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.PageInfo;
 import com.kh.qna.model.dao.QnADao;
 import com.kh.qna.model.vo.QnA;
 import com.kh.qna.model.vo.QnAAttachment;
+import com.kh.qna.model.vo.QnACategory;
+import com.kh.qna.model.vo.QnAReply;
 
 public class QnAService {
 
 	Connection conn = JDBCTemplate.getConnection();
 
-	public int listCount() {
+	public int listCount(int cno) {
 
-		int count = new QnADao().listCount(conn);
+		int count = new QnADao().listCount(conn, cno);
 
 		JDBCTemplate.close(conn);
 
@@ -54,7 +57,7 @@ public class QnAService {
 	}
 
 	public QnA selectQna(int qno) {
-		
+
 		QnA q = new QnADao().selectQna(conn, qno);
 
 		return q;
@@ -68,8 +71,84 @@ public class QnAService {
 
 		return at;
 	}
-
 	
+	public int insertQna(QnA q, Attachment at) {
+
+		int result = new QnADao().insertQna(conn, q);
+
+		int result2 = 1;
+
+		if (at != null) {
+			result2 = new QnADao().insertQnaAttachment(conn, at);
+		}
+
+		if (result * result2 > 0) {
+
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+
+		return result * result2;
+	}
+
+	public ArrayList<QnACategory> selectQnACategory() {
+		ArrayList<QnACategory> qlist = new QnADao().selectQnACategory(conn);
+
+		JDBCTemplate.close(conn);
+
+		return qlist;
+	}
+
+	public int insertQnAReply(QnAReply qr) {
+
+		int result = new QnADao().insertReply(conn, qr);
+
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+
+		JDBCTemplate.close(conn);
+
+		return result;
+	}
+
+	public ArrayList<QnAReply> selectReplyList(int qno) {
+
+		ArrayList<QnAReply> qrlist = new QnADao().selectReplyList(conn, qno);
+
+		JDBCTemplate.close(conn);
+
+		return qrlist;
+	}
+
+	public int updateReply(int replyNo, String updateReply) {
+		int result = new QnADao().updateReply(conn, replyNo, updateReply);
+
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+
+		return result;
+	}
+
+	public int deleteReply(int replyNo) {
+		int result = new QnADao().deleteReply(conn, replyNo);
+
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		return result;
+	}
+
+
+
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	
@@ -103,6 +182,21 @@ public class QnAService {
 		
 		JDBCTemplate.close(conn);
 		
+		return list;
+	}
+
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ답변 달렸는지 확인버튼ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	public int replyChk(int userNo,int qnaNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int replyChk=new QnADao().replyChk(conn,userNo,qnaNo);
+		
+		return replyChk;
+	}
+	//--------------QnA 답변 리스트 받아오기 -----------------------
+	public ArrayList<QnA> getReplyQnAList(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<QnA> list = new QnADao().getReplyQnAList(conn,userNo);
+		JDBCTemplate.close(conn);
 		return list;
 	}
 	

@@ -10,10 +10,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.board.model.vo.Attachment;
 import com.kh.common.JDBCTemplate;
 import com.kh.common.model.vo.PageInfo;
 import com.kh.qna.model.vo.QnA;
 import com.kh.qna.model.vo.QnAAttachment;
+import com.kh.qna.model.vo.QnACategory;
+import com.kh.qna.model.vo.QnAReply;
 
 public class QnADao {
 
@@ -33,25 +36,51 @@ public class QnADao {
 		}
 	}
 
-	public int listCount(Connection conn) {
+	public int listCount(Connection conn, int cno) {
 
 		int count = 0;
-		String sql = prop.getProperty("listCount");
 
-		try {
-			stmt = conn.createStatement();
+		String sql = "";
 
-			rset = stmt.executeQuery(sql);
+		if (cno == 0) {
+			sql = prop.getProperty("listCount");
 
-			if (rset.next()) {
-				count = rset.getInt("count");
+			try {
+				stmt = conn.createStatement();
+
+				rset = stmt.executeQuery(sql);
+
+				if (rset.next()) {
+					count = rset.getInt("count");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(stmt);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(stmt);
+
+		} else {
+			sql = prop.getProperty("listCountCategory");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, cno);
+
+				rset = pstmt.executeQuery();
+
+				if (rset.next()) {
+					count = rset.getInt("count");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
 		}
 
 		return count;
@@ -204,9 +233,148 @@ public class QnADao {
 		return at;
 	}
 	
-	
-	
-	
+	public int insertQna(Connection conn, QnA q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQna");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, q.getUserId());
+			pstmt.setInt(2, Integer.parseInt(q.getCategory()));
+			pstmt.setString(3, q.getQnaTitle());
+			pstmt.setString(4, q.getQnaContent());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertQnaAttachment(Connection conn, Attachment at) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public ArrayList<QnACategory> selectQnACategory(Connection conn) {
+
+		ArrayList<QnACategory> qlist = new ArrayList<>();
+		String sql = prop.getProperty("selectQnACategory");
+
+		try {
+			stmt = conn.createStatement();
+
+			rset = stmt.executeQuery(sql);
+
+			while (rset.next()) {
+				qlist.add(new QnACategory(rset.getInt("category_no"), rset.getString("category_name")));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(stmt);
+		}
+
+		return qlist;
+	}
+
+	public int insertReply(Connection conn, QnAReply qr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQnaReply");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qr.getQnaNo());
+			pstmt.setInt(2, Integer.parseInt(qr.getQnaReplyWriter()));
+			pstmt.setString(3, qr.getQnaReplyContent());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+
+	public ArrayList<QnAReply> selectReplyList(Connection conn, int qno) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectQnAReplyList");
+		ArrayList<QnAReply> qrlist = new ArrayList<>();
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				qrlist.add(new QnAReply(rset.getInt("REPLY_NO"), rset.getInt("QNA_NO"), rset.getString("USER_ID"),
+						rset.getString("REPLY_CONTENT"), rset.getDate("CREATE_DATE")));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+
+		return qrlist;
+	}
+
+	public int updateReply(Connection conn, int replyNo, String updateReply) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateQnAReply");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, updateReply);
+			pstmt.setInt(2, replyNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int deleteReply(Connection conn, int replyNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteQnAReply");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, replyNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -276,7 +444,7 @@ public class QnADao {
 							,rset.getDate("CREATE_DATE")));
 				}
 				
-				System.out.println(list);
+			//	System.out.println(list);
 				
 			} catch (SQLException e) {
 
@@ -311,7 +479,8 @@ public class QnADao {
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
-					list.add(new QnA(rset.getString("QNA_TITLE")
+					list.add(new QnA(rset.getInt("QNA_NO"),
+							rset.getString("QNA_TITLE")
 							,rset.getDate("CREATE_DATE")));
 				}
 				
@@ -327,6 +496,62 @@ public class QnADao {
 
 
 			
+			
+			return list;
+		}
+		
+		// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ답변 달렸는지 확인버튼ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+		public int replyChk(Connection conn, int userNo,int qnaNo) {
+			int replyChk= 0;
+			ResultSet rset = null;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("replyChk");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, qnaNo);
+				
+				rset=pstmt.executeQuery();
+				
+				if(rset.next()) {
+					replyChk=rset.getInt("COUNT");
+				}
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return replyChk;
+		}
+			
+		public ArrayList<QnA> getReplyQnAList(Connection conn, int userNo) {
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("getReplyQnAList");
+			ArrayList<QnA> list = new ArrayList<>();
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					QnA q = new QnA();
+					q.setQnaNo(rset.getInt("QNA_NO"));
+					list.add(q);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+				
+			}
 			
 			return list;
 		}

@@ -472,7 +472,7 @@ public class ReviewDao {
 						}
 
 						//System.out.println("Dao");
-					//	System.out.println(list);  //아무것도 담기지않았음
+						System.out.println(list);  //아무것도 담기지않았음
 						
 						
 					} catch (SQLException e) {

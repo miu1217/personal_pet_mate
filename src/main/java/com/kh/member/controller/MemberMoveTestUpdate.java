@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberTestUpdate
  */
-@WebServlet("/pet.testUpdate")
-public class MemberTestUpdate extends HttpServlet {
+@WebServlet("/pet.moveTestUpdate")
+public class MemberMoveTestUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberTestUpdate() {
+    public MemberMoveTestUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }

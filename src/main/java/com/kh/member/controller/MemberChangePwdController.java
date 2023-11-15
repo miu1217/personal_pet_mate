@@ -15,6 +15,12 @@ import com.kh.member.model.vo.Member;
 /**
  * Servlet implementation class MemberChangePwdController
  */
+
+/*
+ * 비밀번호 변경 성공했으면
+ * */
+
+
 @WebServlet("/pet.changePwd")
 public class MemberChangePwdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
