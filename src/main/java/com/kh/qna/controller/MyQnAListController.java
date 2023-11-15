@@ -61,9 +61,12 @@ public class MyQnAListController extends HttpServlet {
 		
 		ArrayList<QnA> list= new QnAService().selectMyQnAList(pi,userNo);
 		
-		for(QnA q : list) {
-		System.out.println(q);
-		}
+//		for(QnA q : list) {
+//		System.out.println(q);
+//		}
+		
+		
+	
 		
 		request.setAttribute("qList", list);
 		request.setAttribute("pi", pi);
