@@ -173,7 +173,7 @@ public class QnA {
 		this.qnaNo = qnaNo;
 		this.userNo = userNo;
 		this.qnaTitle = qnaTitle;
-		this.qnaContent = qnaContent;
+		this.qnaContent = qnaContent;	
 		this.count = count;
 		this.createDate = createDate;
 		this.status = status;

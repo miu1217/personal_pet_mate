@@ -69,6 +69,7 @@ public class ProductListController extends HttpServlet {
 			
 		int cno;
 
+		ArrayList<Product> plist = new ProductService().selectProductList();
 		ArrayList<ProductCategory> clist = new ProductService().selectProductCategoryList();
 		ArrayList<Product> phList = null;
 
@@ -76,7 +77,6 @@ public class ProductListController extends HttpServlet {
 			cno = Integer.parseInt(request.getParameter("productCategory"));
 
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
 			cno = 0;
 		}
 

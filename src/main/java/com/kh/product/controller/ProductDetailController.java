@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.admin.model.service.AdminService;
-import com.kh.common.model.vo.PageInfo;
 import com.kh.product.model.service.ProductService;
 import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
@@ -39,29 +37,22 @@ public class ProductDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 
-		AdminService aps = new AdminService();
+	AdminService aps = new AdminService();
 		
 		//상품번호가져오기
 		int pno = Integer.parseInt(request.getParameter("pno"));
-		
-		
-		
 		 
 		//상품정보가져오기
 		Product p = new ProductService().selectProductDetail(pno);
 					
 		//상품사진가져오기
 		ArrayList<ProductAttachment> phList = aps.selectProductAttachmentList(pno);
-		
-		//상품리뷰가져오기
-
 
 		//상품정보담기
 		request.setAttribute("p", p);
 		//상품사진담기
 		request.setAttribute("phList", phList);
 	
-
 		
 		request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);
 		

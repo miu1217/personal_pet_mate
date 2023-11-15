@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <link rel=“stylesheet”
 	href=“https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css”>
 <head>
@@ -12,12 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>제품 상세페이지</title>
-
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet">
-
 <!-- Css Styles -->
 <link rel="stylesheet"
 	href="/personal/resources/assets/productDetailViewCSS/css/bootstrap.min.css"
@@ -49,96 +46,72 @@ body {
 	background-color: white;
 	font-family: 'Cairo', sans-serif;
 }
-
 .product-details {
 	padding: 30px 0;
 }
-
 .product__details__pic__item--large{
 	max-width: 100%;
 	height: 475px;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-	border-radius: 10px;
     overflow: hidden;
 }
-
 .product__details__text {
 	background-color: #fff;
 	padding: 30px;
-	border-radius: 10px;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
-
 .product__details__text h3 {
 	font-size: 36px;
 	color: #333;
 	margin-bottom: 10px;
 }
-
 .product__details__productName h4{
 	font-size: 24px; /* 제품 가격 텍스트 크기를 줄입니다. */
     margin-top: 10px; /* 아래로 조금 내립니다. */
 }
-
 .product__details__text ul {
 	list-style: none;
 	padding: 0;
 }
-
 .product__details__text ul li {
     font-size: 16px;
     color: black;
     margin-bottom: 10px;
     position: relative;
 }
-
 .nav-tabs .nav-link {
 	font-size: 16px;
 	color: #333;
-	border: none;
 	padding: 15px 20px;
-	border-radius: 0;
 }
-
 .nav-tabs .nav-link.active {
-	background-color: #e74c3c;
+	background-color: #E74C3C;
 	color: #fff;
 }
-
 .tab-pane {
-	padding: 20px;
+	padding: 40px;
 	background-color: #fff;
-	border: 1px solid #e7e7e7;
-	border-radius: 10px;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-	margin-top: 20px;
+	display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
 }
-
 .product__details__tab .nav-link {
     background-color: transparent;
     color: rgb(137, 114, 91);
-    border: none;
     transition: background-color 0.3s, color 0.3s;
 }
-
 .product__details__tab .nav-link.active {
     background-color: transparent;
     color: #677E52
 }
-
 #productPrice {
     color: #B7CA79;
     font-size: 24px;
 }
-
 .product__details__tab {
 	padding: 0;
 }
-
 .col-lg-12{
 	margin-top:40px;
 }
-
 #subImg{
 	width:100%;
 	height:auto;
@@ -148,9 +121,14 @@ body {
 	width:16px;
 	height:16px;
 }
+#price,#ingredient,#info{
+	margin-left:26px;
+}
 
+#reviewImg{
+	margin-right: 24px;
+}
 </style>
-
 <body>
 	 <%@include file="../common/menubar.jsp"%>
 	<!-- Product Details Section Begin -->
@@ -190,13 +168,13 @@ body {
 						<ul>
 							<li>
 						<img class="check-img" src="${contextPath }/resources/assets/logo/checkLogoGreen.png"><b>제품가격</b>
-								<div>${p.productPrice }원</div></li>
+								<div id="price">${p.productPrice }</div></li>
 							<li>
 						<img class="check-img" src="${contextPath }/resources/assets/logo/checkLogoGreen.png"><b>제품성분</b>
-								<div>${p.productIngredient }</div></li>
+								<div id="ingredient">${p.productIngredient }</div></li>
 							<li>
 						<img class="check-img" src="${contextPath }/resources/assets/logo/checkLogoGreen.png"><b>제품설명</b>
-								<div>${p.productInfo }</div></li>
+								<div id="info">${p.productInfo }</div></li>
 						</ul>
 					</div>
 				</div>
@@ -207,11 +185,11 @@ body {
 							<li class="nav-item"><a class="nav-link active"
 								data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">
 									제품 상세</a></li>
-							<li class="nav-item"><a class="nav-link" 
+							<li class="nav-item"><a class="nav-link"
 								data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">
 									제품 리뷰</a></li>		
 						</ul>
-						<div align="right">
+						<div align="right" style="margin-top:20px">
 						
 						<button type="button" class="btn btn-light" style="background-color: #89725B; border: 1px solid #89725B; color: #fff;"
 							onclick="location.href='${contextPath}/pet.insert.r?pno=${p.productNo }'">리뷰 작성</button></div>
@@ -233,27 +211,26 @@ body {
 									<c:forEach items="${prList}" var="pr">
 										<c:choose>
 											<c:when test="${pr.imgSrc != null}">
+												<div id="reviewImg" >
+													<img id="Img" width="150" height="150" src="${contextPath}${pr.imgSrc}">
+												</div>
 												<div class="tab-pane" data-review-no="${pr.reviewNo }">
 												<input type="hidden"  value="${pr.reviewNo }" id="reviewNo">
-												${pr.reviewContent }
-												<div id="reviewImg" >
-														<img id="Img" width="150" height="150" src="${contextPath}${pr.imgSrc}">
-													</div>
+													<p>${pr.reviewContent }</p>
 												</div>
 											</c:when>
 											<c:otherwise>
 												<div class="tab-pane">
 												<input type="hidden"  value="${pr.reviewNo }" id="reviewNo">
-												${pr.reviewContent }
+												<p>${pr.reviewContent }</p>
 												</div>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 								</div>
-								<button type="button" 
+								<button type="button"
 								class="btn btn-light" style="background-color: #89725B; border: 1px solid #89725B; color: #fff; margin-top: 20px; margin-left: 500px;"
 								id="loadMoreBtn"> 더보기 </button>
-
 							</div>
 							<script>
 							
@@ -263,17 +240,15 @@ body {
 							$(document).ready(function () {
 							    // 초기 로드
 							    loadMoreReviews();
-
 							    // 클릭 이벤트 핸들러 등록
 							    $("#loadMoreBtn").click(loadMoreReviews);
-							    
+							   
 							});
 							
 							
 							 // 명시적 함수 정의
 							function loadMoreReviews() {
-								    
-
+								   
 								    $.ajax({
 								        url: "pet.review",
 								        type: "GET",
@@ -283,14 +258,11 @@ body {
 								            $.each(data, function (index, pr) {
 								                var reviewHtml = '<div class="tab-pane" data-review-no="' + pr.reviewNo + '">';
 								                reviewHtml += '<input type="hidden" value="' + pr.reviewNo + '" id="reviewNo">';
-								                reviewHtml += pr.reviewContent;
-
+								                reviewHtml += '<p>'+pr.reviewContent+'</p>';
 								                if (pr.imgSrc != null) {
 								                    reviewHtml += '<div id="reviewImg"><img id="Img" width="150" height="150" src="${contextPath}' + pr.imgSrc + '"></div>';
 								                }
-
 								                reviewHtml += '</div>';
-
 								                $(".product__review__tab").append(reviewHtml);
 								            });
 								        },
@@ -302,12 +274,8 @@ body {
 								            page++;
 								        }
 								    });
-								} 
+								}
 							
-							
-							
-
-
 							
 							</script>
 						</div>
@@ -333,42 +301,35 @@ body {
 		
 		
 	});
-	//이미지를 읽어줄 함수 
+	//이미지를 읽어줄 함수
             function loadImg(inputFile,num){
-                //inputFile : 이벤트가 발생된 요소 객체 
+                //inputFile : 이벤트가 발생된 요소 객체
                 console.log(inputFile.files);
                 //inputFile.files : 파일업로드 정보를 배열의 형태로 반환해주는 속성
                 //파일을 선택하면 files속성의 length가 1이 반환됨
-                if(inputFile.files.length == 1){ //파일이 등록되면 
+                if(inputFile.files.length == 1){ //파일이 등록되면
                     //해당 파일을 읽어줄 FileReader라고 하는 자바스크립트 객체를 이용한다.
                     var reader = new FileReader();
                     //파일을 읽어줄 메소드 : reader.readAsDataURL(파일)
-                    //해당 파일을 읽어서 고유한 url을 부여해주는 메소드 
-                    //반환받은 url을 미리보기 화면에 넣어주면 된다. 
+                    //해당 파일을 읽어서 고유한 url을 부여해주는 메소드
+                    //반환받은 url을 미리보기 화면에 넣어주면 된다.
                     reader.readAsDataURL(inputFile.files[0]);
-
                     //해당 reader객체가 읽혀진 시점에 img src속성에 부여된 고유 url을 넣어주기
                     reader.onload = function(e){//e : event 객체
                         console.log(e);
-                        //이벤트 객체에서 reader가 부여한 고유 url 정보 
-                        //event.target.result 
+                        //이벤트 객체에서 reader가 부여한 고유 url 정보
+                        //event.target.result
                         console.log(e.target.result);
-
                         switch(num){
                             case 1: $("#Img").attr("src",e.target.result); break;
                         }
-
                     }
-
-                }else{//length가 1이 아니면 
+                }else{//length가 1이 아니면
                     switch(num){
                             case 1: $("#Img").attr("src",null); break;
                         }
-
                 }
             }
-
-
 	</script>
 	<!-- Js Plugins -->
 	<script
@@ -387,9 +348,5 @@ body {
 		src="/personal/resources/assets/productDetailViewCSS/js/owl.carousel.min.js"></script>
 	<script
 		src="/personal/resources/assets/productDetailViewCSS/js/main.js"></script>
-
-
 </body>
-
 </html>
-

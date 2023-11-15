@@ -68,6 +68,10 @@ public class MemberService {
 	
 	
 	
+	
+	
+	
+	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	
 	
@@ -144,11 +148,10 @@ public class MemberService {
 		JDBCTemplate.close(conn);
 		
 		return updateTest; 
+
+
+		
 	}
-
-
-		
-		
 		
 	}
 	

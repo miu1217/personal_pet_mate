@@ -12,141 +12,183 @@ import com.kh.qna.model.vo.QnAAttachment;
 import com.kh.qna.model.vo.QnACategory;
 import com.kh.qna.model.vo.QnAReply;
 
-public class QnAService {
 
-	Connection conn = JDBCTemplate.getConnection();
+	public class QnAService {
 
-	public int listCount(int cno) {
+		Connection conn = JDBCTemplate.getConnection();
 
-		int count = new QnADao().listCount(conn, cno);
+		public int listCount(int cno) {
 
-		JDBCTemplate.close(conn);
+			int count = new QnADao().listCount(conn, cno);
 
-		return count;
-	}
+			JDBCTemplate.close(conn);
 
-	public ArrayList<QnA> selectList(PageInfo pi, int cno) {
-
-		ArrayList<QnA> qlist = new QnADao().selectList(conn, pi, cno);
-
-		return qlist;
-
-	}
-
-	public ArrayList<QnA> selectListAll(PageInfo pi) {
-
-		ArrayList<QnA> qlist = new QnADao().selectListAll(conn, pi);
-
-		return qlist;
-
-	}
-
-	public int increaseCount(int qno) {
-
-		int result = new QnADao().increaseCount(conn, qno);
-
-		if (result > 0) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
+			return count;
 		}
 
-		JDBCTemplate.close(conn);
+		public ArrayList<QnA> selectList(PageInfo pi, int cno) {
 
-		return result;
-	}
+			ArrayList<QnA> qlist = new QnADao().selectList(conn, pi, cno);
 
-	public QnA selectQna(int qno) {
+			return qlist;
 
-		QnA q = new QnADao().selectQna(conn, qno);
+		}
 
-		return q;
-	}
+		public ArrayList<QnA> selectListAll(PageInfo pi) {
 
-	public QnAAttachment selectQnaAttachment(int qno) {
+			ArrayList<QnA> qlist = new QnADao().selectListAll(conn, pi);
 
-		QnAAttachment at = new QnADao().selectQnaAttachment(conn, qno);
+			return qlist;
 
-		JDBCTemplate.close(conn);
+		}
 
-		return at;
-	}
+		public int increaseCount(int qno) {
+
+			int result = new QnADao().increaseCount(conn, qno);
+
+			if (result > 0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+
+			JDBCTemplate.close(conn);
+
+			return result;
+		}
+
+		public QnA selectQna(int qno) {
+
+			QnA q = new QnADao().selectQna(conn, qno);
+
+			return q;
+		}
+
+		public QnAAttachment selectQnaAttachment(int qno) {
+
+			QnAAttachment at = new QnADao().selectQnaAttachment(conn, qno);
+
+			JDBCTemplate.close(conn);
+
+			return at;
+		}
+
+		public int insertQna(QnA q, Attachment at) {
+
+			int result = new QnADao().insertQna(conn, q);
+
+			int result2 = 1;
+
+			if (at != null) {
+				result2 = new QnADao().insertQnaAttachment(conn, at);
+			}
+
+			if (result * result2 > 0) {
+
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+
+			return result * result2;
+		}
+
+		public ArrayList<QnACategory> selectQnACategory() {
+			ArrayList<QnACategory> qlist = new QnADao().selectQnACategory(conn);
+
+			JDBCTemplate.close(conn);
+
+			return qlist;
+		}
+
+		public int insertQnAReply(QnAReply qr) {
+
+			int result = new QnADao().insertReply(conn, qr);
+
+			if (result > 0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+
+			JDBCTemplate.close(conn);
+
+			return result;
+		}
+
+		public ArrayList<QnAReply> selectReplyList(int qno) {
+
+			ArrayList<QnAReply> qrlist = new QnADao().selectReplyList(conn, qno);
+
+			JDBCTemplate.close(conn);
+
+			return qrlist;
+		}
+
+		public int updateReply(int replyNo, String updateReply) {
+			int result = new QnADao().updateReply(conn, replyNo, updateReply);
+
+			if (result > 0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+
+			return result;
+		}
+
+		public int deleteReply(int replyNo) {
+			int result = new QnADao().deleteReply(conn, replyNo);
+
+			if (result > 0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+			return result;
+		}
+
+		public QnAAttachment selectOriginAttachment(int originFileNo) {
+			QnAAttachment at = new QnADao().selectOriginAttachment(conn, originFileNo);
+
+			JDBCTemplate.close(conn);
+			return at;
+		}
+
+		public int updateBoard(QnA q, QnAAttachment at) {
+			int result = new QnADao().updateBoard(conn, q);
+			// 첨부파일
+			int result2 = 1;
+
+			if (at != null) {
+				// 기존 첨부파일이 있다면 (update) - fileNo가 있는지 확인
+				if (at.getFileNo() != 0) {
+					result2 = new QnADao().updateQnaAttachment(conn, at);
+				} else { // 기존에 첨부파일이 없었다면 - insert
+					// controller에서 가져온 boardNo를 넣어서 추가해야한다.
+					result2 = new QnADao().insertNewQnaAttachment(conn, at);
+				}
+
+				if (result * result2 > 0) {
+					JDBCTemplate.commit(conn);
+				} else {
+					JDBCTemplate.rollback(conn);
+				}
+
+			}
+			return result * result2;
+		}
+
+		public int deleteBoard(int qno) {
+			int result = new QnADao().deleteQna(conn, qno);
 	
-	public int insertQna(QnA q, Attachment at) {
-
-		int result = new QnADao().insertQna(conn, q);
-
-		int result2 = 1;
-
-		if (at != null) {
-			result2 = new QnADao().insertQnaAttachment(conn, at);
+			if (result > 0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+			return result;
 		}
-
-		if (result * result2 > 0) {
-
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-
-		return result * result2;
-	}
-
-	public ArrayList<QnACategory> selectQnACategory() {
-		ArrayList<QnACategory> qlist = new QnADao().selectQnACategory(conn);
-
-		JDBCTemplate.close(conn);
-
-		return qlist;
-	}
-
-	public int insertQnAReply(QnAReply qr) {
-
-		int result = new QnADao().insertReply(conn, qr);
-
-		if (result > 0) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-
-		JDBCTemplate.close(conn);
-
-		return result;
-	}
-
-	public ArrayList<QnAReply> selectReplyList(int qno) {
-
-		ArrayList<QnAReply> qrlist = new QnADao().selectReplyList(conn, qno);
-
-		JDBCTemplate.close(conn);
-
-		return qrlist;
-	}
-
-	public int updateReply(int replyNo, String updateReply) {
-		int result = new QnADao().updateReply(conn, replyNo, updateReply);
-
-		if (result > 0) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-
-		return result;
-	}
-
-	public int deleteReply(int replyNo) {
-		int result = new QnADao().deleteReply(conn, replyNo);
-
-		if (result > 0) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-		return result;
-	}
-
 
 
 	

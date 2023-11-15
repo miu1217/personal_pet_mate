@@ -143,6 +143,7 @@ public class AdminDao {
 			while(rset.next()) {
 				pList.add(new Product(rset.getInt("PRODUCT_NO")
 									,rset.getInt("CATEGORY_NO")
+									,rset.getString("CATEGORY_NAME")
 									,rset.getString("PRODUCT_NAME")
 									,rset.getInt("PRODUCT_PRICE")
 									,rset.getString("TITLEIMG")));

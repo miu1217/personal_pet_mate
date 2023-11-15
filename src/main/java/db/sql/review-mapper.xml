@@ -158,6 +158,7 @@
                 		   				 ,PRODUCT_NAME
                   						 ,M.USER_ID
                 						 ,R.CREATE_DATE
+                						 ,REVIEW_NO
             			  FROM REVIEW R
             			  JOIN REVIEW_ATTACHMENT RA USING (REVIEW_NO)
             			  JOIN PRODUCTS P USING (PRODUCT_NO)

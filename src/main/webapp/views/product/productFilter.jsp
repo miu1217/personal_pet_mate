@@ -16,12 +16,12 @@ body {
 	width: 70%;
 	min-width: 1000px;
 	margin: auto;
-	background-color: #ffffff;
 }
 
 .filter {
 	display: flex;
 	justify-content: space-between;
+	background-color: #fff;
 }
 
 .filter-btn-div {
@@ -32,6 +32,20 @@ body {
 
 .filter-btn-div>select {
 	margin-left: 20px;
+}
+
+.filter-btn {
+	background-color: #b0cc99;
+	width: 100px;
+	color: white;
+	border: none;
+	padding: 10px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+	color: white;
 }
 
 .category2 {
@@ -55,23 +69,42 @@ body {
 
 .categoryLine {
 	background-color: #808080;
+	margin-top: 14px;
 	width: 1px;
-	height: 284px;
+	height: 264px;
 }
 
 .selectBox-div {
 	display: grid;
 	padding: 5px;
 	grid-template-columns: repeat(5, 20%);
-
 }
+
+select {
+  width: 250px;
+  padding: 12px;
+  border: 0 !important;
+  background-color: white;
+  /* needed */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-size: .6em;
+    background-position: calc(100% - 1.3em) center;
+    background-repeat: no-repeat;
+}
+select::-ms-expand {
+    display: none;
+}
+
 </style>
 </head>
 <body>
 	<div class="container">
 		<div class="filter-btn-div">
 			<button class="filter-btn" onclick="toggleFilter()">필터</button>
-			<select id="productFilter">
+			<select id="productFilter" aria-invalid="false">
 				<option value="all">전체 글</option>
 				<option value="1">조회 순</option>
 				<option value="2">리뷰 많은순</option>
@@ -110,19 +143,17 @@ body {
 			</div>
 			<script>
 										document.addEventListener('DOMContentLoaded', function() {
-										        // 가정: 'selectedCategory' 변수가 서버로부터 전달받은 현재 카테고리 값을 저장하고 있음
 										        var selectedCategory = '<%=request.getParameter("productCategory")%>' || 'all';
 	
-										        // Select box에서 해당 값을 선택하도록 설정
 										        var selectBox = document.getElementById('productFilter');
 										        selectBox.value = selectedCategory;
 										        
 											    document.getElementById('productFilter').addEventListener('change', function() {
 											        var selectedCategory = this.value;
 											        if(selectedCategory === 0) {
-											            location.href = 'pet.products?productCategory=all'; // Update this URL as per your routing structure
+											            location.href = 'pet.products?productCategory=all';
 											        } else {
-											            location.href = 'pet.products?productCategory=' + selectedCategory; // Update as per your routing
+											            location.href = 'pet.products?productCategory=' + selectedCategory; 
 											        }
 											    });
 										});
@@ -139,7 +170,6 @@ body {
 			            const categoryNo = this.getAttribute('data-category-no');
 
 			            if (this.checked) {
-			                // 체크된 경우, 다른 체크박스들은 비활성화.
 			                topCategoryCheckboxes.forEach(otherCheckbox => {
 			                    if (otherCheckbox !== this) otherCheckbox.disabled = true;
 			                });
@@ -160,6 +190,18 @@ body {
 			                topCategoryCheckboxes.forEach(otherCheckbox => otherCheckbox.disabled = false);
 			                secondCategoryCheckboxes.forEach(secondCheckbox => secondCheckbox.disabled = false);
 			                thirdCategoryCheckboxes.forEach(thirdCheckbox => thirdCheckbox.disabled = false);
+			            }
+			            
+
+			            if (this.checked && categoryNo === '1') { 
+			                thirdCategoryCheckboxes.forEach(thirdCheckbox => {
+			                    if (thirdCheckbox.getAttribute('data-parent-category-no') === categoryNo) {
+			                        thirdCheckbox.disabled = false;
+			                    } else {
+			                        thirdCheckbox.disabled = true;
+			                        thirdCheckbox.checked = false;
+			                    }
+			                });
 			            }
 			        });
 			    });

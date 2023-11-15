@@ -17,10 +17,10 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link href="./resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="./resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="${contextPath }resources/assets/AdminCss/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="${contextPath }resources/assets/AdminCss/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="./resources/assets/demo/demo.css" rel="stylesheet" />
+  <link href="${contextPath }resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 
 
   <style>
@@ -382,7 +382,7 @@
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
-                      	<th>
+                      	<th style="width: 150px;">
                       	</th>
                         <th>
                           제품명
@@ -583,20 +583,19 @@
     </div>
   </div>
  	<!--   Core JS Files   -->
-	<script src="../assets/js/core/jquery.min.js"></script>
-	<script src="../assets/js/core/popper.min.js"></script>
-	<script src="../assets/js/core/bootstrap.min.js"></script>
-	<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-	<!-- Chart JS -->
-	<script src="../assets/js/plugins/chartjs.min.js"></script>
-	<!--  Notifications Plugin    -->
-	<script src="../assets/js/plugins/bootstrap-notify.js"></script>
-	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-	<script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
-	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-	<script src="../assets/demo/demo.js"></script>
+	<script src="${contextPath }resources/assets/AdminCss/js/core/jquery.min.js"></script>
+  <script src="${contextPath }resources/assets/AdminCss/js/core/popper.min.js"></script>
+  <script src="${contextPath }resources/assets/AdminCss/js/core/bootstrap.min.js"></script>
+  <script src="${contextPath }resources/assets/AdminCss/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="${contextPath }resources/assets/AdminCss/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="${contextPath }resources/assets/AdminCss/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="${contextPath }resources/assets/AdminCss/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="${contextPath }resources/assets/AdminCss/demo/demo.js"></script>
 </body>
 
 </html>

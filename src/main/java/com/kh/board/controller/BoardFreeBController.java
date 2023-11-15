@@ -66,13 +66,14 @@ public class BoardFreeBController extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		PagingBar pb = new PagingBar(listCount, currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+		PagingBar pf = new PagingBar(listCount, currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 		
-		ArrayList<Board> flist = new BoardService().selecFList(pb);
+		ArrayList<Board> flist = new BoardService().selecFList(pf);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("flist", flist);
-		session.setAttribute("pb", pb);
+		session.setAttribute("pf", pf);
+
 		
 		
 		request.getRequestDispatcher("views/board/freeBoardPage.jsp").forward(request, response);

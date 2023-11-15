@@ -38,10 +38,7 @@ public class QnADetailController extends HttpServlet {
 		if (result > 0) {
 			QnA q = new QnAService().selectQna(qno);
 			QnAAttachment at = new QnAService().selectQnaAttachment(qno);
-			
-			System.out.println(q);
-			System.out.println(at);
-
+		
 			request.setAttribute("q", q);
 			request.setAttribute("at", at);
 			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);
