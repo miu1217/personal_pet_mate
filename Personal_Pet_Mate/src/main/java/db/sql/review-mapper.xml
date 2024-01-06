@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="insertReview">
+	INSERT INTO REVIEW (REVIEW_NO
+                       ,USER_NO
+                       ,PRODUCT_NO
+                       ,REVIEW_CONTENT)
+                VALUES(SEQ_RNO.NEXTVAL
+                		,?
+                		,?
+                		,?)
+	</entry>
+	
+	<entry key="insertReviewAttachment">                                  
+	INSERT INTO REVIEW_ATTACHMENT(FILE_NO
+                                  ,REVIEW_NO
+                                  ,ORIGIN_NAME
+                                  ,CHANGE_NAME
+                                  ,FILE_PATH)
+                          VALUES(SEQ_RANO.NEXTVAL
+                                ,SEQ_RNO.CURRVAL
+                                ,?
+                                ,?
+                                ,?)
+	</entry>
+	
+	<entry key="increaseCount">
+	UPDATE REVIEW
+	SET COUNT = COUNT + 1
+	WHERE REVIEW_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectReview">
+	SELECT REVIEW_NO
+		   ,PRODUCT_NAME
+           ,USER_NO
+           ,REVIEW_CONTENT
+           ,R.COUNT
+	FROM REVIEW R
+	JOIN PRODUCTS P USING (PRODUCT_NO)
+	WHERE REVIEW_NO = ?
+	AND R.STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectUpdateReview">
+	SELECT REVIEW_NO
+		   ,PRODUCT_NAME
+           ,USER_NO
+           ,REVIEW_CONTENT
+           ,R.COUNT
+	FROM REVIEW R
+	JOIN PRODUCTS P USING (PRODUCT_NO)
+	WHERE REVIEW_NO = ?
+	AND R.STATUS = 'Y'
+	</entry>
+	<entry key="selectRvAttachment">
+	SELECT 	FILE_NO
+		    ,ORIGIN_NAME
+		    ,CHANGE_NAME
+		    ,FILE_PATH
+	FROM REVIEW_ATTACHMENT
+	WHERE REVIEW_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="reviewValidate">
+	SELECT 	REVIEW_NO
+           ,USER_NO
+	FROM REVIEW
+	WHERE PRODUCT_NO = ?
+	AND USER_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="udpateReview">
+	UPDATE REVIEW
+	SET REVIEW_CONTENT = ?
+	WHERE REVIEW_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateReviewAttachment">
+	UPDATE REVIEW_ATTACHMENT
+	SET ORIGIN_NAME = ?
+		   ,CHANGE_NAME = ?
+		   ,FILE_PATH = ?
+		WHERE FILE_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="insertNewAttachment">
+	INSERT INTO REVIEW_ATTACHMENT(FILE_NO
+						   ,REVIEW_NO
+						   ,ORIGIN_NAME
+						   ,CHANGE_NAME
+						   ,FILE_PATH)
+           			 VALUES(SEQ_RANO.NEXTVAL
+           			 		,?
+           			 		,?
+           			 		,?
+           			 		,?)
+	</entry>
+	<entry key="deleteReview">
+	UPDATE REVIEW
+	SET STATUS = 'N'
+	WHERE REVIEW_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	<entry key="deleteReviewAttachment">
+	UPDATE REVIEW_ATTACHMENT
+	SET STATUS = 'N'
+	WHERE REVIEW_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectReviewList">
+		SELECT *
+			FROM(SELECT ROWNUM RNUM , A.*
+			FROM (SELECT REVIEW_NO
+			           ,PRODUCT_NO
+			           ,USER_NO
+			           ,REVIEW_CONTENT
+			           ,COUNT
+			           ,FILE_PATH || CHANGE_NAME TITLEIMG
+				FROM REVIEW R
+				LEFT JOIN REVIEW_ATTACHMENT USING (REVIEW_NO)
+				WHERE PRODUCT_NO = ?
+				AND R.STATUS = 'Y'
+			    ORDER BY R.CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	
+	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 마이페이지 영역ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	
+	
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡ내가 쓴 게시글 총 개수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="reviewCount">
+		SELECT COUNT(*) COUNT
+		FROM REVIEW
+		WHERE USER_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+
+
+	<!-- ㅡㅡㅡㅡㅡㅡㅡ페이징처리한 내가 쓴 리뷰리스트 조회ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="selectMyReviewList">
+		SELECT *
+		FROM
+   				 (SELECT ROWNUM RNUM, A.*
+  				  FROM 
+       				     (SELECT FILE_PATH || CHANGE_NAME TITLEIMG 
+                		   				 ,PRODUCT_NAME
+                  						 ,M.USER_ID
+                						 ,R.CREATE_DATE
+                						 ,REVIEW_NO
+            			  FROM REVIEW R
+            			  JOIN REVIEW_ATTACHMENT RA USING (REVIEW_NO)
+            			  JOIN PRODUCTS P USING (PRODUCT_NO)
+            			  JOIN MEMBER M USING (USER_NO)
+            			  WHERE USER_NO = ?
+            			  ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡ최근 30일동안 작성한 게시글 5개 정보 조회ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<entry key="recentMyReviewList">
+		SELECT *
+		FROM
+   				 (SELECT ROWNUM RNUM, A.*
+  				  FROM 
+       				     (SELECT FILE_PATH || CHANGE_NAME TITLEIMG 
+                		   				 ,PRODUCT_NAME
+                  						 ,M.USER_ID
+                						 ,R.CREATE_DATE
+            			  FROM REVIEW R
+            			  JOIN REVIEW_ATTACHMENT RA USING (REVIEW_NO)
+            			  JOIN PRODUCTS P USING (PRODUCT_NO)
+            			  JOIN MEMBER M USING (USER_NO)
+            			  WHERE USER_NO = ?
+            			  AND R.CREATE_DATE >= SYSDATE - INTERVAL '30' DAY
+            			  ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN 1 AND 5
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+</properties>

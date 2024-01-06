@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	
+	<!-- 전체 게시글 조회 -->
+	<entry key="listCount">
+		SELECT COUNT(*) COUNT
+		FROM PRODUCTS
+		WHERE STATUS = 'Y'
+	</entry>
+	<entry key="selectCategoryList">
+	SELECT *
+	FROM CATEGORY
+	WHERE CATEGORY_NO BETWEEN 10 AND 40
+	</entry>
+	
+	<entry key="insertProdocut">
+	INSERT INTO PRODUCTS(PRODUCT_NO
+                         ,CATEGORY_NO
+                         ,PRODUCT_NAME
+                         ,PRODUCT_PRICE
+                         ,PRODUCT_INFO
+                         ,PRODUCT_INGREDIENT
+                         ,PRODUCT_BRAND)
+                VALUES(SEQ_PNO.NEXTVAL
+                       ,?
+                       ,?
+                       ,?
+                       ,?
+                       ,?
+                       ,?)
+	</entry>
+	
+	<entry key="insertProdcutPhoto">
+	INSERT INTO PRODUCTS_ATTACHMENT(FILE_NO
+                                    ,PRODUCT_NO
+                                    ,ORIGIN_NAME
+                                    ,CHANGE_NAME
+                                    ,FILE_PATH
+                                    ,FILE_LEVEL)
+                VALUES(SEQ_PANO.NEXTVAL
+                       ,SEQ_PNO.CURRVAL
+                       ,?
+                       ,?
+                       ,?
+                       ,?)
+	</entry>
+	
+	<entry key="selectListProduct">
+	SELECT *
+	FROM (SELECT ROWNUM RNUM, A.*
+			FROM (SELECT  PRODUCT_NO
+			            ,CATEGORY_NO
+			            ,PRODUCT_NAME
+		                ,PRODUCT_PRICE
+			            ,FILE_PATH || CHANGE_NAME TITLEIMG
+			FROM PRODUCTS P
+			JOIN PRODUCTS_ATTACHMENT AT USING (PRODUCT_NO)
+			WHERE FILE_LEVEL = 1
+			AND P.STATUS = 'Y'
+			ORDER BY P.CREATE_DATE DESC) A)
+	WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="increaseCount">
+	UPDATE PRODUCTS
+	SET COUNT = COUNT + 1
+	WHERE PRODUCT_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectProduct">
+	SELECT *
+	FROM PRODUCTS
+	WHERE PRODUCT_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectProductAttachmentList">
+	SELECT FILE_NO
+		      ,ORIGIN_NAME
+		      ,CHANGE_NAME
+		      ,FILE_PATH
+	FROM PRODUCTS_ATTACHMENT
+	WHERE PRODUCT_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateProduct">
+	UPDATE PRODUCTS
+	SET PRODUCT_NAME = ?
+	        ,CATEGORY_NO = ?
+	        ,PRODUCT_PRICE = ?
+	        ,PRODUCT_INFO = ?
+	        ,PRODUCT_INGREDIENT = ?
+	        ,PRODUCT_BRAND = ?
+	WHERE PRODUCT_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateAttachmentList">
+	UPDATE PRODUCTS_ATTACHMENT
+	SET ORIGIN_NAME = ?
+		        ,CHANGE_NAME = ?
+		        ,FILE_PATH = ?
+		        ,FILE_LEVEL = ?
+	WHERE FILE_NO = ?
+	AND STATUS = 'Y'
+	</entry>
+	
+</properties>
