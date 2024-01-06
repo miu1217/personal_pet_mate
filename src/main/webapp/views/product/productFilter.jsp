@@ -53,6 +53,11 @@ body {
 	flex-direction: column;
 	width: 15%;
 	padding-left: 24px;
+	margin: 10px 10px 0 0;
+}
+
+.category2>b{
+	margin-bottom: 10px;
 }
 
 .category1 {
@@ -60,18 +65,28 @@ body {
 	flex-direction: column;
 	width: 10%;
 	padding: 0 12px 0 24px;
+	margin: 10px 10px 0 0;
+}
+
+.category1>b{
+	margin-bottom: 10px;
 }
 
 .category3 {
 	width: 70%;
 	padding-left: 24px;
+	margin-top: 10px;
+}
+
+.category3>b{
+	margin-bottom: 10px;
 }
 
 .categoryLine {
 	background-color: #808080;
 	margin-top: 14px;
 	width: 1px;
-	height: 264px;
+	height: 354px;
 }
 
 .selectBox-div {
@@ -112,7 +127,7 @@ select::-ms-expand {
 		</div>
 		<div class="filter" id="filterDiv">
 			<div class="category1">
-				<h3>category1</h3>
+				<b>category1</b>
 				<c:forEach items="${clist }" var="list">
 					<c:if test="${list.parentCategoryNo == 0 }">
 						<label><input type="checkbox" data-category-no="${list.categoryNo}"> ${list.categoryName }</label>
@@ -122,7 +137,7 @@ select::-ms-expand {
 			</div>
 			<div class="categoryLine"></div>
 			<div class="category2">
-				<h3>category2</h3>
+				<b>category2</b>
 				<c:forEach items="${clist }" var="list">
 					<c:if test="${list.parentCategoryNo == 2 || list.parentCategoryNo == 3 }">
 						<label><input type="checkbox" data-parent-category-no="${list.parentCategoryNo }" data-category-no="${list.categoryNo }"> ${list.categoryName }</label>
@@ -132,7 +147,7 @@ select::-ms-expand {
 			</div>
 			<div class="categoryLine"></div>
 			<div class="category3">
-				<h3>category3</h3>
+				<b>category3</b>
 				<div class="selectBox-div">
 					<c:forEach items="${clist }" var="list">
 						<c:if test="${list.parentCategoryNo != 2 && list.parentCategoryNo != 3 && list.parentCategoryNo != 0 }">

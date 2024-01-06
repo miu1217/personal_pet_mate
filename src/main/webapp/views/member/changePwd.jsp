@@ -238,7 +238,8 @@
     		         var newPwd = /^[a-zA-Z0-9!@#$%^&*]{8,15}$/g;
     		         
     		         if(! newPwd.test($("input[name=newPwd]").val())){
-    		                  alert("비밀번호는 대/소문자, 숫자, 특수문자(!@#$%^&*), 8~15자리 입니다.");
+
+    		             showError("비밀번호 변경 오류","비밀번호는 대/소문자, 숫자, 특수문자(!@#$%^&*), 8~15자리 입니다.","확인");
     		                  
     		                  return false;
     		         }
@@ -253,7 +254,7 @@
      				
      				//두 요소객체의 value값이 같지 않다면
      				if(newPwd!=newPwdChk) {
-     					alert("새 비밀번호와 새 비밀번호 확인이 같지 않습니다.");
+     	    		             showError("비밀번호 변경 오류","새 비밀번호와 새 비밀번호 확인이 같지 않습니다.","확인");
      					//newPwd.select();
      					
      					return false; 

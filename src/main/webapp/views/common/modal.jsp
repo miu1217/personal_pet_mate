@@ -28,8 +28,8 @@
 
         function showConfirm(text, url) {
             swal({
-                text : "텍스트",
-                icon : question,
+                text : text,
+                icon : 'warning',
                 buttons : [ "취소", "이동" ],
                 closeOnClickOutside : false,
             }).then(function(result) {
@@ -37,6 +37,22 @@
 
                 if (result) {
                     location.href = url;
+                }
+
+            })
+        }
+        
+        function showHistoryBack(text) {
+            swal({
+                text : text,
+                icon : 'warning',
+                buttons : [ "취소", "확인" ],
+                closeOnClickOutside : false,
+            }).then(function(result) {
+                console.log(result);
+
+                if (result) {
+                    window.history.back();
                 }
 
             })

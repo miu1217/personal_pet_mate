@@ -615,7 +615,7 @@
       function joinPet(){
         var idReg = /^[a-zA-z0-9]{5,30}$/ig;
         if(! idReg.test($("#enrollId").val())){
-          alert("아이디는 대/소문자, 숫자, 5~30자 입니다. ");
+           showError("회원가입 오류","아이디는 대/소문자, 숫자, 5~30자 입니다. ","확인");
           $("#enrollId").select();
           return false;
         }
@@ -623,7 +623,7 @@
         //==================비밀번호 입력 정규표현식 
          var pwdReg = /^[a-zA-Z0-9!@#$%^&*]{8,15}$/g;
          if(! pwdReg.test($("#userPwd").val())){
-                  alert("비밀번호는 대/소문자, 숫자, 특수문자(!@#$%^&*), 8~15자리 입니다.");
+             showError("회원가입 오류","비밀번호는 대/소문자, 숫자, 특수문자(!@#$%^&*), 8~15자리 입니다.","확인");
                   $("#userPwd").select();
                   return false;
          }
@@ -631,8 +631,8 @@
       //==================비밀번호 일치 확인
       
                if(($("#userPwd").val()) != ($("#userPwd2").val())){ //비번, 비번확인 일치하면
-      
-                 alert("비밀번호가 일치하지 않습니다.");
+
+                   showError("회원가입 오류","비밀번호가 일치하지 않습니다.","확인");
                  $("#userPwd2").select();
                    return false;
                }
@@ -642,8 +642,8 @@
          var nameReg = /^[가-힣]{2,10}$/g;
          
          if(! nameReg.test($("#userName").val())){
-    
-                 alert("유효한 이름을 입력해주세요.");
+
+             showError("회원가입 오류","유효한 이름을 입력해주세요.","확인");
                       return false;
               }
          
@@ -651,7 +651,7 @@
          //=============성별 선택 안했을시
          var genChk = $("input[name=gender]:checked").length;
          if(genChk == 0){
-           alert("성별을 선택해주세요.");
+             showError("회원가입 오류","성별을 선택해주세요.","확인");
            
            return false;
          }
@@ -661,7 +661,7 @@
          var lastNumReg = /^[1-9]{4}$/g;
 
          if(midNumReg.test($("#middleP").val()) && lastNumReg.test($("lastP").val())){
-          alert("전화번호를 정확하게 입력해주세요.")
+             showError("회원가입 오류","전화번호를 정확하게 입력해주세요.","확인");
           return false;
          }
          
@@ -672,12 +672,12 @@
           
     
           if(foodChk == 0) {
-             alert("음식 관심분야를 선택해주세요.");
+              showError("회원가입 오류","음식 관심분야를 선택해주세요.","확인");
              return false;
            }
             
            if(cleanChk == 0){
-             alert("목욕 관심분야를 선택해주세요.");
+               showError("회원가입 오류","목욕 관심분야를 선택해주세요.","확인");
             return false;
            }
     
@@ -685,7 +685,7 @@
         let allCk = document.querySelector("#yesall");
         
          if(! allCk.checked ){
-              alert("모두 동의해주세요.");
+             showError("회원가입 오류","모두 동의해주세요.","확인");
               
               return false;
             }

@@ -319,7 +319,7 @@ tbody #title { text-align: left }
 		console.log(input);
 		
   		if(input == ''){
-  			window.alert("검색어를 입력해주세요.");
+  		    showError("입력 오류","검색어를 입력해주세요.","확인");
   			return false;
   		}
   		

@@ -25,6 +25,42 @@
   <link href="${contextPath }resources/assets/AdminCss/demo/demo.css" rel="stylesheet" />
 </head>
 <style>
+.sidebar {
+background-color : #B0CC99;
+}
+.main-panel {
+  position: relative;
+  height: 130%;
+  float: right;
+  width: calc(100% - 260px);
+  background-color: #f4f3ef;
+  transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1); }
+  .main-panel > .content {
+    padding: 0 30px 30px;
+    min-height: calc(100vh - px);
+    margin-top: 93px; }
+  .main-panel > .navbar {
+    margin-bottom: 0; }
+  .main-panel .header {
+    margin-bottom: 50px; }
+    
+   .content{
+   margin-left:200px;
+   }
+   .card {
+  border-radius: 12px;
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
+  background-color: #FFFFFF;
+  color: #252422;
+  margin-bottom: 20px;
+  position: relative;
+  border: 0 none;
+  transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease; 
+  width: 120%}
+  .btn.btn-primary.btn-round:hover {
+  background-color: #4a5a3b !important; /* Change this to the desired hover color */
+  transition: background-color 0.3s ease !important; /* Add a transition effect */
+}
   .btn.btn-primary.btn-round:hover {
   background-color: #4a5a3b !important; /* Change this to the desired hover color */
   transition: background-color 0.3s ease !important; /* Add a transition effect */

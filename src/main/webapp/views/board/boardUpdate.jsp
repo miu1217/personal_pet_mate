@@ -253,7 +253,7 @@
 		let content = $(this).val();
 		$("#subject_limit").html("(" + content.length + "/ 30글자)"); //실시간 글자수 카운팅
 		if (content.length > 30) {
-			alert("최대 30글자까지 입력 가능합니다.");
+		    showError("입력 오류","최대 30글자까지 입력 가능합니다.","확인");
 			$(this).val(content.substring(0, 30));
 			$('#subject_limit').html("(30 / 최대 30글자)");
 		}
@@ -264,7 +264,7 @@
 		let content = $(this).val();
 		$("#content_limit").html("(" + content.length + "/ 2000글자)"); //실시간 글자수 카운팅
 		if (content.length > 2000) {
-			alert("최대 2000글자까지 입력 가능합니다.");
+		    showError("입력 오류","최대 2000글자까지 입력 가능합니다.","확인");
 			$(this).val(content.substring(0, 2000));
 			$('#content_limit').html("(2000 / 최대 2000글자)");
 		}
@@ -273,12 +273,7 @@
   
   //글 작성 중 취소 버튼 누를 시
   	function isertCancle(){
-  		let result = window.confirm('게시글 작성을 취소하시겠습니까? \n확인을 누르시면 이전페이지로 돌아갑니다.');
-  		
-  		console.log(result);
-  		if(result){ //확인 누르면 이전페이지로 넘김
-  			window.history.back();
-  		}
+		showHistoryBack("게시글 작성을 취소하시겠습니까? \n확인을 누르시면 이전페이지로 돌아갑니다.");
   	}
     //이미지 등록하기
       function loadImg(inputFile, num) {
@@ -322,12 +317,12 @@
     	  let content = $("#content").val();
     	  
         	if(title == ''){
-        		alert("제목을 입력해주세요.");
+        	    showError("입력 오류","제목을 입력해주세요.","확인");
         		return false;
         	}
         	
         	if(content == ''){
-        		alert("내용을 입력해주세요.");
+        	    showError("입력 오류","내용을 입력해주세요.","확인");
         		return false;
         	}
         	

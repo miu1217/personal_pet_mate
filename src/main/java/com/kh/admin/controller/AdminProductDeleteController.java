@@ -42,7 +42,7 @@ public class AdminProductDeleteController extends HttpServlet {
 			
 			if(result > 0) {
 				session.setAttribute("message", "상품 삭제 성공하셨습니다.");
-				response.sendRedirect(request.getContextPath() + "/pet.admin.list.pd");
+				response.sendRedirect(request.getContextPath() + "/pet.admin.list.pd?currentPage=1");
 			}else {
 				session.setAttribute("message", "상품 삭제 실패하셨습니다.");
 				response.sendRedirect(request.getContextPath() + "/pet.admin.detail.pd?pno="+ productNo);

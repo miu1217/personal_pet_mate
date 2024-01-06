@@ -9,6 +9,8 @@ import com.kh.product.model.vo.Product;
 import com.kh.product.model.vo.ProductAttachment;
 import com.kh.product.model.vo.ProductCategory;
 import com.kh.product.model.vo.ProductReview;
+import com.kh.review.model.dao.ReviewDao;
+import com.kh.review.model.vo.Review;
 
 public class ProductService {
 
@@ -95,5 +97,12 @@ public class ProductService {
 			JDBCTemplate.close(conn);
 
 			return pList;
+		}
+
+		public ArrayList<Product> selectReviewList(int startIndex, int reviewsPage) {
+			ArrayList<Product> pmList = new ProductDao().selectReviewList(conn, startIndex, reviewsPage);
+			
+			JDBCTemplate.close(conn);
+			return pmList;
 		}
 }

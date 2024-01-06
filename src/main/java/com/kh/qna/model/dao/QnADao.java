@@ -667,7 +667,6 @@ public class QnADao {
 			ArrayList<QnA> list = new ArrayList<>();
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, userNo);
 				rset = pstmt.executeQuery();
 				while(rset.next()) {
 					QnA q = new QnA();

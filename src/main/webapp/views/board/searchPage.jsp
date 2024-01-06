@@ -274,7 +274,7 @@ tbody #title { text-align: left }
   		let selectedValue = $("#selectSearch").val();
 		
   		if(input == ''){
-  			window.alert("검색어를 입력해주세요.");
+  		    showError("입력 오류","검색어를 입력해주세요.","확인");
   			return false;
   		}else{
 			//옵션값 넘기기

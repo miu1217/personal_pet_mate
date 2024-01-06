@@ -177,18 +177,21 @@
       outline: none;
     }
 
-    .moveTopBtn {
+      .moveTopBtn {
       position: fixed;
       float: right;
       height: 32px;
       right: 10px;
       bottom: 10px;
       opacity: 0.7;
+      border-radius: 20px;
+      padding-top: 4px;
     }
-
     .moveTopBtn:hover {
-      background-color: grey;
+      background-color: #87A56C;
 	  text-align: center;
+	  border-radius: 20px;
+	  padding-top: 4px;
     }
 	.btns{
 		text-align: center;
@@ -387,7 +390,7 @@
 							<button onclick="return insertReply();" id="reBtn" class="btn btn-light">작성</button>
 						</c:when>
 						<c:otherwise>
-							<button onclick="window.alert('로그인 후 이용 가능합니다.'); return false;" id="reBtn" class="btn btn-light">작성</button>
+							<button onclick="alertToLogin(); return false;" id="reBtn" class="btn btn-light">작성</button>
 						</c:otherwise>
 					</c:choose>
                 </td>
@@ -406,6 +409,10 @@
 
 
 	<script>
+	
+	function alertToLogin(){
+	    showError("로그인 오류", "로그인 후 이용 가능합니다.", "확인");
+	}
   //textarea 크기 조정
     function resize() {
         let textarea = document.getElementById("contentText");
@@ -457,7 +464,7 @@
     		let content = $(this).val();
   		$("#reply_limit").html("(" + content.length + "/ 400글자)"); //실시간 글자수 카운팅
   		if (content.length > 400) {
-  			alert("최대 400글자까지 입력 가능합니다.");
+  		    showError("입력 오류", "최대 400글자까지 입력 가능합니다.", "확인");
   			$(this).val(content.substring(0, 400));
   			$('#subject_limit').html("(400 / 최대 400글자)");
   		}
@@ -466,11 +473,11 @@
     
 	function insertReply(){
 		if($("#reContent").val() == ""){
-			alert("내용을 작성해주세요.");
+  		    showError("입력 오류", "내용을 작성해주세요.", "확인");
 			return false;
 		}
 		if($("#reContent").val().length>400){
-			alert("400자 이하로 작성해주세요.");
+  		    showError("입력 오류", "최대 400글자까지 입력 가능합니다.", "확인");
 			return false;
 		}else{
 			$.ajax({
@@ -483,12 +490,12 @@
 				success : function(result){
 					
 					if(result>0){//성공
-						alert("댓글 작성 성공");
+			  		    showSuccess("입력 성공", "댓글 작성 성공", "확인");
 						//추가된 댓글목록 재조회	
 						selectReplyList();
 						$("#reContent").val("");
 					}else{//실패
-						alert("댓글 작성 실패");
+			  		    showError("입력 실패", "댓글 작성 실패", "확인");
 					}
 				},
 				error : function(){
@@ -597,15 +604,15 @@
 			        }
 			    });
 			    $(".replyBtn").html(editButton);
-			    alert("수정 성공");
+	  		    showSuccess("수정 성공", "수정 성공", "확인");
 			    selectReplyList();
 			    
 	    		}else{
-	    			alert("수정 실패");
+	  		    showError("수정 실패", "수정 실패", "확인");
 	    		}
 	    		
 	    	},error : function(){
-	    		alert("댓글 수정 실패");
+  		    showError("수정 실패", "댓글 수정 실패", "확인");
 	    	}
 	    });	   
 	}
@@ -634,10 +641,10 @@
 			type : "get",
 			success : function(result){
 				if(result=="YY"){
-					alert("댓글 삭제 성공");
+		  		    showSuccess("삭제 성공", "댓글 삭제 성공", "확인");
 					selectReplyList(); //다시 조회
 				}else{
-					alert("댓글 삭제 실패");
+		  		    showError("삭제 실패", "댓글 삭제 실패", "확인");
 				}
 			},error : function(){
 				console.log("댓글 삭제  통신오류");
@@ -652,7 +659,7 @@
 		let input = $("#searchInput").val();
 		
   		if(input == ''){
-  			window.alert("검색어를 입력해주세요.");
+  		    showError("검색 실패", "검색어를 입력해주세요.", "확인");
   			return false;
   		}
   		

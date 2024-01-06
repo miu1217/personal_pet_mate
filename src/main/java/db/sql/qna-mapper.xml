@@ -226,7 +226,7 @@
 	<entry key="getReplyQnAList">
 		SELECT QNA_NO
 		FROM QNA_REPLY
-		WHERE USER_NO = ?
+		WHERE USER_NO = 1
 	</entry>
 
 </properties>

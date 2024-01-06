@@ -111,7 +111,7 @@
 				console.log(nowPwd);
 			
 				if(chkPwd !=nowPwd) {
-					alert("비밀번호가 틀립니다.");				
+				    showError("입력 오류","비밀번호가 틀립니다.","확인");				
 					return false; 
 				}else {
 				

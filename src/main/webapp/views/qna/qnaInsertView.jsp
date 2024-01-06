@@ -174,7 +174,7 @@ input[type="file"] {
 				<main>
 					<div class="insert">
 						<div class="subject">
-							<input name="title" id="title" class="insertT" type="text" value="" placeholder="제목을 입력하세요."> <span class="num_byte"> <span class="screen_out">입력된 글자 수 : </span> <span id="subject_limit" class="current_num">0</span> / 60 bytes (한글 30자)
+							<input name="title" id="title" class="insertT" type="text" value="" placeholder="제목을 입력하세요."> <span class="num_byte"> <span class="screen_out">입력된 글자 수 : </span> <span id="subject_limit" class="current_num">(0/ 30글자)</span>
 							</span>
 						</div>
 						<div class="filebox">
@@ -189,7 +189,8 @@ input[type="file"] {
 						</div>
 						<div class="content" id="mainContent">
 							<textarea type="text" id="content" name="content" rows="1" placeholder="내용을 입력하세요."></textarea>
-							<br> <img id="inputImg" src="${contextPath}${at.filePath}${at.changeName}">
+							<span class="num_byte"> <span id="content_limit" class="current_num">(0/ 2000글자)</span>
+							</span> <br> <br> <img id="inputImg" src="${contextPath}${at.filePath}${at.changeName}">
 						</div>
 				</main>
 			</form>
@@ -204,15 +205,28 @@ input[type="file"] {
 	</div>
 
 	<script>
+        $("#title").keyup(function(e) {
+            let content = $(this).val();
+            $("#subject_limit").html("(" + content.length + "/ 30글자)"); //실시간 글자수 카운팅
+            if (content.length > 30) {
+                showError("입력 실패", "최대 30글자까지 입력 가능합니다.", "확인");
+                $(this).val(content.substring(0, 30));
+                $('#subject_limit').html("(30 / 최대 30글자)");
+            }
+        });
+        
+        $("#content").keyup(function(e) {
+		let content = $(this).val();
+		$("#content_limit").html("(" + content.length + "/ 2000글자)"); //실시간 글자수 카운팅
+		if (content.length > 2000) {
+		    showError("입력 실패", "최대 2000글자까지 입력 가능합니다.", "확인");
+			$(this).val(content.substring(0, 2000));
+			$('#content_limit').html("(2000 / 최대 2000글자)");
+		}
+	});
         //글 작성 중 취소 버튼 누를 시
         function isertCancle() {
-            /* var result = window.confirm('게시글 작성을 취소하시겠습니까? \n확인을 누르시면 이전페이지로 돌아갑니다.');
-            
-            console.log(result);
-            if(result){ //확인 누르면 이전페이지로 넘김
-            	window.history.back();
-            } */
-            showConfirmHistoryBack("게시글 작성을 취소하시겠습니까? \n확인을 누르시면 이전페이지로 돌아갑니다.");
+            showHistoryBack("게시글 작성을 취소하시겠습니까? \n확인을 누르시면 이전페이지로 돌아갑니다.");
         }
         //이미지 등록하기
         function loadImg(inputFile, num) {
