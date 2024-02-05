@@ -180,9 +180,9 @@ background-color: #B0CC99;
     </div>
   </div>
   <!--   Core JS Files   -->
- <script src="${contextPath }/resources/assets/AdminCss/js/core/jquery.min.js"></script>
-  <script src="${contextPath }/resources/assets/AdminCss/js/core/popper.min.js"></script>
-  <script src="${contextPath }/resources/assets/AdminCss/js/core/bootstrap.min.js"></script>
+ <script src="${contextPath }resources/assets/AdminCss/js/core/jquery.min.js"></script>
+  <script src="${contextPath }resources/assets/AdminCss/js/core/popper.min.js"></script>
+  <script src="${contextPath }resources/assets/AdminCss/js/core/bootstrap.min.js"></script>
   <script src="${contextPath }resources/assets/AdminCss/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
